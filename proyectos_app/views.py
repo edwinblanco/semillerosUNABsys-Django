@@ -1,4 +1,5 @@
 import re
+from django.http import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 
 from proyectos_app.forms import FormularioRegistroProyecto
@@ -26,6 +27,8 @@ def registro_proyecto_view(request, pk = None):
                 modalidad_aprticipacion = form.cleaned_data['modalidad_aprticipacion']
                 autores = form.cleaned_data['autores']
                 tutores = form.cleaned_data['tutores']
+                
+                autores._result_cache.append(request.user)
                         
                 proyecto = Proyecto.objects.create(titulo=titulo, semillero = semillero, tematica=tematica, url_video=url_video, proyecto_pdf =proyecto_pdf, carta_aval_pdf = carta_aval_pdf, modalidad_aprticipacion = modalidad_aprticipacion)
                 

@@ -1,8 +1,7 @@
 from django.contrib import admin
 
-from evaluaciones_orales.models import CalificacionFinalProyecto, EvaluacionOral
+from evaluaciones_orales.models import ActivacionCalificacionOral, CalificacionFinalProyecto, EvaluacionOral
 from usuarios_app.models import Usuario
-
 
 @admin.register(EvaluacionOral)
 class ProyectoAdmin(admin.ModelAdmin):
@@ -35,4 +34,16 @@ class FinalCalificaionAdmin(admin.ModelAdmin):
     
 
 # Register your models here.
-#admin.site.register(EvaluacionOral)
+
+class ActivacionCalificacionOralAdmin(admin.ModelAdmin):
+    
+    model = ActivacionCalificacionOral
+
+    def get_actions(self, request):
+        actions = super(ActivacionCalificacionOralAdmin, self).get_actions(request)
+        return actions
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+admin.site.register(ActivacionCalificacionOral, ActivacionCalificacionOralAdmin)

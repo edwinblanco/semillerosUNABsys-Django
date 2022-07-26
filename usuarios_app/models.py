@@ -1,5 +1,6 @@
 
 from abc import abstractclassmethod
+from sqlite3 import apilevel
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -68,22 +69,7 @@ class Usuario(AbstractBaseUser):
     objects = UsuarioManager()
     
     def __str__(self):
-        if self.is_autor and self.is_tutor and self.is_evaluador:
-            return self.nombres+" "+self.apellidos+" Tutor - Autor - Evaluador"
-        if self.is_tutor and self.is_evaluador:
-            return self.nombres+" "+self.apellidos+" Tutor - Evaluador"
-        if self.is_tutor and self.is_autor:
-            return self.nombres+" "+self.apellidos+" Tutor - Autor"
-        if self.is_evaluador and self.is_autor:
-            return self.nombres+" "+self.apellidos+" Autor - Evaluador"
-        if self.is_evaluador:
-            return self.nombres+" "+self.apellidos+" Evaluador"
-        if self.is_autor:
-            return self.nombres+" "+self.apellidos+" Autor"
-        if self.is_tutor:
-            return self.nombres+" "+self.apellidos+" Tutor"
-        if not self.is_autor and not self.is_tutor and not self.is_evaluador:
-            return self.nombres+" "+self.apellidos
+        return self.nombres+" "+self.apellidos+" | "+self.username
     
     def has_perm(self, perm, obj=None):
         return self.is_admin

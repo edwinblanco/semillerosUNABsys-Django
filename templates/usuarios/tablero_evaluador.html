@@ -40,7 +40,7 @@
                                     <th scope="col"># proyecto</th>
                                     <th scope="col">Titulo proyecto</th>
                                     <th scope="col">Fecha de asignación</th>
-                                    <th scope="col">Dcumento</th>
+                                    <th scope="col">Documento</th>
                                     <th scope="col">calificación preselección </th>
                                     <th scope="col">Calificación oral</th>
       
@@ -86,13 +86,21 @@
                                         <div class="row">
                     
                                             <div class="col-sm-12 col-12">
-                                             
-                                              {% if proyecto.asignacion_calificada1  %}
 
-                                               <i class="bi bi-check-circle">Calificado</i>
-                                               
+                                              {% if activacion_calificacion_oral %}
+                                             
+                                                {% if proyecto.asignacion_calificada1  %}
+
+                                                <i class="bi bi-check-circle">Calificado</i>
+                                                
+                                                {% else %}
+                                                <a type="button" href="{% url 'registro-evaluacion-oral' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
+
+                                                {% endif %}
+
                                               {% else %}
-                                              <a type="button" href="{% url 'registro-evaluacion-oral' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
+
+                                              <i class="bi bi-info-circle">No disponible</i>
 
                                               {% endif %}
 

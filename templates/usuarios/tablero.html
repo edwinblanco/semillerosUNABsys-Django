@@ -38,7 +38,8 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Titulo</th>
                                     <th scope="col">Tematica</th>
-                                    <th scope="col">PDF </th>
+                                    <th scope="col">PDF proyecto</th>
+                                    <th scope="col">PDF carta aval</th>
                                     <th scope="col">Autores</th>
                                     <th scope="col">Estado de calificación</th>
                                     <th scope="col">Acción</th>
@@ -53,6 +54,7 @@
                                     <td>{{ proyecto.titulo }}</td>
                                     <td>{{ proyecto.tematica }}</td>
                                     <td><a href="/media/{{ proyecto.proyecto_pdf }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    <td><a href="/media/{{ proyecto.carta_aval_pdf }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     <td>{{ proyecto.obtener_autores }}</td>
                                     <td><!-- Button trigger modal -->
                                       <a type="button" href="{% url 'modal-calificaciones' pk=proyecto.id %}" class="btn btn-success">
@@ -60,22 +62,7 @@
                                       </a>
 
                                     <td> 
-
-                                      <div class="container-fluid">
-                                        <div class="row">
-                    
-                                            <div class="col-sm-6 col-12">
-                                              <a type="button" href="{% url 'actualizacion-proyecto' pk=proyecto.id %}" class="btn btn-primary">Editar</a>
-                                            </div>
-                    
-                                            <div class="col-sm-6 col-12 mt-5 mt-lg-0">
-                                              <button type="button" class="btn btn-danger">Eliminar</button>
-                                            </div>
-                    
-                                        </div>
-                                    </div>
-
-                                     
+                                       <a type="button" href="{% url 'actualizacion-proyecto' pk=proyecto.id %}" class="btn btn-primary">Editar</a>
                                     </td>
                                   </tr>
 

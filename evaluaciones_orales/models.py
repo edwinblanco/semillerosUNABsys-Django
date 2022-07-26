@@ -44,3 +44,12 @@ class CalificacionFinalProyecto(models.Model):
   
       def __str__(self):
           return str(self.fecha_calificacion)  
+      
+class ActivacionCalificacionOral(models.Model):
+      descripcion = models.CharField(max_length=1000)
+      activacion_calificacion_oral = models.BooleanField(default=False)
+      
+      fecha_creacion = models.DateTimeField(auto_now_add=True)
+  
+      def __str__(self):
+          return str(self.id) + ' ' + str(self.descripcion)        

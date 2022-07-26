@@ -16,7 +16,7 @@ from django.contrib import auth, messages
 
 from django.contrib.auth.decorators import login_required
 from asignacion_evaluador.models import AsignacionEvaluacion
-from evaluaciones_orales.models import EvaluacionOral
+from evaluaciones_orales.models import ActivacionCalificacionOral, EvaluacionOral
 from evaluaciones_preseleccion.models import EvaluacionPreseleccion
 from proyectos_app.models import Proyecto
 
@@ -139,9 +139,9 @@ def tablero_evaluador_view(request):
     proyectos_asignados = AsignacionEvaluacion.objects.filter(evaluadores__id = request.user.id)
     calificaciones_orales = EvaluacionOral.objects.filter(evaluador = request.user.id, is_calificado = True)
     calificaciones_preseleccion = EvaluacionPreseleccion.objects.filter(evaluador = request.user.id, is_calificado = True)
-
+    activacion_calificacion_oral = ActivacionCalificacionOral.objects.get(id=1)
     
-    return render(request, 'usuarios/tablero_evaluador.html', {'proyectos_asignados': proyectos_asignados, 'calificaciones_orales': calificaciones_orales, 'calificaciones_preseleccion':calificaciones_preseleccion})    
+    return render(request, 'usuarios/tablero_evaluador.html', {'activacion_calificacion_oral':activacion_calificacion_oral.activacion_calificacion_oral,'proyectos_asignados': proyectos_asignados, 'calificaciones_orales': calificaciones_orales, 'calificaciones_preseleccion':calificaciones_preseleccion})    
 
 
 def resumen_calificaciones_view(request, pk = None):
