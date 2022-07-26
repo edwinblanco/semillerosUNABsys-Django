@@ -15,9 +15,14 @@ class FormularioRegistroProyecto(forms.ModelForm):
     modalidad_aprticipacion = forms.ChoiceField(widget=forms.Select(attrs={
         'placeholder': 'Confirmar contraseña',        
     }), choices=CHOICES)
-
+        
     autores = forms.ModelMultipleChoiceField(
         queryset=Usuario.objects.filter(is_autor=True),
+        widget=forms.SelectMultiple(attrs={
+        'placeholder': 'Seleccionar autores',
+        'class':'select', 
+        'data-mdb-filter':'true',
+        })
     )
     
     tutores = forms.ModelMultipleChoiceField(

@@ -69,7 +69,7 @@ class Usuario(AbstractBaseUser):
     objects = UsuarioManager()
     
     def __str__(self):
-        return self.nombres+" "+self.apellidos+" | "+self.username
+        return self.nombres+" "+self.apellidos+" | "+self.correo_institicional
     
     def has_perm(self, perm, obj=None):
         return self.is_admin

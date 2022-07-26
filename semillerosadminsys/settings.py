@@ -143,8 +143,8 @@ MESSAGE_TAGS = {
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'eblanco265@unab.edu.co'
-EMAIL_HOST_PASSWORD = 'byarksopcvnlohyt'
+EMAIL_HOST_USER = 'ejemplo@gmail.com'
+EMAIL_HOST_PASSWORD = 'contraseña'
 EMAIL_USE_TLS = True
 
 
