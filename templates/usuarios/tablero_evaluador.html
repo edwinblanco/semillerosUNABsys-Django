@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  @media screen and (max-width: 480px) {
+    th{
+      font-size: 10px;
+    }
+
+    td{
+      font-size: 10px;
+    }
+
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <main class="col ps-md-2 pt-2">
+            <div class="row">
+
+                <br>
+                <h3 class="mb-3 text-center">Tus proyectos a evaluar</h3>
+
+              {% if user.is_evaluador %}
+
+                <div class="col-12">
+                    <div class="container">
+                      {% include 'includes/alerts.html' %}
+                      <h6>CRITERIOS DE VALORACIÓN 3: PRESENTACIÓN ORAL</h6>
+                      <p>La ponderación general del criterio tres corresponde al 30%. Recuerden la calificación es un valor numérico de 0 a 5.</p>
+                        <div class="row" style="overflow: auto; width: 100%;">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col"># calificación</th>
+                                    <th scope="col"># proyecto</th>
+                                    <th scope="col">Titulo proyecto</th>
+                                    <th scope="col">Fecha de asignación</th>
+                                    <th scope="col">Dcumento</th>
+                                    <th scope="col">calificación preselección </th>
+                                    <th scope="col">Calificación oral</th>
+      
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for proyecto in proyectos_asignados %}
+
+                                  <tr>
+                                    <td>{{ proyecto.id }}</td>
+                                    <td>{{ proyecto.proyecto.id }}</td>
+                                    <td>{{ proyecto.proyecto }}</td>
+                                    <td>{{ proyecto.fecha_asignacion}}</td>
+                                    <td><a href="/media/{{ proyecto.proyecto.proyecto_pdf }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    
+                                    
+                                    <td> 
+
+                                      <div class="container-fluid">
+                                        <div class="row">
+                    
+                                            <div class="col-sm-6 col-12">
+
+                                              {% if proyecto.asignacion_calificada2  %}
+                                              <i class="bi bi-check-circle">Calificado</i>
+                                               
+                                              {% else %}
+
+                                              <a type="button" href="{% url 'registro-evaluacion-preseleccion' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
+                                            </div>
+                    
+                                            {% endif %}
+
+                                        </div>
+                                    </div>
+
+                                     
+                                    </td>
+
+                                    <td> 
+
+                                      <div class="container-fluid">
+                                        <div class="row">
+                    
+                                            <div class="col-sm-12 col-12">
+                                             
+                                              {% if proyecto.asignacion_calificada1  %}
+
+                                               <i class="bi bi-check-circle">Calificado</i>
+                                               
+                                              {% else %}
+                                              <a type="button" href="{% url 'registro-evaluacion-oral' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
+
+                                              {% endif %}
+
+                                            </div>
+                    
+                                        </div>
+                                    </div>
+
+                                     
+                                    </td>
+                                  </tr>
+
+                                  {% endfor %}
+
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+              {% endif %}  
+
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

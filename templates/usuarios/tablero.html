@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  @media screen and (max-width: 480px) {
+    th{
+      font-size: 10px;
+    }
+
+    td{
+      font-size: 10px;
+    }
+
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <main class="col ps-md-2 pt-2">
+            <div class="row">
+
+                <br>
+                <h3 class="mb-3 text-center">Tus proyectos</h3>
+
+              {% if user.is_autor %}
+
+                <div class="col-12">
+                    <div class="container">
+                      {% include 'includes/alerts.html' %}
+                      <p>¿Subir un nuevo proyecto? <a class="btn btn-primary" style="background-color: #2d418e;" href="{% url 'registro-proyecto' %}">Agregar</a></p>
+                        <div class="row" style="overflow: auto; width: 100%;">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Titulo</th>
+                                    <th scope="col">Tematica</th>
+                                    <th scope="col">PDF </th>
+                                    <th scope="col">Autores</th>
+                                    <th scope="col">Estado de calificación</th>
+                                    <th scope="col">Acción</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for proyecto in proyectos %}
+
+                                  <tr>
+                                    <td>{{ proyecto.id }}</td>
+                                    <td>{{ proyecto.titulo }}</td>
+                                    <td>{{ proyecto.tematica }}</td>
+                                    <td><a href="/media/{{ proyecto.proyecto_pdf }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    <td>{{ proyecto.obtener_autores }}</td>
+                                    <td><!-- Button trigger modal -->
+                                      <a type="button" href="{% url 'modal-calificaciones' pk=proyecto.id %}" class="btn btn-success">
+                                        VER
+                                      </a>
+
+                                    <td> 
+
+                                      <div class="container-fluid">
+                                        <div class="row">
+                    
+                                            <div class="col-sm-6 col-12">
+                                              <a type="button" href="{% url 'actualizacion-proyecto' pk=proyecto.id %}" class="btn btn-primary">Editar</a>
+                                            </div>
+                    
+                                            <div class="col-sm-6 col-12 mt-5 mt-lg-0">
+                                              <button type="button" class="btn btn-danger">Eliminar</button>
+                                            </div>
+                    
+                                        </div>
+                                    </div>
+
+                                     
+                                    </td>
+                                  </tr>
+
+                                  {% endfor %}
+
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+              {% endif %}  
+
+                
+
+
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

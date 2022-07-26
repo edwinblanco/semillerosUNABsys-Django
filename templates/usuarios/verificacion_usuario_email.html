@@ -1,0 +1,11 @@
+{% autoescape off %}
+
+    Hola ¡{{ user.nombres }}!
+
+    Por favor activa tu cuenta de Semilleros UNAB dando click en el siguiente link:
+
+    http://{{ dominio }}{% url 'activate' uidb64=uid token=token %} 
+
+    Universidad Autónoma de Bucaramanga - UNAB | Sujeta a inspección y vigilancia por parte del Ministerio de Educación Nacional 
+
+{% endautoescape %}

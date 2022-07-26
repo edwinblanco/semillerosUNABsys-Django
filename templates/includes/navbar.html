@@ -1,0 +1,91 @@
+
+{% load static %}
+
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
+            <img class="nav-img-logo " src="{% static 'logo011.png' %}" alt="logo_UNAB">
+        </a>
+        <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
+            <img class="nav-img-logo " src="{% static '/logoinge.png' %}" alt="logo_UNAB">
+        </a>
+
+        {% if not user.id %}
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="{% url 'home' %}">Inicio</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="#section_2">Sobre el evento</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="#section_4">Agenda</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="#section_5">Contacto</a>
+                </li>
+
+            </ul>
+        <div>
+
+        {% else %}
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" href="{% url 'tablero' %}">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown"  style="border:none;">
+                        <button class="btn btn-secondary dropdown-toggle nav-link click-scroll" style="background-color: #86c330; padding: 10px; border: none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Mis proyectos
+                        </button>
+                        <ul class="dropdown-menu" style="border: solid 1px #86c330;">
+                        {% if user.is_autor %}<li><a class="dropdown-item" href="{% url 'tablero' %}">Proyectos de mi autoría</a></li>{% endif %}
+                          <li><a class="dropdown-item" href="#">Proyectos de mi tutoría</a></li>
+                         {% if user.is_evaluador %} <li><a class="dropdown-item" href="{% url 'tablero-evaluador' %}">Mis proyectos a evaluar</a></li> {% endif %}
+                        </ul>
+                      </div>
+                </li>
+                <li class="nav-item">
+                    <div class="dropdown" style="border:none;">
+                        <button class="btn btn-secondary dropdown-toggle nav-link click-scroll" style="background-color: #86c330; padding: 10px; border: none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Participantes
+                        </button>
+                        <ul class="dropdown-menu" style="border: solid 1px #86c330;">
+                          <li><a class="dropdown-item" href="#">Autores</a></li>
+                          <li><a class="dropdown-item" href="#">Evaluadores</a></li>
+                          <li><a class="dropdown-item" href="#">Tutores</a></li>
+                        </ul>
+                      </div>
+                </li>
+                
+                <li class="nav-item">
+                    <div class="dropdown" style="border:none;">
+                        <button class="btn btn-secondary dropdown-toggle nav-link click-scroll" style="background-color: #86c330; padding: 10px; border: none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle"></i> {{ user.nombres }}
+                        </button>
+                        <ul class="dropdown-menu" style="border: solid 1px #86c330;">
+                          <li><a class="dropdown-item" href="#">Perfil</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="{% url 'loguot' %}">Cerrar sesion</a></li>
+                        </ul>
+                      </div>
+                </li>
+
+            </ul>
+        <div>
+
+        {% endif %}
+                
+    </div>
+</nav>

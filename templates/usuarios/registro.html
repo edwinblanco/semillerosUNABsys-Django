@@ -1,0 +1,121 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="about section-padding">
+      <div class="container">
+        <div class="row ">
+          <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+
+            {% include 'includes/alerts.html' %}
+
+            <form action="{% url 'registro' %}" method="POST" class="">{% csrf_token %}
+
+              <div class="row">
+
+                <h3 class="mb-3 text-center">Registrate y administra tus proyectos</h3>
+
+                <div class="col-lg-6 col-12 mx-auto">
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Nombres</label>
+                    {{ form.nombres }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Apellidos</label
+                    >
+                    {{ form.apellidos }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Correo institucional</label
+                    >
+                    {{ form.correo_institicional }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div>
+                  
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label"
+                      >Password</label
+                    >
+                    {{ form.password }}
+                  </div>
+                </div>
+                <div class="col-lg-6 col-12 mx-auto">
+                    <div class="mb-3"">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Programa académico</label
+                        >
+                        <!--<input class="form-control" placeholder="Buscar" list="browsers" name="browser" id="browser">
+                        <datalist id="browsers">
+                            <option value="Edge">
+                            <option value="Firefox">
+                            <option value="Chrome">
+                            <option value="Opera">
+                            <option value="Safari">
+                        </datalist>-->
+                        {{ form.programa_academico }}
+                    </div> 
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Id institucional</label
+                        >
+                        {{ form.id_iniversidad }}
+                        <div id="emailHelp" class="form-text">
+                          
+                        </div>
+                      </div> 
+                      <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label"
+                          >Número de documento de identidad</label
+                        >
+                        {{ form.no_documento }}
+                        <div id="emailHelp" class="form-text">
+                          
+                        </div>
+                      </div>
+                      <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label"
+                          >Confirmar Password</label
+                        >
+                        {{ form.confirmar_password }}
+                      </div>
+                      <div class="mb-3">
+                      </div>  
+
+                </div>
+                <div >
+                  {{ form.correo_institicional.errors }}
+                  {{ form.non_field_errors }}
+                </div>
+                <button type="submit" class="btn btn-primary col-lg-3 col-12 mx-auto" style="background-color: #2d418e;">Registrarme</button><br>
+                <div class="text-center">
+                    <br>
+                    <p>¿Ya tienes una cuenta? <a style="color: #2d418e;" href="{% url 'login-page' %}">Inicia sesion aquí</a></p>
+                  </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+{% endblock %}

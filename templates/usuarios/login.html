@@ -1,0 +1,85 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block content %} 
+
+
+
+{% if request.GET.command == 'verification' %}
+
+<div class="container mx-auto alert alert-info" role="alert" style="max-width: 300px; margin-top: 300px">
+  Gracias por registrarte en la plataforma de Semilleros UNAB, te hemos enviado
+  un email a <b>[{{ request.GET.email }}]</b> para confirmar y activar tu cuenta
+  <br />
+  <br />
+  Si ya verificaste tu cuenta, puedes iniciar sesion
+  <a href="{% url 'login-page' %}">aquí</a>
+</div>
+
+{% else %}
+<section class="about section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-12 mx-auto">
+        <form
+          action="{% url 'login' %}"
+          method="POST"
+          class="shadow-lg p-3 mb-5 bg-body rounded"
+        >
+          {% csrf_token %}
+
+          <h3 class="mb-3 text-center">Ingresa y administra tus proyectos</h3>
+
+          {% include 'includes/alerts.html' %}
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Correo Institucional</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              name="email"
+            />
+            <div id="emailHelp" class="form-text">
+              Tu correo no será compartido
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              name="password"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="background-color: #2d418e"
+          >
+            Iniciar sesion</button
+          ><br /><br />
+          <!-- Register buttons -->
+          <div class="text-center">
+            <p>
+              ¿Aún no tienes cuenta?
+              <a style="color: #2d418e" href="{% url 'registro' %}"
+                >Registrate aquí</a
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %} 
+
+{% endblock %}

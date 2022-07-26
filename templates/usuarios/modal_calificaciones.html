@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  @media screen and (max-width: 480px) {
+    th{
+      font-size: 10px;
+    }
+
+    td{
+      font-size: 10px;
+    }
+
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <main class="col ps-md-2 pt-2">
+            <div class="row">
+
+                <br>
+                <h3 class="mb-3 text-center">Tus notas hasta el momento</h3>
+
+              {% if user.is_autor %}
+
+                <div class="col-12">
+                    <div class="container">
+                      {% include 'includes/alerts.html' %}
+                      <p><a class="btn btn-primary" style="background-color: #2d418e;" href="{% url 'tablero' %}">Volver</a></p>
+                        <div class="row" style="overflow: auto; width: 100%;">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Titulo del proyecto</th>
+                                    <th scope="col">Calificación oral 30%</th>
+                                    <th scope="col">Calificación preselección 70%</th>
+                                    <th scope="col">Calificación final</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                  <tr>
+                                    <td>{{ proyecto.titulo }}</td>
+                                    <td>{{ nota_calificacion_oral }}</td>
+                                    <td>{{ nota_calificacion_prese }}</td>
+                                    <td>{{ nota_final }}</td>
+                                    
+                                  </tr>
+
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+              {% endif %}  
+
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

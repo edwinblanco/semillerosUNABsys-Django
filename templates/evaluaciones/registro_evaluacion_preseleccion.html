@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>evaluar</title>
+  </head>
+  <body>
+    <section class="about section-padding">
+      <div class="container">
+        <div class="row ">
+          <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+
+           <form action="{% url 'registro-evaluacion-preseleccion' pk=idp pk_calificacion=idc %}" method="POST" class="">{% csrf_token %}
+
+            <div class="row">
+             
+              <h3 class="mb-3 text-center">Calificación preselección para:</h3>
+              <h6 class="mb-3 text-center">{{proyecto}}</h6>
+
+              {% include 'includes/alerts.html' %}
+
+              <div class="col-lg-6 col-12 mx-auto">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >1.1. PRESENTACIÓN ESCRITA: Cumple con los lineamientos del formato y se observa una estructura organizada en el contenido (inclusión de tablas, gráficos o imágenes). El contenido tiene buena ortografía y redacción.</label>
+                    <p>Calificación (0.0-5.0):</p>
+                  {{ form.presentacion_escrita }}
+                  <div id="emailHelp" class="form-text">
+                    
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"
+                    >1.2. ESTRUCTURA DEL TEXTO: Se observa claridad y coherencia metodológica entre: título, introducción, justificación, objetivos, referentes teóricos, metodología o proceso de creación y resultados preliminares o esperados).</label
+                  >
+                  <p>Calificación (0.0-5.0):</p>
+                  {{ form.estructura_texto }}
+                  <div id="emailHelp" class="form-text">
+                    
+                  </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label"
+                      >1.3. FUENTES CONSULTADAS: Se presentan referencias bibliográficas o soportes de documentación pertinente y actualizada, relacionadas directamente con la temática de investigación o creación y citados en el contenido del artículo.</label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.fuentes_consultadas }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >Observaciones y Recomendaciones sobre el Criterio de valoración 1: Estructura del documento.</label
+                    >
+                    <p></p>
+                    {{ form.observaciones1 }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div>  
+
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >2.1. RESUMEN E INTRODUCCIÓN: El documento inicia con un resumen presentado en idioma español e inglés. Contiene una descripción breve del tema de investigación creación, dirigido a orientar al lector sobre la condición a investigar.</label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.resumen_introduccion }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >2.2. OBJETIVOS: Los objetivos son precisos, tienen  coherencia con el título y conducen a la resolución del propósito planteado.</label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.objetivos }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+               
+              </div>
+              <div class="col-lg-6 col-12 mx-auto">
+                <div class="mb-3">
+                    <label class="form-label"
+                      >2.3. PERTINENCIA E INNOVACIÓN: El proyecto es innovador e involucra un plan de acción de impacto social,  tecnológico, científico, artístico, educativo, entre otros. Tiene un enfoque interdisciplinar y evidencia claramente un beneficio derivado de la investigación  a un grupo poblacional, campo de conocimiento o área artística.</label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.pertinencia_innovacion }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >2.4. REFERENTE TEORICO: Explicación breve de los principales aspectos teóricos que respaldan la investigación (Conceptos, leyes, principios, fundamentos, corrientes artísticas etc).</label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.referente_teorico }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >2.5. PROPUESTA METODOLOGÍCA  O PROCESO DE CREACIÓN: Demuestra pertinencia en el diseño de la investigación creación, técnicas de recolección y análisis de datos y/o enfoque de creación artística</label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.propuesta_metodologia }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >2.6. RESULTADOS PRELIMINARES: La investigación evidencia un análisis sobre el proceso desarrollado hasta el momento, permitiendo identificar algunos resultados preliminares. La información presentada se orienta claramente al cumplimiento de los objetivos de la investigación. </label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.resultados_preliminares }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >2.7. DISCUSIÓN PRELIMINAR: en el proceso desarrollado hasta el momento  se demuestra que los autores realizan una reflexión crítica sobre el aporte disciplinar, social o cultural del conocimiento adquirido y su importancia para la vida cotidiana y/o el contexto en el que se está desarrollando la investigación.</label
+                    >
+                    <p>Calificación (0.0-5.0):</p>
+                    {{ form.discucion_preliminar }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+                  <div class="mb-3">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Observaciones y recomendaciones sobre el Criterio de valoración 2: Consistencia Científico – Metodológica  y/o Calidad Artística</label
+                      >
+                      {{ form.observaciones2 }}
+                      <div id="emailHelp" class="form-text">
+                        
+                      </div>
+                    </div> 
+                    <div class="mb-3">
+                    </div>  
+
+              </div>
+
+              <div >
+                
+                {{ form.errors }}
+    
+              </div>
+
+              <button type="submit" class="btn btn-primary col-lg-3 col-12 mx-auto" style="background-color: #2d418e;">Calificar proyecto</button><br>
+              
+              <div class="text-center">
+                  <br>
+                </div>
+            </div>
+          </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+{% endblock %}
