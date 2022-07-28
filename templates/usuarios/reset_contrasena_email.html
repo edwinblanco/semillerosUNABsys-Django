@@ -1,0 +1,9 @@
+{% autoescape off %}
+Hola ¡{{ user.nombres }}!
+
+Como lo solicitaste, dale click al siguiente link para poder resetear tu contraseña:
+
+http://{{domain}}{% url 'resetcontrasena-validate' uidb64=uid token=token %}
+
+
+{% endautoescape %}

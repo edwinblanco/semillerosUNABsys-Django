@@ -12,6 +12,10 @@ urlpatterns = [
     path('tablero/', views.tablero_view, name='tablero'),
     path('tablero-evaluador/', views.tablero_evaluador_view, name='tablero-evaluador'),
     path('activate/<uidb64>/<token>/', views.activate_view, name='activate'),
+    path('contrasena-olvidada/', views.contrasena_olvidada_view, name='contrasena-olvidada'),
+    path('resetcontrasena-validate/<uidb64>/<token>/', views.resetcontrasena_validate_view, name='resetcontrasena-validate'),
+    path('resetear-contrasena/', views.resetearContrasena_view, name='resetearContrasena'),
+
     path('modal-calificaciones/<int:pk>', views.resumen_calificaciones_view, name='modal-calificaciones'),
 ]
 

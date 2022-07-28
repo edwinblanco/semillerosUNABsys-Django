@@ -108,7 +108,7 @@ def registro_view(request):
 @login_required(login_url = 'login-page')
 def loguot_view(request):
     auth.logout(request)
-    messages.success(request, 'Has salido de sesion')
+    messages.success(request, 'Has salido de sesión')
     return redirect('login-page')
 
 
@@ -131,7 +131,78 @@ def activate_view(request, uidb64, token):
         messages.error(request, 'La activación es invalida')
         return redirect('registro')
             
-                   
+            
+def contrasena_olvidada_view(request):
+    
+    if request.method == 'POST':
+        email = request.POST['email']
+        
+        if Usuario.objects.filter(correo_institicional=email).exists():
+            user = Usuario.objects.get(correo_institicional__exact=email)
+            
+            current_site = get_current_site(request)
+            mail_subject = 'Resetear contraseña'
+            body = render_to_string('usuarios/reset_contrasena_email.html', {
+                'user': user,
+                'domain': current_site,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': default_token_generator.make_token(user),
+            })
+            
+            to_email = email
+            send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
+            send_email.send()
+            
+            messages.success(request, 'Te enviamos un correo para resetear tu contraseña')
+            return redirect('login-page')
+        
+        else:
+            messages.error(request, 'El correo no existe en la base de datos')
+            return redirect('contrasena-olvidada')
+        
+    return render(request, 'usuarios/contraseña_olvidada.html')
+
+
+def resetcontrasena_validate_view(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = Usuario._default_manager.get(pk=uid)
+        
+    except(TypeError, ValueError, OverflowError, Usuario.DoesNotExist):
+        user = None
+        
+    if user is not None and default_token_generator.check_token(user, token):
+        request.session['uid'] = uid
+        messages.success(request, 'Por favor resetea tu constraseña')
+        return redirect('resetearContrasena')
+    else:
+        messages.error(request, 'El link caducó')
+        return redirect('login-page')         
+    
+    
+def resetearContrasena_view(request):
+    
+    if request.method == 'POST':
+        password = request.POST['password']
+        confirm_password = request.POST['confirm_password']
+        
+        if password == confirm_password:
+            uid = request.session.get('uid')
+            user = Usuario.objects.get(pk=uid)
+            user.set_password(password)
+            user.save()
+            messages.success(request, 'La contraseña se reseteo correctamente')
+            
+            return redirect('login-page')
+        
+        else:
+            messages.error(request, 'Las contraseñas no coinciden')
+            return redirect('resetearContrasena')    
+        
+    else:
+        return render(request, 'usuarios/resetearContrasena.html')
+       
+    
     
 def tablero_evaluador_view(request):
     

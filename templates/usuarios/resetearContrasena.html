@@ -1,0 +1,61 @@
+{% extends 'base.html' %} 
+
+{% load static %} 
+
+{% block content %} 
+
+<section class="about section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-12 mx-auto">
+        <form
+          action="{% url 'resetearContrasena' %}"
+          method="POST"
+          class="shadow-lg p-3 mb-5 bg-body rounded"
+        >
+          {% csrf_token %}
+
+          <h3 class="mb-3 text-center">Resetear contraseña</h3>
+
+          {% include 'includes/alerts.html' %}
+
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Constraseña:</label
+            >
+            <input
+              type="password"
+              placeholder="Crear contraseña"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              name="password"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Confirmar constraseña:</label
+            >
+            <input
+              type="password"
+              placeholder="Confirmar contraseña"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              name="confirm_password"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="background-color: #2d418e"
+          >
+            Resetear contraseña</button
+          ><br /><br />
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

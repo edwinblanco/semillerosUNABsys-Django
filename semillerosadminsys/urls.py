@@ -23,7 +23,8 @@ from django.conf import settings
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    path('securelogin/', admin.site.urls),
     path('', views.inicio, name='home'),
     path('usuarios/', include('usuarios_app.urls')),
     path('proyectos/', include('proyectos_app.urls')),

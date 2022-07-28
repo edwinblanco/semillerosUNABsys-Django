@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from msilib.schema import Media
 from pathlib import Path
+from decouple import config
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_wl#e%)u9lh4t_^$8$4rio@qf=0f=_-_yz^0rqx$1qdxte#5l@'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default=True)
 
 ALLOWED_HOSTS = []
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'evaluaciones_orales',
     'evaluaciones_preseleccion',
     'asignacion_evaluador',
+    'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +59,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
+SESSION_EXPIRE_SECONDS = 1200
+SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
+SESSION_TIMEOUT_REDIRECT = 'login-page'
 
 ROOT_URLCONF = 'semillerosadminsys.urls'
 
@@ -141,17 +149,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-#EMAIL_HOST = 'smtp.google.com'
-#EMAIL_PORT = 587
-#EMAIL_HOST_USER = 'semilleros.ingenieria.unab@gmail.com'
-#EMAIL_HOST_PASSWORD = 'blosvkblplayjjga'
-#EMAIL_USE_TLS = True
-
-ANYMAIL = {"SENDGRID_API_KEY":'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',}
-
-EMAIL_DEFAULT = "semilleros.ingenieria.unab@gmail.com"
-EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
-DEFAULT_FROM_EMAIL = 'semilleros.ingenieria.unab@gmail.com'
+ANYMAIL = {"SENDGRID_API_KEY": config('SENDGRID_API_KEY'),}
+EMAIL_DEFAULT = config('EMAIL_DEFAULT')
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
