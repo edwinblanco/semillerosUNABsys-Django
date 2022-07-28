@@ -9,7 +9,7 @@ class UsuarioAdmin(UserAdmin):
     ordering = ('-date_joined',)
     
     filter_horizontal = ()
-    list_filter = ('is_autor', 'is_tutor')
+    list_filter = ('is_autor', 'is_tutor', 'is_evaluador')
     fieldsets = ()
     
 

@@ -141,12 +141,17 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ejemplo@gmail.com'
-EMAIL_HOST_PASSWORD = 'contraseña'
-EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.google.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'semilleros.ingenieria.unab@gmail.com'
+#EMAIL_HOST_PASSWORD = 'blosvkblplayjjga'
+#EMAIL_USE_TLS = True
 
+ANYMAIL = {"SENDGRID_API_KEY":'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',}
+
+EMAIL_DEFAULT = "semilleros.ingenieria.unab@gmail.com"
+EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
+DEFAULT_FROM_EMAIL = 'semilleros.ingenieria.unab@gmail.com'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field

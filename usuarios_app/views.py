@@ -1,14 +1,11 @@
 
-from base64 import urlsafe_b64decode
-from email.message import EmailMessage
-from multiprocessing import context
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from django.urls import reverse
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 
 
 from django.shortcuts import redirect, render
@@ -92,8 +89,10 @@ def registro_view(request):
             })
             
             to_email = correo_institicional
-            send_email = EmailMessage(mail_subject, body, to = [to_email])
+            send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
             send_email.send()
+            
+            
             
             
             #messages.success(request, 'Se registró exitosamente')

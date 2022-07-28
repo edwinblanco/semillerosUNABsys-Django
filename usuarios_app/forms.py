@@ -7,7 +7,7 @@ class FormularioRegistro(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Ingrese contraseña',
         'class': 'form-control'
-    }))
+    }), min_length=8)
     
     confirmar_password = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Confirmar contraseña',
