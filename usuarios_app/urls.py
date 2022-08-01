@@ -9,6 +9,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('loguot/', views.loguot_view, name='loguot'),
     path('registro/', views.registro_view, name='registro'),
+    path('guia/', views.guia_view, name='guia'),
     path('tablero/', views.tablero_view, name='tablero'),
     path('tablero-evaluador/', views.tablero_evaluador_view, name='tablero-evaluador'),
     path('activate/<uidb64>/<token>/', views.activate_view, name='activate'),

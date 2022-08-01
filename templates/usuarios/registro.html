@@ -49,6 +49,15 @@
                       
                     </div>
                   </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                      >Id institucional</label
+                    >
+                    {{ form.id_iniversidad }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div>
                   
                   <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label"
@@ -72,11 +81,26 @@
                         </datalist>-->
                         {{ form.programa_academico }}
                     </div> 
+                    <div class="mb-3"">
+                      <label for="exampleInputEmail1" class="form-label"
+                        >Universidad</label
+                      >
+                      <!--<input class="form-control" placeholder="Buscar" list="browsers" name="browser" id="browser">
+                      <datalist id="browsers">
+                          <option value="Edge">
+                          <option value="Firefox">
+                          <option value="Chrome">
+                          <option value="Opera">
+                          <option value="Safari">
+                      </datalist>-->
+                      {{ form.universidad }}
+            
+                  </div> 
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label"
-                          >Id institucional</label
+                          >¿Eres tutor?</label
                         >
-                        {{ form.id_iniversidad }}
+                        {{ form.is_tutor }}
                         <div id="emailHelp" class="form-text">
                           
                         </div>
@@ -107,7 +131,7 @@
                 <button type="submit" class="btn btn-primary col-lg-3 col-12 mx-auto" style="background-color: #2d418e;">Registrarme</button><br>
                 <div class="text-center">
                     <br>
-                    <p>¿Ya tienes una cuenta? <a style="color: #2d418e;" href="{% url 'login-page' %}">Inicia sesion aquí</a></p>
+                    <p>¿Ya tienes una cuenta? <a style="color: #2d418e;" href="{% url 'login-page' %}">Inicia sesión aquí</a></p>
                   </div>
               </div>
             </form>

@@ -1,0 +1,245 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<style>
+  @media screen and (max-width: 480px) {
+    th {
+      font-size: 10px;
+    }
+
+    td {
+      font-size: 10px;
+    }
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <main class="col ps-md-2 pt-2">
+      <div class="row">
+        <br />
+        <h3 class="mb-3 text-center">Guía de inscripción</h3>
+
+        <div class="col-12">
+          <div class="container">
+            <br />
+
+            <div class="accordion" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                  <button
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne"
+                    aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne"
+                  >
+                    <h5>
+                      1. Inscripción y activación de cuenta en la plataforma:
+                    </h5>
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseOne"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="panelsStayOpen-headingOne"
+                >
+                  <div class="accordion-body">
+                    <p>
+                      Click
+                      <b
+                        ><a href="{% url 'registro' %}" target="_blank"
+                          >aquí</a
+                        ></b
+                      >
+                      para registrarte, este enlace te llevará a una pantalla
+                      como esta:
+                    </p>
+
+                    <div class="container">
+                      <img
+                        src="{% static 'images/guia/registro.png' %}"
+                        class="img-fluid"
+                        alt="..."
+                      />
+                    </div>
+                    <br />
+
+                    <p>
+                      Llena el formulario con todos los campos requeridos y has
+                      click en registrarme
+                      <b
+                        >(recuerda diligenciar un correo valido para poder
+                        activar tu cuenta)</b
+                      >
+                    </p>
+                    <p>
+                      Al dar click en Registrarme te llevará a una pantalla como
+                      esta:
+                    </p>
+
+                    <div class="container">
+                      <img
+                        src="{% static 'images/guia/activado.png' %}"
+                        class="img-fluid"
+                        alt="..."
+                      />
+                    </div>
+                    <br />
+                    <p>
+                      Ingresa a tu correo y activa tu cuenta dando click en el
+                      enlace adjunto. Cuando hayas activado tu cuenta te
+                      aparecerá una pantalla como esta:
+                    </p>
+
+                    <div class="container">
+                      <img
+                        src="{% static 'images/guia/login.png' %}"
+                        class="img-fluid"
+                        alt="..."
+                      />
+                    </div>
+
+                    <p>
+                      Desde allí podrás iniciar sesión e ingresar a la
+                      plataforma
+                    </p>
+                    <br />
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo"
+                  >
+                    <h5>2. ¿Como subo mi proyecto a la plataforma?</h5>
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseTwo"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingTwo"
+                >
+                  <div class="accordion-body">
+                    <p>
+                        Cuando inicies sesión por primera vez, te aparecerá una pantalla
+                        como esta:
+                      </p>
+          
+                      <div class="container">
+                        <img
+                          src="{% static 'images/guia/proyectoinicio.png' %}"
+                          class="img-fluid"
+                          alt="..."
+                        />
+                      </div>
+                      <p>
+                        Te aparecerá una lista vacía ya que aun no has subido tu primer
+                        proyecto, dando click en el botón <b>Agregar</b> podrás subir tu
+                        primer proyecto, te aparecerá una pantalla como esta:
+                      </p>
+          
+                      <div class="container">
+                        <img
+                          src="{% static 'images/guia/proyectoregistro.png' %}"
+                          class="img-fluid"
+                          alt="..."
+                        />
+                      </div>
+          
+                      <p>
+                        Llena todos los campos requeridos del formulario del formulario
+                      </p>
+                      <p>
+                        <b
+                          >NOTA: No olvides seleccionar tu usuario en el campo de los
+                          autores, si tu compañero no aparece en la lista de autores es
+                          porque aun no se ha registrado en la plataforma, puede
+                          registrarse
+                          <a
+                            href="{% url 'registro' %}"
+                            target="_blank"
+                            style="color: #2d418e"
+                            >aquí.</a
+                          >
+                          De igual manera puedes registrar el proyecto y posteriormente
+                          editar la entrega del mismo, así podrás agregar o eliminar
+                          autores, de igual forma sucede con los tutores.</b
+                        >
+                      </p>
+          
+                      <p>Cuando agregues tu proyecto aparecerá una pantalla como esta:</p>
+          
+                      <div class="container">
+                        <img
+                          src="{% static 'images/guia/proyectosubido.png' %}"
+                          class="img-fluid"
+                          alt="..."
+                        />
+                      </div>
+          
+                      <p>
+                        El botón <b>VER</b> de la columna <b>Estado de calificación</b> te
+                        permitirá ver el estado de tus calificaciones cuando estas estén
+                        disponibles.
+                      </p>
+          
+                      <p>
+                        El botón <b>Editar</b> de la columna <b>Acción</b> le permitirá
+                        editar la entrega de dicho proyecto, este botón te llevará a un
+                        formulario similar al del registro del proyecto, allí podrás
+                        editar los campos que necesites y actualizar tu proyecto.
+                      </p>
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree"
+                    aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree"
+                  >
+                    <h5>3. ¿Como cerrar sesión?</h5>
+                  </button>
+                </h2>
+                <div
+                  id="panelsStayOpen-collapseThree"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="panelsStayOpen-headingThree"
+                >
+                  <div class="accordion-body">
+                    <p>En la barra de navegación aparecerá tu nombre, similar a como se muestra aquí:</p>
+                    
+                    <div class="container">
+                        <img
+                          src="{% static 'images/guia/cerrarsesion.png' %}"
+                          class="img-fluid"
+                          alt="..."
+                        />
+                    </div>
+                    <br>
+                    <p>Click en <b>Cerrar sesión</b>, serás redireccionado a la pantalla de login</p>
+                    
+                </div>
+                </div>
+              </div>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+{% endblock %}

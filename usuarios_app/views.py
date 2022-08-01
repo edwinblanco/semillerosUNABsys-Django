@@ -1,5 +1,6 @@
 
 
+from operator import is_
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
@@ -13,6 +14,7 @@ from django.contrib import auth, messages
 
 from django.contrib.auth.decorators import login_required
 from asignacion_evaluador.models import AsignacionEvaluacion
+from carrera_app.models import Universidad
 from evaluaciones_orales.models import ActivacionCalificacionOral, EvaluacionOral
 from evaluaciones_preseleccion.models import EvaluacionPreseleccion
 from proyectos_app.models import Proyecto
@@ -51,6 +53,9 @@ def login_view(request):
         else:
             messages.error(request, 'Las credenciales son incorrectas')
             return redirect('login-page')  
+      
+def guia_view(request):
+    return render(request, 'includes/guia.html')      
         
 def registro_view(request):
     
@@ -64,15 +69,21 @@ def registro_view(request):
             apellidos = form.cleaned_data['apellidos']
             correo_institicional = form.cleaned_data['correo_institicional']
             programa_academico = form.cleaned_data['programa_academico'] 
+            universidad = form.cleaned_data['universidad'] 
             password = form.cleaned_data['password']
             id_institucional = form.cleaned_data['id_iniversidad']
             documento = form.cleaned_data['no_documento']
+            is_tutor = form.cleaned_data['is_tutor']
             
             username = correo_institicional.split('@')[0]
             
-            user = Usuario.objects.create_user(nombres = nombres, apellidos = apellidos, username = username, correo_institicional = correo_institicional, password = password  )
+            user = Usuario.objects.create_user(nombres = nombres, apellidos = apellidos, username = username, correo_institicional = correo_institicional, password = password)
+    
+            if int(is_tutor) == 2:
+                user.is_tutor = True
     
             user.programa_academico = programa_academico
+            user.universidad = universidad
             user.id_iniversidad = id_institucional
             user.no_documento = documento
             

@@ -1,3 +1,4 @@
+from random import choices
 from django import forms
 from usuarios_app.models import Usuario
 
@@ -15,9 +16,14 @@ class FormularioRegistro(forms.ModelForm):
         
     }))
     
+    CHOICES2 = [('1', 'No'), ('2', 'Si')]
+    is_tutor = forms.ChoiceField(widget=forms.Select(attrs={
+        'class': 'form-control',        
+    }), choices=CHOICES2)
+    
     class Meta:
         model = Usuario
-        fields = ['nombres','apellidos', 'correo_institicional','no_documento', 'id_iniversidad', 'programa_academico']
+        fields = ['nombres','apellidos', 'correo_institicional','no_documento', 'id_iniversidad', 'programa_academico', 'universidad']
         
     def __init__(self, *args, **kwargs):
         super(FormularioRegistro, self).__init__(*args,)    
@@ -27,7 +33,6 @@ class FormularioRegistro(forms.ModelForm):
         self.fields['correo_institicional'].widget.attrs['placeholder'] = 'Ingresa tu correo institucional'
         self.fields['no_documento'].widget.attrs['placeholder'] = 'Ingresa tu número de identidad'
         self.fields['id_iniversidad'].widget.attrs['placeholder'] = 'Ingresa tu id de la universidad ej: U00XXXXXX'
-        
         
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
@@ -42,6 +47,3 @@ class FormularioRegistro(forms.ModelForm):
                 "Las contraseñas no coinciden"
             )
         
-        
-        
-

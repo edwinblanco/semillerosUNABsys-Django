@@ -37,7 +37,6 @@ def registro_proyecto_view(request, pk = None):
                 
                 proyecto.save()
                 
-                
                 messages.success(request, 'Se registró exitosamente el proyecto')
                 return redirect('tablero')
             

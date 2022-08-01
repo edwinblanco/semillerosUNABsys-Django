@@ -4,7 +4,7 @@ from sqlite3 import apilevel
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-from carrera_app.models import Programa
+from carrera_app.models import Programa, Universidad
 
 
 # Create your models here.
@@ -50,7 +50,8 @@ class Usuario(AbstractBaseUser):
     username = models.CharField(max_length=1000, unique=True) 
     no_documento = models.IntegerField(default=0, blank=True) 
     id_iniversidad = models.CharField(max_length=1000)
-    programa_academico = models.ForeignKey(Programa, on_delete=models.CASCADE, related_name="carrera", null=True)
+    programa_academico = models.ForeignKey(Programa, on_delete=models.CASCADE, related_name="carrera", null=True, default=1)
+    universidad = models.ForeignKey(Universidad, on_delete=models.CASCADE, related_name="universidad2", null=True, default=1)
     is_autor = models.BooleanField(default=False)
     is_evaluador = models.BooleanField(default=False)
     is_tutor = models.BooleanField(default=False)

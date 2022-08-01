@@ -23,15 +23,17 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#section_2">Sobre el evento</a>
+                    <a class="nav-link click-scroll" href="{% url 'registro' %}">Inscribirme</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#section_4">Agenda</a>
+                    <a class="nav-link click-scroll" href="{% url 'login-page' %}">Iniciar sesión</a>
                 </li>
 
+                
+
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#section_5">Contacto</a>
+                    <a class="nav-link click-scroll" href="{% url 'guia' %}">Guía detallada de inscripción</a>
                 </li>
 
             </ul>
@@ -51,7 +53,7 @@
                         </button>
                         <ul class="dropdown-menu" style="border: solid 1px #86c330;">
                         {% if user.is_autor %}<li><a class="dropdown-item" href="{% url 'tablero' %}">Proyectos de mi autoría</a></li>{% endif %}
-                          <li><a class="dropdown-item" href="#">Proyectos de mi tutoría</a></li>
+                        {% if user.is_tutor %} <li><a class="dropdown-item" href="#">Proyectos de mi tutoría</a></li>{% endif %}
                          {% if user.is_evaluador %} <li><a class="dropdown-item" href="{% url 'tablero-evaluador' %}">Mis proyectos a evaluar</a></li> {% endif %}
                         </ul>
                       </div>
