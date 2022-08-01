@@ -1,5 +1,7 @@
+from codecs import unicode_escape_decode
 from random import choices
 from django import forms
+from carrera_app.models import Universidad
 from usuarios_app.models import Usuario
 
 
@@ -21,6 +23,16 @@ class FormularioRegistro(forms.ModelForm):
         'class': 'form-control',        
     }), choices=CHOICES2)
     
+    otra_universidad = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Si no enconstraste tu universidad, escríbela aquí',
+        'class': 'form-control'
+    }), required=False)
+    
+    otra_carrera = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Si no enconstraste tu carrera, escríbela aquí',
+        'class': 'form-control'
+    }), required=False)
+    
     class Meta:
         model = Usuario
         fields = ['nombres','apellidos', 'correo_institicional','no_documento', 'id_iniversidad', 'programa_academico', 'universidad']
@@ -34,6 +46,14 @@ class FormularioRegistro(forms.ModelForm):
         self.fields['no_documento'].widget.attrs['placeholder'] = 'Ingresa tu número de identidad'
         self.fields['id_iniversidad'].widget.attrs['placeholder'] = 'Ingresa tu id de la universidad ej: U00XXXXXX'
         
+        self.fields['universidad'].required = False
+        self.fields['otra_universidad'].required = False
+        
+        self.fields['otra_carrera'].required = False
+        self.fields['programa_academico'].required = False
+        
+        self.fields['no_documento'].required = False
+        
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             
@@ -42,8 +62,34 @@ class FormularioRegistro(forms.ModelForm):
         password = cleaned_data.get('password')
         password2 = cleaned_data.get('confirmar_password')
         
+        universidad = cleaned_data.get('universidad')
+        otra_universidad = cleaned_data.get('otra_universidad')
+        
+        carrera = cleaned_data.get('programa_academico')
+        otra_carrera = cleaned_data.get('otra_carrera')
+        
         if password != password2:
             raise forms.ValidationError(
                 "Las contraseñas no coinciden"
             )
+            
+        if universidad == None and otra_universidad == "":
+            raise forms.ValidationError(
+                "Debes seleccionar tu universidad o escribirla"
+            )
+        
+        if universidad != None and otra_universidad != "":
+            raise forms.ValidationError(
+                "Solo debes seleccionar una universidad"
+            )
+            
+        if carrera == None and otra_carrera == "":
+            raise forms.ValidationError(
+                "Debes seleccionar tu programa acádemico o escribirlo"
+            )
+        
+        if carrera != None and otra_carrera != "":
+            raise forms.ValidationError(
+                "Solo debes seleccionar un programa acádemico"
+            )    
         

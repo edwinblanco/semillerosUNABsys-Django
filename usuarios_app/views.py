@@ -14,7 +14,7 @@ from django.contrib import auth, messages
 
 from django.contrib.auth.decorators import login_required
 from asignacion_evaluador.models import AsignacionEvaluacion
-from carrera_app.models import Universidad
+from carrera_app.models import Programa, Universidad
 from evaluaciones_orales.models import ActivacionCalificacionOral, EvaluacionOral
 from evaluaciones_preseleccion.models import EvaluacionPreseleccion
 from proyectos_app.models import Proyecto
@@ -74,19 +74,31 @@ def registro_view(request):
             id_institucional = form.cleaned_data['id_iniversidad']
             documento = form.cleaned_data['no_documento']
             is_tutor = form.cleaned_data['is_tutor']
+            otra_universidad = form.cleaned_data['otra_universidad']
+            otra_carrera = form.cleaned_data['otra_carrera']
             
             username = correo_institicional.split('@')[0]
             
+                           
             user = Usuario.objects.create_user(nombres = nombres, apellidos = apellidos, username = username, correo_institicional = correo_institicional, password = password)
+    
+            if universidad == None and otra_universidad != "":
+                universidad2 = Universidad.objects.create(universidad = otra_universidad)
+                user.universidad = universidad2
+            else:
+                user.universidad = universidad    
+                
+            if programa_academico == None and otra_carrera != "":
+                programa2 = Programa.objects.create(nombre = otra_carrera)
+                user.programa_academico = programa2
+            else:
+                user.programa_academico = programa_academico
     
             if int(is_tutor) == 2:
                 user.is_tutor = True
     
-            user.programa_academico = programa_academico
-            user.universidad = universidad
             user.id_iniversidad = id_institucional
-            user.no_documento = documento
-            
+            user.no_documento = documento            
             user.save()
             
             current_site = get_current_site(request)
@@ -102,9 +114,6 @@ def registro_view(request):
             to_email = correo_institicional
             send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
             send_email.send()
-            
-            
-            
             
             #messages.success(request, 'Se registró exitosamente')
             return redirect('/usuarios/login_page/?command=verification&email='+correo_institicional)
