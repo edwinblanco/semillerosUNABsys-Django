@@ -1,8 +1,9 @@
-from codecs import unicode_escape_decode
-from random import choices
+
 from django import forms
-from carrera_app.models import Universidad
+
 from usuarios_app.models import Usuario
+
+import re
 
 
 class FormularioRegistro(forms.ModelForm):
@@ -73,6 +74,23 @@ class FormularioRegistro(forms.ModelForm):
                 "Las contraseñas no coinciden"
             )
             
+        reg = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?& ])[A-Za-z\d@$!#%*?&]{8,18}$"
+        
+        # compiling regex
+        match_re = re.compile(reg)
+        # searching regex
+        res = re.search(match_re, str(password))
+        
+            
+        # validating conditions
+        if res:
+            print("Valid Password")
+        else:
+            print("Invalid Password")
+            raise forms.ValidationError(
+                "Contraseña inválida, debe contener al menos una letra mayúscula, un número, un carácter especial [@$!%*#?&] y 8 caracteres"
+            )
+        
         if universidad == None and otra_universidad == "":
             raise forms.ValidationError(
                 "Debes seleccionar tu universidad o escribirla"
