@@ -30,6 +30,6 @@ urlpatterns = [
     path('proyectos/', include('proyectos_app.urls')),
     path('evaluaciones/', include('evaluaciones_orales.urls')),
     path('evaluaciones2/', include('evaluaciones_preseleccion.urls')),
-] + static(settings.DEFAULT_FILE_STORAGE, document_root=settings.DEFAULT_FILE_STORAGE)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
