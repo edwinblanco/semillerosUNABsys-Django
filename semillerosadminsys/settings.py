@@ -10,10 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from asyncio import base_events
-from email.charset import BASE64
-from msilib.schema import Media
-from pathlib import Path
 from decouple import config
 import os
 
