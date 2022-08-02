@@ -176,7 +176,7 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-try:
-    from .local_settings import DATABASES, DEBUG
-except ImportError as e:
-    print('Error: ', e.msg)    
+#try:
+   # from .local_settings import DATABASES, DEBUG
+#except ImportError as e:
+   # print('Error: ', e.msg)    
