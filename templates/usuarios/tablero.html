@@ -54,8 +54,8 @@
                                     <td>{{ proyecto.id }}</td>
                                     <td>{{ proyecto.titulo }}</td>
                                     <td>{{ proyecto.tematica }}</td>
-                                    <td><a href="/media/{{ proyecto.proyecto_pdf }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
-                                    <td><a href="/media/{{ proyecto.carta_aval_pdf }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    <td><a href="{{ proyecto.carta_aval_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     <td>{{ proyecto.obtener_autores }}</td>
                                     <td>{{ proyecto.obtener_tutores }}</td>
                                     <td><!-- Button trigger modal -->
