@@ -110,13 +110,12 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
 DATABASES = {
    'default': {
       'ENGINE': 'django.db.backends.postgresql',
-      'USER': 'sfqjugyzfrtfqz',
-      'NAME': 'd454va3nupjnva',
-      'PASSWORD': '2ec5cc50dda4b945f0bb5ed2335ce839d3e7dcca0a25783ff4d9fd169da614a4',
-      'HOST': 'ec2-54-85-56-210.compute-1.amazonaws.com'
+      'USER': 'hgmenwrwkjrpsu',
+      'NAME': 'd8ggodnm3lnapm',
+      'PASSWORD': 'a5bca8d9e3ed321649aafe8e213e5285a5255581a8d977f658443f756f863911',
+      'HOST': 'ec2-44-210-36-247.compute-1.amazonaws.com'
   }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
