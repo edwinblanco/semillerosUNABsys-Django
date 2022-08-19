@@ -157,9 +157,11 @@ CLOUDINARY_STORAGE = {
     'API_SECRET':config('API_SECRET_CLOUDINARY'),
 }
 
+#comentar en produccion
 #STATIC_URL = '/static/'
+#STATIC_ROOT = BASE_DIR + '\static'
 #STATICFILES_DIRS = [
- #   os.path.join(BASE_DIR, 'static')
+    #os.path.join(BASE_DIR, 'static/')
 #]
 
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
@@ -169,10 +171,9 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-
 STATIC_URL = '/static/'
+
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
-#STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticCloudinaryStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

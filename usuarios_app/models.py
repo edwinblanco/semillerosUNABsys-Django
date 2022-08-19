@@ -70,7 +70,7 @@ class Usuario(AbstractBaseUser):
     objects = UsuarioManager()
     
     def __str__(self):
-        return self.nombres+" "+self.apellidos+" | "+self.correo_institicional
+        return self.correo_institicional+" | "+self.nombres+" "+self.apellidos
     
     def has_perm(self, perm, obj=None):
         return self.is_admin
@@ -78,5 +78,6 @@ class Usuario(AbstractBaseUser):
     def has_module_perms(self, add_label):
         return True
  
-        
+    class Meta:
+        ordering = ['correo_institicional']        
         

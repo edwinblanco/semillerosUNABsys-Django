@@ -31,7 +31,7 @@ def login_view_page(request):
 def tablero_view(request):
     print('userrrrrr------>', request.user.id)
     
-    proyectos = Proyecto.objects.filter(autores__id = request.user.id)
+    proyectos = Proyecto.objects.filter(autores__id = request.user.id).order_by('-fecha_creacion')
     
     print('proyectos', proyectos)
     

@@ -35,14 +35,15 @@
                             <table class="table">
                                 <thead>
                                   <tr>
-                                    <th scope="col">#</th>
+                                    <!--<th scope="col">#</th>-->
                                     <th scope="col">Título</th>
                                     <th scope="col">Temática</th>
                                     <th scope="col">PDF proyecto</th>
                                     <th scope="col">PDF carta aval</th>
                                     <th scope="col">Autores</th>
                                     <th scope="col">Tutores</th>
-                                    <th scope="col">Estado de calificación</th>
+                                    <th scope="col">Fecha ultima modificación</th>
+                                    <th scope="col">Estado de valoración</th>
                                     <th scope="col">Acción</th>
 
                                   </tr>
@@ -51,13 +52,14 @@
                                   {% for proyecto in proyectos %}
 
                                   <tr>
-                                    <td>{{ proyecto.id }}</td>
+                                    <!--<td>{{ proyecto.id }}</td>-->
                                     <td>{{ proyecto.titulo }}</td>
                                     <td>{{ proyecto.tematica }}</td>
                                     <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     <td><a href="{{ proyecto.carta_aval_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     <td>{{ proyecto.obtener_autores }}</td>
                                     <td>{{ proyecto.obtener_tutores }}</td>
+                                    <td>{{ proyecto.fecha_actualizacion }}</td>
                                     <td><!-- Button trigger modal -->
                                       <a type="button" href="{% url 'modal-calificaciones' pk=proyecto.id %}" class="btn btn-success">
                                         VER

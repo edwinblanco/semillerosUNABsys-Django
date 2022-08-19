@@ -11,7 +11,7 @@ class FormularioRegistroProyecto(forms.ModelForm):
         model = Proyecto
         fields = ['titulo','tematica','semillero', 'url_video', 'proyecto_pdf', 'carta_aval_pdf']
 
-    CHOICES = [('1', 'Terminado'), ('2', 'En proceso')]
+    CHOICES = [('1', 'Investigación Terminada'), ('2', 'Investigación en Curso'), ('3', 'Propuesta de Investigación')]
     modalidad_aprticipacion = forms.ChoiceField(widget=forms.Select(attrs={
         'placeholder': 'Confirmar contraseña',        
     }), choices=CHOICES)

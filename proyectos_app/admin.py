@@ -15,10 +15,10 @@ class ProyectoAdmin(admin.ModelAdmin):
     
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "autores":
-            kwargs["queryset"] = Usuario.objects.filter(is_autor=True)
+            kwargs["queryset"] = Usuario.objects.filter(is_autor=True).order_by('nombres', 'apellidos')
             
         if db_field.name == "tutores":
-            kwargs["queryset"] = Usuario.objects.filter(is_tutor=True)
+            kwargs["queryset"] = Usuario.objects.filter(is_tutor=True).order_by('nombres', 'apellidos')
             
         return super(ProyectoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
