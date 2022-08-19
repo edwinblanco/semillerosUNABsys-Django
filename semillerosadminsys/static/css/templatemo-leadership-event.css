@@ -886,8 +886,8 @@ strong {
   SITE FOOTER              
 -----------------------------------------*/
 .site-footer {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .site-footer .navbar-brand {

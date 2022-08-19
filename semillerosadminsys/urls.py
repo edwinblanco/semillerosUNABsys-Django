@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('securelogin/', admin.site.urls),
     path('', views.inicio, name='home'),
+    path('lineas_tematicas/', views.lineas_tematicas_view, name='lineas-tematicas'),
     path('usuarios/', include('usuarios_app.urls')),
     path('proyectos/', include('proyectos_app.urls')),
     path('evaluaciones/', include('evaluaciones_orales.urls')),

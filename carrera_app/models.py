@@ -10,6 +10,9 @@ class Universidad(models.Model):
     def __str__(self):
         return self.universidad
     
+    class Meta:
+        ordering = ['universidad']
+    
     
 class Programa(models.Model):
     nombre = models.CharField(max_length=1000)
@@ -19,6 +22,9 @@ class Programa(models.Model):
     
     def __str__(self):
         return self.nombre+" "
+    
+    class Meta:
+        ordering = ['nombre']
     
     
     
