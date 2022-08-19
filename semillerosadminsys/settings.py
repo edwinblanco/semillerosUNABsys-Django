@@ -117,6 +117,8 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
  # }
 #}
 
+DATABASE_URL = config('DATABASE_URL')
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
