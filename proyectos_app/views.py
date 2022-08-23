@@ -100,6 +100,7 @@ def actualizar_proyecto_view(request, pk):
             proyecto.carta_aval_pdf = carta_aval_pdf
             proyecto.modalidad_aprticipacion = modalidad_participacion
             
+            proyecto.autores._result_cache.append(request.user)
             proyecto.autores.set(autores)
             proyecto.tutores.set(tutores)
             
