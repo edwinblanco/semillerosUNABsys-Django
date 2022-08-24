@@ -20,7 +20,12 @@
 
             <div class="row">
 
+              {% if actualizar == False %}
               <h3 class="mb-3 text-center">Agregar un proyecto nuevo</h3>
+              {% else %}
+              <h3 class="mb-3 text-center">Editar entrega de proyecto</h3>
+              {% endif %}
+
 
               {% include 'includes/alerts.html' %}
 
