@@ -8,7 +8,7 @@ from usuarios_app.models import Usuario
 class FormularioRegistroProyecto(forms.ModelForm):
     
     otro_semillero = forms.CharField(widget=forms.TextInput(attrs={
-        'placeholder': 'Sí no enconstraste el semillero, escribelo aquí',
+        'placeholder': 'Si no encontraste el semillero, escríbelo aquí',
         'class': 'form-control'
     }), required=False)
     
