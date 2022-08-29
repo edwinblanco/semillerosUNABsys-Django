@@ -54,7 +54,7 @@
                                     <td>{{ proyecto.proyecto.id }}</td>
                                     <td>{{ proyecto.proyecto }}</td>
                                     <td>{{ proyecto.fecha_asignacion}}</td>
-                                    <td><a href="/media/{{ proyecto.proyecto.proyecto_pdf }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    <td><a href="{{ proyecto.proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     
                                     
                                     <td> 
