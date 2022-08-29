@@ -6,6 +6,8 @@ from proyectos_app.forms import FormularioRegistroProyecto
 from proyectos_app.models import Proyecto
 from django.contrib import messages
 
+from semillero_app.models import Semillero
+
 # Create your views here.
 def registro_proyecto_view(request, pk = None):
     
@@ -20,7 +22,8 @@ def registro_proyecto_view(request, pk = None):
             if form.is_valid():
                 titulo = form.cleaned_data['titulo']
                 tematica = form.cleaned_data['tematica']
-                semillero = form.cleaned_data['semillero']
+                otro_semillero = form.cleaned_data['otro_semillero']
+                semillero1 = form.cleaned_data['semillero']
                 url_video = form.cleaned_data['url_video']
                 proyecto_pdf = request.FILES['proyecto_pdf'] 
                 carta_aval_pdf = request.FILES['carta_aval_pdf']
@@ -29,6 +32,12 @@ def registro_proyecto_view(request, pk = None):
                 tutores = form.cleaned_data['tutores']
                 
                 autores._result_cache.append(request.user)
+                
+                if semillero1 == None and otro_semillero != "":
+                    semillero = Semillero.objects.create(nombre = otro_semillero)
+                    semillero.save()
+                else:
+                    semillero = semillero1
                         
                 proyecto = Proyecto.objects.create(titulo=titulo, semillero = semillero, tematica=tematica, url_video=url_video, proyecto_pdf =proyecto_pdf, carta_aval_pdf = carta_aval_pdf, modalidad_aprticipacion = modalidad_aprticipacion)
                 

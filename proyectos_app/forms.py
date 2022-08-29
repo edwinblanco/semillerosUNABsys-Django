@@ -7,6 +7,11 @@ from usuarios_app.models import Usuario
 
 class FormularioRegistroProyecto(forms.ModelForm):
     
+    otro_semillero = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Sí no enconstraste el semillero, escribelo aquí',
+        'class': 'form-control'
+    }), required=False)
+    
     class Meta:
         model = Proyecto
         fields = ['titulo','tematica','semillero', 'url_video', 'proyecto_pdf', 'carta_aval_pdf']
@@ -34,7 +39,23 @@ class FormularioRegistroProyecto(forms.ModelForm):
         
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'
+                
+        self.fields['semillero'].required = False        
         
-    
+    def clean(self):
+        cleaned_data = super(FormularioRegistroProyecto, self).clean()
+      
+        semillero = cleaned_data.get('semillero')
+        otro_semillero = cleaned_data.get('otro_semillero')    
+        
+        if semillero == None and otro_semillero == "":
+            raise forms.ValidationError(
+                "Debes seleccionar el semillero o escribirlo"
+            )
+        
+        if semillero != None and otro_semillero != "":
+            raise forms.ValidationError(
+                "Solo debes seleccionar un semillero"
+            )   
             
      
