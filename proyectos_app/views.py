@@ -93,13 +93,20 @@ def actualizar_proyecto_view(request, pk):
         if form.is_valid():
             titulo = form.cleaned_data['titulo']
             tematica = form.cleaned_data['tematica']
-            semillero = form.cleaned_data['semillero']
+            semillero1 = form.cleaned_data['semillero']
+            otro_semillero = form.cleaned_data['otro_semillero']
             url_video = form.cleaned_data['url_video']
             proyecto_pdf = request.FILES['proyecto_pdf'] 
             carta_aval_pdf = request.FILES['carta_aval_pdf']
             modalidad_participacion = form.cleaned_data['modalidad_aprticipacion']
             autores = form.cleaned_data['autores']
             tutores = form.cleaned_data['tutores']
+            
+            if semillero1 == None and otro_semillero != "":
+                semillero = Semillero.objects.create(nombre = otro_semillero)
+                semillero.save()
+            else:
+                semillero = semillero1
             
             proyecto.titulo = titulo
             proyecto.tematica = tematica
@@ -119,6 +126,6 @@ def actualizar_proyecto_view(request, pk):
             return redirect('tablero')
         
         else: 
-            messages.error(request, 'error')
+            messages.error(request, 'error, campos invalidos')
             return redirect('/proyectos/actualizacion_proyecto/'+str(proyecto.id))
                 
