@@ -2,7 +2,15 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from usuarios_app.models import Usuario
 
-class UsuarioAdmin(UserAdmin):
+from import_export import resources
+from import_export.admin import ImportExportActionModelAdmin
+
+class UsuarioResource(resources.ModelResource):
+    class Meta:
+        model = Usuario
+        
+
+class UsuarioAdmin(UserAdmin, ImportExportActionModelAdmin):
     list_display = ('correo_institicional', 'nombres', 'apellidos', 'username', 'last_login', 'date_joined', 'is_active', 'is_autor', 'is_tutor', 'is_evaluador')
     list_display_links = ('correo_institicional', 'nombres', 'apellidos', 'username')
     readonly_fields =  ('last_login', 'date_joined')

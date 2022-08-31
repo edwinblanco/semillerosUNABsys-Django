@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'storages',
     'cloudinary_storage',
     'cloudinary',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -67,6 +68,8 @@ MIDDLEWARE = [
 SESSION_EXPIRE_SECONDS = 1200
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True
 SESSION_TIMEOUT_REDIRECT = 'login-page'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
 
 ROOT_URLCONF = 'semillerosadminsys.urls'
 

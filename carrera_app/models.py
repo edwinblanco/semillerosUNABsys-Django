@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Universidad(models.Model):
         return self.universidad
     
     class Meta:
+        verbose_name_plural = ("Universidades")
         ordering = ['universidad']
     
     
