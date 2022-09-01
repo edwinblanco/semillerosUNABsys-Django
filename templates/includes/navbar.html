@@ -55,9 +55,9 @@
                            Mis proyectos
                         </button>
                         <ul class="dropdown-menu" style="border: solid 1px #86c330;">
-                        {% if user.is_autor %}<li><a class="dropdown-item" href="{% url 'tablero' %}">Proyectos de mi autoría</a></li>{% endif %}
+                        {% if user.is_autor %}<li><a class="dropdown-item" href="{% url 'tablero' %}">Mis proyectos</a></li>{% endif %}
                         {% if user.is_tutor %} <li><a class="dropdown-item" href="#">Proyectos de mi tutoría</a></li>{% endif %}
-                         {% if user.is_evaluador %} <li><a class="dropdown-item" href="{% url 'tablero-evaluador' %}">Mis proyectos a evaluar</a></li> {% endif %}
+                        {% if user.is_evaluador %} <li><a class="dropdown-item" href="{% url 'tablero-evaluador' %}">Proyectos a evaluar</a></li> {% endif %}
                         </ul>
                       </div>
                 </li>
@@ -86,6 +86,9 @@
                         </ul>
                       </div>
                 </li>
+                <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
+                    <img class="nav-img-logo " src="{% static 'logoinge.png' %}" alt="logo_UNAB">
+                </a>
 
             </ul>
         <div>
