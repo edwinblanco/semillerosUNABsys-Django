@@ -11,8 +11,8 @@ class Proyecto(models.Model):
     tematica = models.ForeignKey(Tematica, on_delete=models.CASCADE, null=True)
     semillero = models.ForeignKey(Semillero, on_delete=models.CASCADE, null=True)
     url_video = models.URLField(max_length=1000)
-    proyecto_pdf = models.FileField(upload_to='files/proyectos')
-    carta_aval_pdf = models.FileField(upload_to='files/cartas_Aval')
+    proyecto_pdf = models.FileField(upload_to='files/proyectos', max_length=1000)
+    carta_aval_pdf = models.FileField(upload_to='files/cartas_Aval', max_length=1000)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     
