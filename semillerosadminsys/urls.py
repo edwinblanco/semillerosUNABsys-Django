@@ -29,6 +29,7 @@ urlpatterns = [
     path('lineas_tematicas/', views.lineas_tematicas_view, name='lineas-tematicas'),
     path('usuarios/', include('usuarios_app.urls')),
     path('proyectos/', include('proyectos_app.urls')),
+    path('asigancion_valoradores/', include('asignacion_evaluador.urls')),
     path('evaluaciones/', include('evaluaciones_orales.urls')),
     path('evaluaciones2/', include('evaluaciones_preseleccion.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

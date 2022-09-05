@@ -29,6 +29,7 @@ DEBUG = config('DEBUG', cast=bool, default=True)
 
 ALLOWED_HOSTS = ['*']
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -109,7 +110,7 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #   }
 #}
-
+        
 DATABASES = {
    'default': {
       'ENGINE': 'django.db.backends.postgresql',
@@ -119,6 +120,8 @@ DATABASES = {
       'HOST': 'ec2-44-210-36-247.compute-1.amazonaws.com'
   }
 }
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -219,3 +222,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 #MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   
+
+from django.db import close_old_connections
+from django.db import connection
+close_old_connections()
+with connection.cursor() as cursor:
+    sql = "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE state = 'idle'"
+    print(sql)
+    cursor.execute(sql)
+    row = cursor.fetchall()
+    print(row)

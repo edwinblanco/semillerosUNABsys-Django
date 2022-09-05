@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <style>
+        @media screen and (max-width: 480px) {
+          th{
+            font-size: 10px;
+          }
+      
+          td{
+            font-size: 10px;
+          }
+      
+        }
+      </style>
+
+    <section class="about section-padding">
+      <div class="container">
+        <div class="row ">
+          <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+
+           <form action="{% url 'asigancion-valorador-proyecto' %}" method="POST" class="">{% csrf_token %}
+
+            <div class="row">
+
+              <h3 class="mb-3 text-center">Asignar valorador</h3>
+
+              {% include 'includes/alerts.html' %}
+
+              <div class="col-lg-6 col-12 mx-auto">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"
+                        >Seleccione el  proyecto:</label>
+                    {{ form.proyecto }}
+                    <div id="emailHelp" class="form-text">
+                        
+                    </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-12 mx-auto">
+                  <div class="mb-3"">
+                      <label class="form-check-label" for="flexRadioDefault1">Seleccione los valoradores:</label>
+                        {{ form.evaluadores }}
+                  </div> 
+              </div>
+
+              <div>
+                
+                {{ form.errors }}
+    
+              </div>
+
+              <button type="submit" class="btn btn-primary col-lg-3 col-12 mx-auto" style="background-color: #2d418e;">Asignar</button><br>
+
+              <div class="text-center">
+                  <br>
+                </div>
+            </div>
+          </form>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="container-fluid">
+        <div class="row flex-nowrap">
+            <main class="col ps-md-2 pt-2">
+                <div class="row">
+    
+                    <br>
+                    <h3 class="mb-3 text-center">Asignaciones</h3>
+    
+                  {% if user.is_staff %}
+    
+                    <div class="col-12">
+                        <div class="container">
+                          
+                            <div class="row" style="overflow: auto; width: 100%;">
+                                <table class="table">
+                                    <thead>
+                                      <tr>
+                                        <!--<th scope="col">#</th>-->
+                                        <th scope="col">Proyecto</th>
+                                        <th scope="col">Valoradores</th>
+                                        <th scope="col">Fecha de asignación</th>
+                                        
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      {% for asignacion in asignaciones %}
+    
+                                      <tr>
+                                        <!--<td>{{ proyecto.id }}</td>-->
+                                        <td>{{ asignacion.proyecto }}</td>
+                                        <td>{{ asignacion.obtener_evaluadores }}</td>
+                                        <td>{{ asignacion.fecha_asignacion }}</td>
+                                       
+                                      </tr>
+    
+                                      {% endfor %}
+    
+                                    </tbody>
+                                  </table>
+                            </div>
+                        </div>
+                    </div>
+    
+                  {% endif %}  
+    
+                </div>
+            </main>
+        </div>
+      </div>
+
+    </section>
+  
+
+  </body>
+</html>
+
+{% endblock %}
