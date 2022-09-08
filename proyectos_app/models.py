@@ -25,8 +25,14 @@ class Proyecto(models.Model):
     def obtener_tutores(self):        
         return ", ".join([str(p) for p in self.tutores.all()])
     
+    def obtener_universidad(self):
+        return str(self.autores.all()[0].universidad)
+    
     def __str__(self):
         return self.titulo
+    
+    class Meta:
+        ordering = ('-fecha_creacion',)
 
 
 

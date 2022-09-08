@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  @media screen and (max-width: 480px) {
+    th{
+      font-size: 10px;
+    }
+
+    td{
+      font-size: 10px;
+    }
+
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <main class="col ps-md-2 pt-2">
+            <div class="row">
+
+                <br>
+                <br>
+                <h3 class="mb-3 text-center">Reporte de proyectos registrados</h3>
+
+              {% if user.is_staff %}
+
+                <div class="col-12">
+                    <div class="container">
+
+                        <button id="btnExcel3" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
+
+                        <div class="row" style="overflow: auto; width: 100%;">
+                            <table class="table" id="tableproyectos">
+                                <thead>
+                                  <tr>
+                                    <!--<th scope="col">#</th>-->
+                                    <th scope="col">Título</th>
+                                    <!--<th scope="col">Modalidad</th>-->
+                                    <th scope="col">Temática</th>
+                                    <th scope="col">Semillero</th>
+                                    <th scope="col">Video</th>
+                                    <th scope="col">Proyecto</th>
+                                    <th scope="col">Carta aval</th>
+                                    <th scope="col">Fecha de registro</th>
+                                    <th scope="col">Autores</th>
+                                    <th scope="col">Tutores</th>
+                                    <th scope="col">Universidad</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for proyecto in proyectos %}
+
+                                  <tr>
+                                    
+                                    <td>{{ proyecto.titulo }}</td>
+                                    <!--<td>{{ proyecto.modalidad_aprticipacion }}</td>-->
+                                    <td>{{ proyecto.tematica }}</td>
+                                    <td>{{ proyecto.semillero }}</td>
+                                    <td><a href="{{ proyecto.url_video }}" target="_blank">Ver <p style="display: none;">{{ proyecto.url_video }}</p></a></td>
+                                    <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i><p style="display: none;">{{ proyecto.proyecto_pdf.url }}</p></a></td>
+                                    <td><a href="{{ proyecto.carta_aval_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i><p style="display: none;">{{ proyecto.carta_aval_pdf.url }}</p></a></td>
+                                    <td>{{ proyecto.fecha_creacion }}</td>
+                                    <td>{{ proyecto.obtener_autores }}</td>
+                                    <td>{{ proyecto.obtener_tutores }}</td>
+                                    <td>{{ proyecto.obtener_universidad }}</td>
+                                    
+                                  </tr>
+
+                                  {% endfor %}
+
+                                </tbody>
+                              </table>
+                              <script>
+                                document.getElementById("btnExcel3").addEventListener("click", function(){
+                                var table2excel = new Table2Excel();
+                                table2excel.export(document.querySelectorAll("#tableproyectos"), "Proyectos");
+                              });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+              {% endif %}  
+
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

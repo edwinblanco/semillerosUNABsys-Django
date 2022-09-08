@@ -9,6 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+
   </head>
   <body>
 
@@ -86,9 +87,12 @@
     
                     <div class="col-12">
                         <div class="container">
-                          
+                          <br>
+                          <button id="btnExcel" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
+                          <br>
                             <div class="row" style="overflow: auto; width: 100%;">
-                                <table class="table">
+                              
+                                <table class="table" id="tableAS">
                                     <thead>
                                       <tr>
                                         <!--<th scope="col">#</th>-->
@@ -113,6 +117,14 @@
     
                                     </tbody>
                                   </table>
+
+                                  <script>
+                                      document.getElementById("btnExcel").addEventListener("click", function(){
+                                      var table2excel = new Table2Excel();
+                                      table2excel.export(document.querySelectorAll("#tableAS"), "Valoraciones_asignadas");
+                                    });
+                                  </script>
+
                             </div>
                         </div>
                     </div>
@@ -125,7 +137,6 @@
       </div>
 
     </section>
-  
 
   </body>
 </html>

@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  @media screen and (max-width: 480px) {
+    th{
+      font-size: 10px;
+    }
+
+    td{
+      font-size: 10px;
+    }
+
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <main class="col ps-md-2 pt-2">
+            <div class="row">
+
+                <br>
+                <h3 class="mb-3 text-center">Proyectos de mi tutoría</h3>
+
+              {% if user.is_tutor %}
+
+                <div class="col-12">
+                    <div class="container">
+                        <div class="row" style="overflow: auto; width: 100%;">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <!--<th scope="col">#</th>-->
+                                    <th scope="col">Título</th>
+                                    <th scope="col">Temática</th>
+                                    <th scope="col">PDF proyecto</th>
+                                    <th scope="col">PDF carta aval</th>
+                                    <th scope="col">Autores</th>
+                                    <th scope="col">Tutores</th>
+                                    <th scope="col">Fecha ultima modificación</th>
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for proyecto in proyectos %}
+
+                                  <tr>
+                                    <!--<td>{{ proyecto.id }}</td>-->
+                                    <td>{{ proyecto.titulo }}</td>
+                                    <td>{{ proyecto.tematica }}</td>
+                                    <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    <td><a href="{{ proyecto.carta_aval_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
+                                    <td>{{ proyecto.obtener_autores }}</td>
+                                    <td>{{ proyecto.obtener_tutores }}</td>
+                                    <td>{{ proyecto.fecha_actualizacion }}</td>
+                                  </tr>
+
+                                  {% endfor %}
+
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+              {% endif %}  
+                
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}

@@ -11,6 +11,7 @@ urlpatterns = [
     path('registro/', views.registro_view, name='registro'),
     path('guia/', views.guia_view, name='guia'),
     path('tablero/', views.tablero_view, name='tablero'),
+    path('tablero-tutor/', views.tablero_tutor_view, name='tablero-tutor'),
     path('tablero-evaluador/', views.tablero_evaluador_view, name='tablero-evaluador'),
     path('activate/<uidb64>/<token>/', views.activate_view, name='activate'),
     path('contrasena-olvidada/', views.contrasena_olvidada_view, name='contrasena-olvidada'),
@@ -18,5 +19,9 @@ urlpatterns = [
     path('resetear-contrasena/', views.resetearContrasena_view, name='resetearContrasena'),
 
     path('modal-calificaciones/<int:pk>', views.resumen_calificaciones_view, name='modal-calificaciones'),
+    
+    path('reporte-usuarios/', views.reporte_usuarios_view, name='reporte-usuarios'),
+
+    
 ]
 

@@ -128,4 +128,13 @@ def actualizar_proyecto_view(request, pk):
         else: 
             messages.error(request, 'error, campos invalidos')
             return redirect('/proyectos/actualizacion_proyecto/'+str(proyecto.id))
+            
                 
+def reporte_proyectos_view(request):
+    proyectos = Proyecto.objects.all()
+    
+    context = {
+        'proyectos': proyectos,
+        }
+    
+    return render(request, 'proyectos/reporte_proyectos.html', context)

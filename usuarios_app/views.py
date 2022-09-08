@@ -29,13 +29,12 @@ def login_view_page(request):
 
 
 def tablero_view(request):
-    print('userrrrrr------>', request.user.id)
-    
     proyectos = Proyecto.objects.filter(autores__id = request.user.id).order_by('-fecha_creacion')
-    
-    print('proyectos', proyectos)
-    
     return render(request, 'usuarios/tablero.html', {'proyectos': proyectos})
+
+def tablero_tutor_view(request):
+    proyectos = Proyecto.objects.filter(tutores__id = request.user.id).order_by('-fecha_creacion')
+    return render(request, 'usuarios/tablero_tutor.html', {'proyectos': proyectos})
 
 def login_view(request):
     if request.method == 'POST':
@@ -278,3 +277,13 @@ def resumen_calificaciones_view(request, pk = None):
         }
     
     return render(request, 'usuarios/modal_calificaciones.html', context)
+
+
+def reporte_usuarios_view(request):
+    usuarios = Usuario.objects.all()
+    
+    context = {
+        'usuarios': usuarios,
+        }
+    
+    return render(request, 'usuarios/reporte_usuarios.html', context)
