@@ -1,5 +1,5 @@
 from django.contrib import admin
-from proyectos_app.models import Proyecto
+from proyectos_app.models import ActivacionConvocatoria, Proyecto
 from usuarios_app.models import Usuario
 
 from import_export.admin import ImportExportActionModelAdmin
@@ -27,3 +27,19 @@ class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
 
 # Register your models here.
 # admin.site.register(Proyecto, ProyectoAdmin)
+class ActivacionConvocatoriaAdmin(admin.ModelAdmin):
+    
+    model = ActivacionConvocatoria
+
+    def get_actions(self, request):
+        actions = super(ActivacionConvocatoriaAdmin, self).get_actions(request)
+        return actions
+    
+    def has_delete_permission(self, request, obj=None):
+        return False 
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+    
+
+admin.site.register(ActivacionConvocatoria, ActivacionConvocatoriaAdmin)

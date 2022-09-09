@@ -41,6 +41,7 @@
                                     <th scope="col">Título</th>
                                     <!--<th scope="col">Modalidad</th>-->
                                     <th scope="col">Temática</th>
+                                    <th scope="col">Modalidad</th>
                                     <th scope="col">Semillero</th>
                                     <th scope="col">Video</th>
                                     <th scope="col">Proyecto</th>
@@ -60,6 +61,19 @@
                                     <td>{{ proyecto.titulo }}</td>
                                     <!--<td>{{ proyecto.modalidad_aprticipacion }}</td>-->
                                     <td>{{ proyecto.tematica }}</td>
+
+                                    {% if proyecto.modalidad_aprticipacion == "1" %}
+                                    <td>Investigación Terminada</td>
+                                    {% endif %}
+
+                                    {% if proyecto.modalidad_aprticipacion == "2" %}
+                                    <td>Investigación en Curso</td>
+                                    {% endif %}
+
+                                    {% if proyecto.modalidad_aprticipacion == "3" %}
+                                    <td>Propuesta de Investigación</td>
+                                    {% endif %}
+                                    
                                     <td>{{ proyecto.semillero }}</td>
                                     <td><a href="{{ proyecto.url_video }}" target="_blank">Ver <p style="display: none;">{{ proyecto.url_video }}</p></a></td>
                                     <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i><p style="display: none;">{{ proyecto.proyecto_pdf.url }}</p></a></td>

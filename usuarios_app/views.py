@@ -17,7 +17,7 @@ from asignacion_evaluador.models import AsignacionEvaluacion
 from carrera_app.models import Programa, Universidad
 from evaluaciones_orales.models import ActivacionCalificacionOral, EvaluacionOral
 from evaluaciones_preseleccion.models import EvaluacionPreseleccion
-from proyectos_app.models import Proyecto
+from proyectos_app.models import ActivacionConvocatoria, Proyecto
 
 from usuarios_app.forms import FormularioRegistro
 from usuarios_app.models import Usuario
@@ -30,7 +30,8 @@ def login_view_page(request):
 
 def tablero_view(request):
     proyectos = Proyecto.objects.filter(autores__id = request.user.id).order_by('-fecha_creacion')
-    return render(request, 'usuarios/tablero.html', {'proyectos': proyectos})
+    activacion_convocatoria = ActivacionConvocatoria.objects.get(id=1)
+    return render(request, 'usuarios/tablero.html', {'proyectos': proyectos, 'activacion_convocatoria': activacion_convocatoria.activacion_convocatoria})
 
 def tablero_tutor_view(request):
     proyectos = Proyecto.objects.filter(tutores__id = request.user.id).order_by('-fecha_creacion')

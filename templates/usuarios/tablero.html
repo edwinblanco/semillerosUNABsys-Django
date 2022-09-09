@@ -30,7 +30,19 @@
                 <div class="col-12">
                     <div class="container">
                       {% include 'includes/alerts.html' %}
-                      <p>¿Subir un nuevo proyecto? <a class="btn btn-primary" style="background-color: #2d418e;" href="{% url 'registro-proyecto' %}">Agregar</a></p>
+                      <p>¿Subir un nuevo proyecto? 
+                         
+                        {% if activacion_convocatoria %}
+
+                        <a class="btn btn-primary" style="background-color: #2d418e;" href="{% url 'registro-proyecto' %}">Agregar</a>
+                      
+                        {% else %}
+
+                        <b><i class="bi bi-x-circle">Convocatoria cerrada</i></b>
+
+                        {% endif %}
+
+                      </p>
                         <div class="row" style="overflow: auto; width: 100%;">
                             <table class="table">
                                 <thead>

@@ -34,7 +34,14 @@ class Proyecto(models.Model):
     class Meta:
         ordering = ('-fecha_creacion',)
 
-
+class ActivacionConvocatoria(models.Model):
+      descripcion = models.CharField(max_length=1000)
+      activacion_convocatoria = models.BooleanField(default=True)
+      
+      fecha_creacion = models.DateTimeField(auto_now_add=True)
+  
+      def __str__(self):
+          return str(self.id) + ' ' + str(self.descripcion)   
 
     
     
