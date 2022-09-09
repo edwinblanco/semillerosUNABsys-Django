@@ -126,7 +126,7 @@ def actualizar_proyecto_view(request, pk):
             return redirect('tablero')
         
         else: 
-            messages.error(request, 'error, campos invalidos')
+            messages.error(request, 'Error, campos inválidos. Ningún campo debe estar vacío, sube nuevamente los archivos.')
             return redirect('/proyectos/actualizacion_proyecto/'+str(proyecto.id))
             
                 
