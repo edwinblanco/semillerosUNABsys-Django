@@ -8,7 +8,9 @@ from import_export.admin import ImportExportActionModelAdmin
 class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
     list_display = ('id','titulo', 'tematica', 'semillero', 'proyecto_pdf', 'carta_aval_pdf', 'obtener_autores', 'obtener_tutores')
     list_display_links = ()
+    search_fields = ['titulo']
     readonly_fields =  ()
+    
     ordering = ()
     
     filter_horizontal = ()
@@ -30,6 +32,7 @@ class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
 class ActivacionConvocatoriaAdmin(admin.ModelAdmin):
     
     model = ActivacionConvocatoria
+    
 
     def get_actions(self, request):
         actions = super(ActivacionConvocatoriaAdmin, self).get_actions(request)

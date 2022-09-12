@@ -54,7 +54,7 @@
                                     <th scope="col">PDF carta aval</th>
                                     <th scope="col">Autores</th>
                                     <th scope="col">Tutores</th>
-                                    <th scope="col">Fecha ultima modificación</th>
+                                    <th scope="col">Fecha última modificación</th>
                                     <th scope="col">Estado de valoración</th>
                                     <th scope="col">Acción</th>
 
@@ -69,7 +69,7 @@
                                     <td>{{ proyecto.tematica }}</td>
                                     <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     <td><a href="{{ proyecto.carta_aval_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
-                                    <td>{{ proyecto.obtener_autores }}</td>
+                                    <td>{% for autor in proyecto.obtener_autores %}<b>*</b> {{autor}}<br>{% endfor %}</td>
                                     <td>{{ proyecto.obtener_tutores }}</td>
                                     <td>{{ proyecto.fecha_actualizacion }}</td>
                                     <td><!-- Button trigger modal -->

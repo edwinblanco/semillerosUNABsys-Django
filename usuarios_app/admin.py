@@ -15,6 +15,7 @@ class UsuarioAdmin(UserAdmin, ImportExportActionModelAdmin):
     list_display_links = ('correo_institicional', 'nombres', 'apellidos', 'username')
     readonly_fields =  ('last_login', 'date_joined')
     ordering = ('-date_joined',)
+    search_fields = ['correo_institicional','nombres', 'apellidos', 'username']
     
     filter_horizontal = ()
     list_filter = ('is_autor', 'is_tutor', 'is_evaluador')

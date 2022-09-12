@@ -20,7 +20,7 @@ class Proyecto(models.Model):
     tutores = models.ManyToManyField(Usuario, related_name='tutores')
     
     def obtener_autores(self):        
-        return ", ".join([str(p) for p in self.autores.all()])
+        return [str(p) for p in self.autores.all()]
     
     def obtener_tutores(self):        
         return ", ".join([str(p) for p in self.tutores.all()])

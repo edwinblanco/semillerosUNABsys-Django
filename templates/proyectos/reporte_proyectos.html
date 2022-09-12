@@ -5,6 +5,12 @@
 {% block content %}
 
 <style>
+
+  tr th { 
+    position: sticky;
+    top: 0;
+  }
+
   @media screen and (max-width: 480px) {
     th{
       font-size: 10px;
@@ -33,23 +39,23 @@
 
                         <button id="btnExcel3" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
 
-                        <div class="row" style="overflow: auto; width: 100%;">
+                        <div class="row" style="overflow: auto; width: 100%; height: 70vh;">
                             <table class="table" id="tableproyectos">
                                 <thead>
                                   <tr>
                                     <!--<th scope="col">#</th>-->
-                                    <th scope="col">Título</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Título</th>
                                     <!--<th scope="col">Modalidad</th>-->
-                                    <th scope="col">Temática</th>
-                                    <th scope="col">Modalidad</th>
-                                    <th scope="col">Semillero</th>
-                                    <th scope="col">Video</th>
-                                    <th scope="col">Proyecto</th>
-                                    <th scope="col">Carta aval</th>
-                                    <th scope="col">Fecha de registro</th>
-                                    <th scope="col">Autores</th>
-                                    <th scope="col">Tutores</th>
-                                    <th scope="col">Universidad</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Temática</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Modalidad</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Semillero</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Video</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Carta aval</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Fecha de registro</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Autores</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Tutores</th>
+                                    <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                     
                                   </tr>
                                 </thead>
@@ -75,11 +81,13 @@
                                     {% endif %}
                                     
                                     <td>{{ proyecto.semillero }}</td>
-                                    <td><a href="{{ proyecto.url_video }}" target="_blank">Ver <p style="display: none;">{{ proyecto.url_video }}</p></a></td>
+                                    <td><a href="{{ proyecto.url_video }}" target="_blank" style="color: #2d418e;">Ver <i class="bi bi-youtube"></i> <p style="display: none;">{{ proyecto.url_video }}</p></a></td>
                                     <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i><p style="display: none;">{{ proyecto.proyecto_pdf.url }}</p></a></td>
                                     <td><a href="{{ proyecto.carta_aval_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i><p style="display: none;">{{ proyecto.carta_aval_pdf.url }}</p></a></td>
                                     <td>{{ proyecto.fecha_creacion }}</td>
-                                    <td>{{ proyecto.obtener_autores }}</td>
+
+                                    <td>{% for autor in proyecto.obtener_autores %}<b>*</b> {{autor}}<br>{% endfor %}</td>
+
                                     <td>{{ proyecto.obtener_tutores }}</td>
                                     <td>{{ proyecto.obtener_universidad }}</td>
                                     
