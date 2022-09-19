@@ -28,6 +28,8 @@
 
     {% if user.id %}  
 
+    {% if user.is_staff %}
+
     <section class="about section-padding">
       <div class="container">
         <div class="row ">
@@ -139,6 +141,8 @@
       </div>
 
     </section>
+
+    {% endif %}
 
     {% endif %}
 
