@@ -1,5 +1,5 @@
 from django import forms
-from evaluaciones_preseleccion.models import EvaluacionPreseleccion
+from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionProyectoIngeniatec
 
 
 class FormularioCalificacionPreseleccion(forms.ModelForm):
@@ -26,6 +26,28 @@ class FormularioCalificacionPreseleccion(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(FormularioCalificacionPreseleccion, self).__init__(*args,) 
+        
+        for field in self.fields:
+                self.fields[field].widget.attrs['class'] = 'form-control'
+                
+                
+                
+class FormularioValoracionProyectoIngeniatec(forms.ModelForm):
+    
+    #observaciones = forms.CharField(widget=forms.Textarea(attrs={
+    #    'class': 'form-control',
+   # }))
+    
+    class Meta:
+        model = ValoracionProyectoIngeniatec
+        fields = [
+            'aplicacion_escenario_real',
+            'originadidad_innovacion',
+            'calidad_tecnica', 
+            'estudio_viablididad']
+    
+    def __init__(self, *args, **kwargs):
+        super(FormularioValoracionProyectoIngeniatec, self).__init__(*args,) 
         
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'

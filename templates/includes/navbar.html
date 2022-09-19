@@ -57,9 +57,22 @@
                         <ul class="dropdown-menu" style="border: solid 1px #86c330;">
                         {% if user.is_autor %}<li><a class="dropdown-item" href="{% url 'tablero' %}">Mis proyectos</a></li>{% endif %}
                         {% if user.is_tutor %} <li><a class="dropdown-item" href="{% url 'tablero-tutor' %}">Proyectos de mi tutoría</a></li>{% endif %}
-                        {% if user.is_evaluador %} <li><a class="dropdown-item" href="{% url 'tablero-evaluador' %}">Proyectos a evaluar</a></li> {% endif %}
-                        {% if user.is_staff %} <li><a class="dropdown-item" href="{% url 'asigancion-valorador-proyecto' %}">Asignar valoradores</a></li> {% endif %}
-                        </ul>
+                        {% if user.is_evaluador %} <li><a class="dropdown-item" href="{% url 'tablero-evaluador' %}">Proyectos a evaluar Semilleros de Investigación</a></li> {% endif %}
+                        {% if user.is_evaluador %} <li><a class="dropdown-item" href="{% url 'tablero-evaluador-inngeniatec' %}">Proyectos a evaluar INNGENIATE-C</a></li> {% endif %}
+                    
+                    </ul>
+                      </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown"  style="border:none;">
+                        <button class="btn btn-secondary dropdown-toggle nav-link click-scroll" style="background-color: #86c330; padding: 10px; border: none;" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                           Asignar valoradores
+                        </button>
+                        <ul class="dropdown-menu" style="border: solid 1px #86c330;">
+                        {% if user.is_staff %} <li><a class="dropdown-item" href="{% url 'asigancion-valorador-proyecto' %}">Asignar valoradores Semilleros de Investigación</a></li> {% endif %}
+                        {% if user.is_staff %} <li><a class="dropdown-item" href="{% url 'asigancion-valorador-proyecto-inngeniatec' %}">Asignar valoradores INNGENIATE-C</a></li> {% endif %}
+                    </ul>
                       </div>
                 </li>
 
@@ -71,7 +84,7 @@
                            Reportes
                         </button>
                         <ul class="dropdown-menu" style="border: solid 1px #86c330;">
-                          <li><a class="dropdown-item" href="{% url 'reporte-proyectos' %}">Proyectos inscritos</a></li>
+                          <li><a class="dropdown-item" href="{% url 'reporte-proyectos' %}">Proyectos de Semilleros inscritos</a></li>
                           <li><a class="dropdown-item" href="{% url 'reporte-usuarios' %}">Usuarios del sistema</a></li>
                         </ul>
                       </div>

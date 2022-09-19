@@ -13,10 +13,10 @@ from django.shortcuts import redirect, render
 from django.contrib import auth, messages
 
 from django.contrib.auth.decorators import login_required
-from asignacion_evaluador.models import AsignacionEvaluacion
+from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec
 from carrera_app.models import Programa, Universidad
 from evaluaciones_orales.models import ActivacionCalificacionOral, EvaluacionOral
-from evaluaciones_preseleccion.models import EvaluacionPreseleccion
+from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionProyectoIngeniatec
 from proyectos_app.models import ActivacionConvocatoria, Proyecto
 
 from usuarios_app.forms import FormularioRegistro
@@ -288,3 +288,10 @@ def reporte_usuarios_view(request):
         }
     
     return render(request, 'usuarios/reporte_usuarios.html', context)
+
+def tablero_evaluador_inngeniatec_view(request):
+    
+    proyectos_asignados = AsignacionEvaluacionInngeniatec.objects.filter(evaluadores__id = request.user.id)
+    calificacion_inngeniatec = ValoracionProyectoIngeniatec.objects.filter(evaluador = request.user.id, is_calificado = True)
+    
+    return render(request, 'usuarios/tablero_evaluador_ingenniatec.html', {'proyectos_asignados': proyectos_asignados, 'calificacion_inngeniatec': calificacion_inngeniatec})    

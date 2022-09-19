@@ -30,6 +30,10 @@ class EvaluacionOral(models.Model):
         cali3 = self.creatividad_diseño * 0.35
         
         return "{0:.1f}".format((cali1 + cali2 + cali3)*0.3) 
+    
+    class Meta:
+        verbose_name = "Valoración Oral"
+        verbose_name_plural = "Valoraciones orales"
         
     
 class CalificacionFinalProyecto(models.Model):

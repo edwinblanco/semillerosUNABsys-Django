@@ -3,14 +3,14 @@ from django.shortcuts import render
 # Create your views here.
 from enum import auto
 from django.shortcuts import get_object_or_404, redirect, render
-from asignacion_evaluador.models import AsignacionEvaluacion
+from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec
 from evaluaciones_orales.forms import FormularioCalificacionOral
 from evaluaciones_orales.models import EvaluacionOral
 from django.contrib import messages
-from evaluaciones_preseleccion.forms import FormularioCalificacionPreseleccion
-from evaluaciones_preseleccion.models import EvaluacionPreseleccion
+from evaluaciones_preseleccion.forms import FormularioCalificacionPreseleccion, FormularioValoracionProyectoIngeniatec
+from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionProyectoIngeniatec
 
-from proyectos_app.models import Proyecto
+from proyectos_app.models import Proyecto, ProyectoInngeniatec
 
 # Create your views here.
 def registro_calificacion_preseleccion_view(request, pk = None, pk_calificacion = None):
@@ -87,3 +87,53 @@ def registro_calificacion_preseleccion_view(request, pk = None, pk_calificacion 
     }        
     
     return render(request,'evaluaciones/registro_evaluacion_preseleccion.html', contex)
+
+
+def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion = None):
+    
+    form = FormularioValoracionProyectoIngeniatec()
+    
+    proyecto = ProyectoInngeniatec()
+    proyecto = ProyectoInngeniatec.objects.get(id=pk)
+    
+    if request.method == 'POST':
+        form = FormularioValoracionProyectoIngeniatec(request.POST)
+                
+        if form.is_valid():
+                aplicacion_escenario_real = form.cleaned_data['aplicacion_escenario_real']
+                originadidad_innovacion = form.cleaned_data['originadidad_innovacion']
+                calidad_tecnica = form.cleaned_data['calidad_tecnica']
+                estudio_viablididad = form.cleaned_data['estudio_viablididad']
+                
+                evaluador = request.user
+                is_calificado = True
+                        
+                calificacion = ValoracionProyectoIngeniatec.objects.create(
+                    aplicacion_escenario_real = aplicacion_escenario_real, 
+                    originadidad_innovacion = originadidad_innovacion,
+                    calidad_tecnica = calidad_tecnica,
+                    estudio_viablididad = estudio_viablididad, 
+                    evaluador = evaluador, 
+                    is_calificado = is_calificado, 
+                    proyecto = proyecto)
+                
+                calificacion.save()
+                
+                asignacion = get_object_or_404(AsignacionEvaluacionInngeniatec, id = pk_calificacion)
+                asignacion.asignacion_calificada1 = True
+                asignacion.save()
+                
+                messages.success(request, 'Se registró exitosamente la valoración')
+                return redirect('tablero-evaluador-inngeniatec')
+            
+        else: 
+            messages.error(request, 'error')  
+                
+    contex = {
+        'form': form,
+        'proyecto': proyecto,
+        'idp': pk,
+        'idc': pk_calificacion,
+    }        
+    
+    return render(request,'evaluaciones/registro_evaluacion_inngeniatec.html', contex)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from proyectos_app.models import ActivacionConvocatoria, Proyecto
+from proyectos_app.models import ActivacionConvocatoria, Proyecto, ProyectoInngeniatec
 from usuarios_app.models import Usuario
 
 from import_export.admin import ImportExportActionModelAdmin
@@ -25,6 +25,18 @@ class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
             kwargs["queryset"] = Usuario.objects.filter(is_tutor=True).order_by('nombres', 'apellidos')
             
         return super(ProyectoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+
+@admin.register(ProyectoInngeniatec)
+class ProyectoInngeniatecAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
+    list_display = ('id','titulo', 'integrantes', 'programa_integrantes', 'categoria', 'tutor', 'palabras_clave', 'url_video')
+    list_display_links = ('titulo',)
+    search_fields = ['titulo', 'integrantes', 'programa_integrantes','categoria', 'tutor', 'palabras_clave']
+    readonly_fields =  ()
+    ordering = ()
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()
 
 
 # Register your models here.

@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>evaluar</title>
+  </head>
+  <body>
+    <section class="about section-padding">
+      <div class="container">
+        <div class="row ">
+          <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+
+           <form action="{% url 'registro-evaluacion-inngeniatec' pk=idp pk_calificacion=idc %}" method="POST" class="">{% csrf_token %}
+
+            <div class="row">
+             
+              <h3 class="mb-3 text-center">Valoración para:</h3>
+              <h6 class="mb-3 text-center">{{proyecto}}</h6>
+
+              {% include 'includes/alerts.html' %}
+
+              <div class="col-lg-6 col-12 mx-auto">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Aplicación escenario real - ¿Qué tanto refleja el proyecto-producto el siguiente enunciado?
+                    <br>
+                    <p>El producto apunta a resolver necesidades o problemas existentes de alguna organización o comunidad, usando y aplicando conceptos y técnicas propias las disciplinas involucradas en la solución</p>
+                    </label>
+                  {{ form.aplicacion_escenario_real }}
+                  <div id="emailHelp" class="form-text">
+                    
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"
+                    >Originalidad e innovación- En una escala de 1 a 4, donde 1 es poco original y 4 es muy original, ¿Cómo evaluaría la originalidad e innovación del proyecto-producto?</label
+                  >
+                  {{ form.originadidad_innovacion }}
+                  <div id="emailHelp" class="form-text">
+                    
+                  </div>
+                </div>
+               
+              </div>
+              <div class="col-lg-6 col-12 mx-auto">
+                <div class="mb-3">
+                    <label class="form-label"
+                      >Calidad técnica- En una escala de 1 a 4, donde 1 refleja un desarrollo de baja calidad metodológica y 4 un desarrollo basado en una metodología clara y repetible, ¿Cómo evaluaría la calidad técnica del proyecto-producto?</label
+                    >
+                    {{ form.calidad_tecnica }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+                  <div class="mb-3">
+                    <label class="form-label"
+                      >Estudio de viabilidad- ¿Qué tanto refleja el proyecto-producto la consecución de los siguientes items?</label
+                    >
+                    <br>
+                    <p>
+                        - Las dificultades para su implementación han sido consideradas y son superables en el corto o mediano plazo.
+                        <br>
+                        - La solución propuesta consideró adecuadamente en su formulario criterios de viabilidad de mercado
+                        <br>
+                        - La solución propuesta consideró adecuadamente en su formulario criterios de viabilidad técnica y administrativa
+                        <br>
+                        - La solución propuesta consideró adecuadamente en su formulario criterios de viabilidad financiera
+                    </p>
+                    
+                    {{ form.estudio_viablididad }}
+                    <div id="emailHelp" class="form-text">
+                      
+                    </div>
+                  </div> 
+
+              </div>
+
+              <div >
+                
+                {{ form.errors }}
+    
+              </div>
+
+              <button type="submit" class="btn btn-primary col-lg-3 col-12 mx-auto" style="background-color: #2d418e;">Calificar proyecto</button><br>
+              
+              <div class="text-center">
+                  <br>
+                </div>
+            </div>
+          </form>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
+
+{% endblock %}

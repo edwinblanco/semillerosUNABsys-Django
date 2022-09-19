@@ -27,6 +27,8 @@ class Programa(models.Model):
     
     class Meta:
         ordering = ['nombre']
+        verbose_name = "Programa Académico"
+        verbose_name_plural = "Programas Académicos"
     
     
     

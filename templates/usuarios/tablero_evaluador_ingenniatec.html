@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+  @media screen and (max-width: 480px) {
+    th{
+      font-size: 10px;
+    }
+
+    td{
+      font-size: 10px;
+    }
+
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <main class="col ps-md-2 pt-2">
+            <div class="row">
+
+                <br>
+                <h3 class="mb-3 text-center">Tus proyectos a evaluar de INNGENIATE-C</h3>
+
+              {% if user.is_evaluador %}
+
+                <div class="col-12">
+                    <div class="container">
+                      {% include 'includes/alerts.html' %}
+                        <div class="row" style="overflow: auto; width: 100%;">
+                            <table class="table">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Título del proyecto</th>
+                                    <th scope="col">Fecha de asignación</th>
+                                    <th scope="col">calificación preselección </th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for proyecto in proyectos_asignados %}
+
+                                  <tr>
+                                    
+                                    <td>{{ proyecto.proyecto }}</td>
+                                    <td>{{ proyecto.fecha_asignacion}}</td>
+
+                                    <td> 
+                                      {% if proyecto.asignacion_calificada1  %}
+
+                                        <i class="bi bi-check-circle">Calificado</i>
+                                                
+                                      {% else %}
+                                      <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
+                                      {% endif %}
+                                    </td>
+                                  </tr>
+
+                                  {% endfor %}
+
+                                </tbody>
+                              </table>
+                        </div>
+                    </div>
+                </div>
+
+              {% endif %}  
+
+            </div>
+        </main>
+    </div>
+</div>
+{% endblock %}

@@ -33,6 +33,29 @@ class Proyecto(models.Model):
     
     class Meta:
         ordering = ('-fecha_creacion',)
+        verbose_name = "Proyecto de semillero"
+        verbose_name_plural = "Proyectos de Semilleros"
+        
+class ProyectoInngeniatec(models.Model):
+    titulo = models.CharField(max_length=10000)
+    email_contacto = models.CharField(max_length=1000, default=None, blank=True, null=True)
+    integrantes = models.CharField(max_length=10000)
+    programa_integrantes = models.CharField(max_length=1000)
+    categoria = models.CharField(max_length=1000,  default=None)
+    tutor = models.CharField(max_length=1000)
+    palabras_clave = models.CharField(max_length=10000)
+    resumen = models.CharField(max_length=100000)
+    url_video = models.URLField(max_length=10000, default=None, blank=True, null=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_actualizacion = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.titulo
+    
+    class Meta:
+        ordering = ('-fecha_creacion',)        
+        verbose_name = "Proyecto de Inngeniatec"
+        verbose_name_plural = "Proyectos de Inngeniatec"
 
 class ActivacionConvocatoria(models.Model):
       descripcion = models.CharField(max_length=1000)
