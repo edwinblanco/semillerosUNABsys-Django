@@ -37,7 +37,7 @@ def tablero_tutor_view(request):
     proyectos = Proyecto.objects.filter(tutores__id = request.user.id).order_by('-fecha_creacion')
     return render(request, 'usuarios/tablero_tutor.html', {'proyectos': proyectos})
 
-def login_view(request):
+def login_view(request, valorador = 0):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -48,8 +48,13 @@ def login_view(request):
             auth.login(request, user)
             #print('-----user-- ', user.is_active)
             
-            return redirect('tablero')
-        
+            if request.user.is_evaluador:
+                return redirect('tablero-inicial-valorador')
+            if valorador == 0:
+                return redirect('tablero')
+            else:
+                return redirect('tablero-inicial-valorador')
+                
         else:
             messages.error(request, 'Las credenciales son incorrectas')
             return redirect('login-page')  
@@ -294,4 +299,15 @@ def tablero_evaluador_inngeniatec_view(request):
     proyectos_asignados = AsignacionEvaluacionInngeniatec.objects.filter(evaluadores__id = request.user.id)
     calificacion_inngeniatec = ValoracionProyectoIngeniatec.objects.filter(evaluador = request.user.id, is_calificado = True)
     
-    return render(request, 'usuarios/tablero_evaluador_ingenniatec.html', {'proyectos_asignados': proyectos_asignados, 'calificacion_inngeniatec': calificacion_inngeniatec})    
+    return render(request, 'usuarios/tablero_evaluador_ingenniatec.html', {'proyectos_asignados': proyectos_asignados, 'calificacion_inngeniatec': calificacion_inngeniatec}) 
+
+
+def tablero_inicial_valorador_view(request):
+    asignaciones_ingeniatec = AsignacionEvaluacionInngeniatec.objects.filter(evaluadores= request.user).count()
+    asignaciones_semilleros = AsignacionEvaluacion.objects.filter(evaluadores= request.user).count()
+
+    context = {
+        'asignaciones_ingeniatec': asignaciones_ingeniatec,
+        'asignaciones_semilleros': asignaciones_semilleros,
+    }
+    return render(request, 'usuarios/tablero_valorador_inicio.html', context);   

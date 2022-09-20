@@ -9,6 +9,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>evaluar</title>
+
+    <style> 
+
+      input[type=range] {
+        -webkit-appearance: none;
+        margin: 12px 0;
+      }
+      
+      
+      .range-wrap{
+        position: relative;
+      }
+      .range-value{
+        position: absolute;
+        top: -50%;
+      }
+      .range-value span{
+        width: 30px;
+        height: 24px;
+        line-height: 24px;
+        text-align: center;
+        background: #2d418e;
+        color: #fff;
+        font-size: 15px;
+        display: block;
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+        border-radius: 6px;
+      }
+      .range-value span:before{
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 10px solid #2d418e;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        margin-top: -1px;
+      }
+
+    </style>
+
   </head>
   <body>
 
@@ -25,26 +71,69 @@
              
               <h3 class="mb-3 text-center">Valoración para:</h3>
               <h6 class="mb-3 text-center">{{proyecto}}</h6>
+              <br>
+              <!-- Button trigger modal -->
+              <button type="button" class="btn btn-primary col-lg-3 col-12 mx-auto" style="background-color: #2d418e;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Ver resumen del proyecto
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade modal-dialog-scrollable " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" >
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="staticBackdropLabel">{{ proyecto.titulo }}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="text-align:justify;">
+                      <p><b>CATEGORÍA: </b> {{ proyecto.categoria }}</p>
+                      <p><b>RESUMEN: </b> {{ proyecto.resumen }} </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               {% include 'includes/alerts.html' %}
+
+              <div>
+              
+                <br>
+              </div>
 
               <div class="col-lg-6 col-12 mx-auto">
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label"
-                    >Aplicación escenario real - ¿Qué tanto refleja el proyecto-producto el siguiente enunciado?
+                    > <b>1. Aplicación escenario real - ¿Qué tanto refleja el proyecto-producto el siguiente enunciado?</b>
                     <br>
-                    <p>El producto apunta a resolver necesidades o problemas existentes de alguna organización o comunidad, usando y aplicando conceptos y técnicas propias las disciplinas involucradas en la solución</p>
-                    </label>
-                  {{ form.aplicacion_escenario_real }}
+                    <p style="text-align:justify;">El producto apunta a resolver necesidades o problemas existentes de alguna organización o comunidad, usando y aplicando conceptos y técnicas propias las disciplinas involucradas en la solución</p>
+                    Seleccione en una escala de 1 - 5 en donde 1 es: <b>No refleja el enunciado</b> y 5 es: <b>Refleja completamente el enunciado.</b> 
+                    
+                  </label>
+                    <br>
+                    <br>
+                    <div class="range-wrap">
+                      <div class="range-value" id="rangeV"></div>
+                      {{ form.aplicacion_escenario_real }}
+                    </div>
+                    <p>Valor: <span id="demo"></span></p>
                   <div id="emailHelp" class="form-text">
                     
                   </div>
                 </div>
                 <div class="mb-3">
                   <label class="form-label"
-                    >Originalidad e innovación- En una escala de 1 a 4, donde 1 es poco original y 4 es muy original, ¿Cómo evaluaría la originalidad e innovación del proyecto-producto?</label
+                    > <b>2. Originalidad e innovación - En una escala de 1 a 5, donde 1 es poco original y 5 es muy original, ¿Cómo evaluaría la originalidad e innovación del proyecto-producto?</b> </label
                   >
-                  {{ form.originadidad_innovacion }}
+                  <br>
+                  <br>
+                  <div class="range-wrap">
+                    <div class="range-value" id="rangeV2"></div>
+                    {{ form.originadidad_innovacion }}
+                  </div>
+                  <p>Valor: <span id="demo2"></span></p>
                   <div id="emailHelp" class="form-text">
                     
                   </div>
@@ -54,16 +143,22 @@
               <div class="col-lg-6 col-12 mx-auto">
                 <div class="mb-3">
                     <label class="form-label"
-                      >Calidad técnica- En una escala de 1 a 4, donde 1 refleja un desarrollo de baja calidad metodológica y 4 un desarrollo basado en una metodología clara y repetible, ¿Cómo evaluaría la calidad técnica del proyecto-producto?</label
+                      > <b>3. Calidad técnica - En una escala de 1 a 5, donde 1 refleja un desarrollo de baja calidad metodológica y 5 un desarrollo basado en una metodología clara y repetible, ¿Cómo evaluaría la calidad técnica del proyecto-producto?</b></label
                     >
-                    {{ form.calidad_tecnica }}
+                      <br>
+                      <br>
+                      <div class="range-wrap">
+                        <div class="range-value" id="rangeV3"></div>
+                        {{ form.calidad_tecnica }}
+                      </div>
+                      <p>Valor: <span id="demo3"></span></p>
                     <div id="emailHelp" class="form-text">
                       
                     </div>
                   </div> 
                   <div class="mb-3">
                     <label class="form-label"
-                      >Estudio de viabilidad- ¿Qué tanto refleja el proyecto-producto la consecución de los siguientes items?</label
+                      > <b>4. Estudio de viabilidad- ¿Qué tanto refleja el proyecto-producto la consecución de los siguientes items?</b> </label
                     >
                     <br>
                     <p>
@@ -75,8 +170,14 @@
                         <br>
                         - La solución propuesta consideró adecuadamente en su formulario criterios de viabilidad financiera
                     </p>
-                    
-                    {{ form.estudio_viablididad }}
+                    Seleccione en una escala de 1 - 5 en donde 1 es: <b>Los autores no consideraron los criteros de la evaluación de viabilidad</b> y 5 es: <b>Los criterios fueron considerados por los autores.</b>
+                    <br>
+                    <br>
+                    <div class="range-wrap">
+                      <div class="range-value" id="rangeV4"></div>
+                      {{ form.estudio_viablididad }}
+                    </div>
+                    <p>Valor: <span id="demo4"></span></p>
                     <div id="emailHelp" class="form-text">
                       
                     </div>
@@ -102,6 +203,48 @@
         </div>
       </div>
     </section>
+
+    <script>
+      function slider(range, rangeV, rangostr, demostr){
+        
+        setValue = ()=>{
+          const newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ),
+          newPosition = 10 - (newValue * 0.2);
+          rangeV.innerHTML = `<span>${range.value}</span>`;
+          rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+        };
+
+        document.addEventListener("DOMContentLoaded", setValue);
+        range.addEventListener('input', setValue);
+
+        var slider = document.getElementById(rangostr);
+        var output = document.getElementById(demostr);
+        output.innerHTML = slider.value;
+      
+        slider.oninput = function() {
+          output.innerHTML = this.value;
+        }
+      }
+
+      const range = document.getElementById('myRange'),
+      rangeV = document.getElementById('rangeV');
+
+      const range2 = document.getElementById('myRange2'),
+      rangeV2 = document.getElementById('rangeV2');
+
+      const range3 = document.getElementById('myRange3'),
+      rangeV3 = document.getElementById('rangeV3');
+
+      const range4 = document.getElementById('myRange4'),
+      rangeV4 = document.getElementById('rangeV4');
+
+      slider(range2, rangeV2, "myRange", "demo")
+      slider(range, rangeV, "myRange2", "demo2")
+      slider(range3, rangeV3, "myRange3", "demo3")
+      slider(range4, rangeV4, "myRange4", "demo4")
+      
+
+    </script> 
 
     {% endif %}
 

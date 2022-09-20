@@ -61,7 +61,9 @@ class ValoracionProyectoIngeniatec(models.Model):
         return str(self.proyecto)
     
     def calificacion_final_inngeniatec(self):
-        pass
+        sum = self.aplicacion_escenario_real + self.originadidad_innovacion + self.calidad_tecnica + self.estudio_viablididad
+        total = sum / 4
+        return "{0:.1f}".format(total)
     
     class Meta:
         verbose_name = "Valoración Inngeniatec"

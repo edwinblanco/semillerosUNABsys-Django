@@ -17,7 +17,6 @@ def registro_proyecto_view(request, pk = None):
     
         if request.method == 'POST':
             form = FormularioRegistroProyecto(request.POST, request.FILES)
-            print('dataaaaaa--- ', request.POST)
             
             if form.is_valid():
                 titulo = form.cleaned_data['titulo']

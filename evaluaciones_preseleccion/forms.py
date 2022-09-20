@@ -34,20 +34,17 @@ class FormularioCalificacionPreseleccion(forms.ModelForm):
                 
 class FormularioValoracionProyectoIngeniatec(forms.ModelForm):
     
-    #observaciones = forms.CharField(widget=forms.Textarea(attrs={
-    #    'class': 'form-control',
-   # }))
-    
+    aplicacion_escenario_real = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange'}))
+    originadidad_innovacion = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange2'}))
+    calidad_tecnica = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange3'}))
+    estudio_viablididad = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange4'}))
+
     class Meta:
         model = ValoracionProyectoIngeniatec
-        fields = [
-            'aplicacion_escenario_real',
-            'originadidad_innovacion',
-            'calidad_tecnica', 
-            'estudio_viablididad']
-    
+        fields = ('aplicacion_escenario_real', 'originadidad_innovacion', 'calidad_tecnica', 'estudio_viablididad')
+        
     def __init__(self, *args, **kwargs):
         super(FormularioValoracionProyectoIngeniatec, self).__init__(*args,) 
         
         for field in self.fields:
-                self.fields[field].widget.attrs['class'] = 'form-control'
+                self.fields[field].widget.attrs['class'] = 'form-range'

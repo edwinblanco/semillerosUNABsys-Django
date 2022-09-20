@@ -49,16 +49,16 @@ def asignar_valorador_inngeniatec_view(request, pk = None):
         if form.is_valid():
             proyecto = form.cleaned_data['proyecto']
             evaluadores = form.cleaned_data['evaluadores']
-                    
-            asignacion = AsignacionEvaluacionInngeniatec.objects.create(proyecto=proyecto)
-            asignacion.evaluadores.set(evaluadores)
             
-            asignacion.save()
-            
-            
-            
-            messages.success(request, 'Se asignó correctamente')
-            return redirect('asigancion-valorador-proyecto-inngeniatec')
+            count_asiganciones = AsignacionEvaluacionInngeniatec.objects.filter(proyecto=proyecto).count()
+            if count_asiganciones >= 1:
+                messages.error(request, 'El proyecto ya tiene valorador/es asignado/os')
+            else:           
+                asignacion = AsignacionEvaluacionInngeniatec.objects.create(proyecto=proyecto)
+                asignacion.evaluadores.set(evaluadores)
+                asignacion.save()
+                messages.success(request, 'Se asignó correctamente')
+                return redirect('asigancion-valorador-proyecto-inngeniatec')
         
         else: 
             messages.error(request, 'error')

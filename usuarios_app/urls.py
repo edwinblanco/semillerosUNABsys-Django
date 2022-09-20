@@ -6,7 +6,7 @@ from usuarios_app import views
 
 urlpatterns = [
     path('login_page/', views.login_view_page, name='login-page'),
-    path('login/', views.login_view, name='login'),
+    path('login/<int:valorador>', views.login_view, name='login'),
     path('loguot/', views.loguot_view, name='loguot'),
     path('registro/', views.registro_view, name='registro'),
     path('guia/', views.guia_view, name='guia'),
@@ -22,6 +22,10 @@ urlpatterns = [
     path('modal-calificaciones/<int:pk>', views.resumen_calificaciones_view, name='modal-calificaciones'),
     
     path('reporte-usuarios/', views.reporte_usuarios_view, name='reporte-usuarios'),
+    
+    path('tablero-inicial-valorador/', views.tablero_inicial_valorador_view, name='tablero-inicial-valorador'),
+    
+    
 
     
 ]

@@ -1,0 +1,64 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    {% if user.is_evaluador %}
+
+    <section class="about section-padding">
+      <div class="container">
+        <div class="row ">
+          <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card">
+                <div class="card-header">
+                  Valoraciones
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Proyectos a valorar de Semilleros de Investigación</h5>
+                  <p class="card-text">Número de proyectos asignados: <b>{{ asignaciones_semilleros }}</b></p>
+                  <a href="{% url 'tablero-evaluador' %}" class="btn btn-primary" style="background-color: #2d418e;">Ir a valorar proyectos</a>
+                </div>
+              </div>
+          </div>
+          <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card">
+                <div class="card-header">
+                  Valoraciones
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Proyectos a valorar de INNGENIATE-C</h5>
+                  <p class="card-text">Número de proyectos asignados: <b>{{ asignaciones_ingeniatec }}</b></p>
+                  <a href="{% url 'tablero-evaluador-inngeniatec' %}" class="btn btn-primary" style="background-color: #2d418e;">Ir a valorar proyectos</a>
+                </div>
+              </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    {% else %}
+
+    <section class="about section-padding">
+      <div class="container">
+        <div class="row" style="align-items: center;">
+
+          <h3 style="text-align: center;">Lo sentimos, no tienes acceso a este sitio <i class="bi bi-emoji-frown"></i></h3>
+
+        </div>
+      </div>
+    </section>
+
+    {% endif %}
+
+  </body>
+</html>
+
+{% endblock %}
+

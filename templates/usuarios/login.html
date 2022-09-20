@@ -32,13 +32,21 @@
     <div class="row">
       <div class="col-lg-5 col-12 mx-auto">
         <form
-          action="{% url 'login' %}"
+          action="{% if valorador_login %} {% url 'login' valorador=1 %} {% else %} {% url 'login' valorador=0 %} {% endif %}"
           method="POST"
           class="shadow-lg p-3 mb-5 bg-body rounded"
         >
           {% csrf_token %}
 
+          {% if valorador_login %}
+
+          <h3 class="mb-3 text-center">Ingresa y valora tus proyectos asignados</h3>
+
+          {% else %}
+
           <h3 class="mb-3 text-center">Ingresa y administra tus proyectos</h3>
+
+          {% endif %}
 
           {% include 'includes/alerts.html' %}
 

@@ -15,7 +15,7 @@ class EvaluacionAdmin(admin.ModelAdmin):
     
 @admin.register(ValoracionProyectoIngeniatec)
 class EvaluacionAdmin(admin.ModelAdmin):
-    list_display = ('proyecto', 'evaluador', 'aplicacion_escenario_real', 'originadidad_innovacion','calidad_tecnica', 'estudio_viablididad')
+    list_display = ('proyecto', 'evaluador', 'aplicacion_escenario_real', 'originadidad_innovacion','calidad_tecnica', 'estudio_viablididad', 'calificacion_final_inngeniatec')
     list_display_links = ()
     readonly_fields =  ()
     ordering = ()
