@@ -18,14 +18,17 @@
 </style>
 
 <div class="container-fluid">
+  <br>
     <div class="row flex-nowrap">
         <main class="col ps-md-2 pt-2">
             <div class="row">
 
                 <br>
-                <h3 class="mb-3 text-center">Tus proyectos a evaluar de INNGENIATE-C</h3>
+                <h3 class="mb-3 text-center">Tus proyectos a valorar de INNGENIATE-C</h3>
 
               {% if user.is_evaluador %}
+
+              {% if proyectos_asignados %}
 
                 <div class="col-12">
                     <div class="container">
@@ -36,7 +39,7 @@
                                   <tr>
                                     <th scope="col">Título del proyecto</th>
                                     <th scope="col">Fecha de asignación</th>
-                                    <th scope="col">calificación preselección </th>
+                                    <th scope="col">Acción</th>
                                     
                                   </tr>
                                 </thead>
@@ -66,6 +69,16 @@
                         </div>
                     </div>
                 </div>
+
+              {% else %}
+
+                <br>
+                <h5>No te han asignado proyectos a valorar por el momento</h5>
+                <br>
+                <br>
+
+              {% endif %}  
+
 
               {% endif %}  
 

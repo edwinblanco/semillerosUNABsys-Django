@@ -5,6 +5,12 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 from carrera_app.models import Programa, Universidad
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from django.core.mail import EmailMessage, EmailMultiAlternatives
 
 
 # Create your models here.
@@ -77,7 +83,29 @@ class Usuario(AbstractBaseUser):
     
     def has_module_perms(self, add_label):
         return True
- 
+    
+    def save(self, *args, **kwargs):
+        if kwargs:
+            print('kwargs: ', kwargs)
+        else: 
+           if self.correo_institicional and self.is_evaluador and self.is_tutor == False :
+                print('Enviando email...', self.correo_institicional)
+                    
+                mail_subject = 'Has sido registrado como valorador de Proyectos'
+                body = render_to_string('usuarios/registro_valorador_email.html', {
+                    'nombre': self.nombres,
+                    'apellido': self.apellidos,
+                    'correo': self.correo_institicional,
+                })
+                    
+                to_email = self.correo_institicional
+                send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
+                send_email.send()
+                    
+                print('email enviado a: ', self.correo_institicional)
+            
+        super().save(*args, **kwargs)
+        
     class Meta:
         ordering = ['correo_institicional']        
         

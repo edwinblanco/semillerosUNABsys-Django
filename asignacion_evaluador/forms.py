@@ -24,6 +24,11 @@ class FormularioAsignarValorador(forms.ModelForm):
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'
                 
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get('evaluadores').count() > 2:
+            raise forms.ValidationError('Solo debes seleccionar 2 valoradores por proyecto')
+                
 
 class FormularioAsignarValoradorInngeniatec(forms.ModelForm):
     
@@ -45,3 +50,8 @@ class FormularioAsignarValoradorInngeniatec(forms.ModelForm):
         
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'
+                
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data.get('evaluadores').count() > 2:
+            raise forms.ValidationError('Solo debes seleccionar 2 valoradores por proyecto')

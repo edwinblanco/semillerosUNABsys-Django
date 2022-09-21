@@ -20,6 +20,11 @@ class ProyectoAdmin(admin.ModelAdmin):
             kwargs["queryset"] = Usuario.objects.filter(is_evaluador=True)
             
         return super(ProyectoAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def has_add_permission(self, request, obj=None):
+        return False
+    
+        
     
 @admin.register(AsignacionEvaluacionInngeniatec)
 class AsignacionEvaluacionInngeniatecAdmin(admin.ModelAdmin):
@@ -36,7 +41,10 @@ class AsignacionEvaluacionInngeniatecAdmin(admin.ModelAdmin):
         if db_field.name == "evaluadores":
             kwargs["queryset"] = Usuario.objects.filter(is_evaluador=True)
             
-        return super(AsignacionEvaluacionInngeniatecAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)    
+        return super(AsignacionEvaluacionInngeniatecAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+    
+    def has_add_permission(self, request, obj=None):
+        return False    
 
 # Register your models here.
 #admin.site.register(AsignacionEvaluacion)

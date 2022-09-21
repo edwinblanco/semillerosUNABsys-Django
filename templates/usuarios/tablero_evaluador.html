@@ -18,26 +18,28 @@
 </style>
 
 <div class="container-fluid">
+  <br>
     <div class="row flex-nowrap">
         <main class="col ps-md-2 pt-2">
             <div class="row">
 
-                <br>
-                <h3 class="mb-3 text-center">Tus proyectos a evaluar</h3>
+                <h3 class="mb-3 text-center">Tus proyectos a valorar - Semilleros de Investigación</h3>
 
               {% if user.is_evaluador %}
+
+              {% if proyectos_asignados %}
 
                 <div class="col-12">
                     <div class="container">
                       {% include 'includes/alerts.html' %}
-                      <h6>CRITERIOS DE VALORACIÓN 3: PRESENTACIÓN ORAL</h6>
-                      <p>La ponderación general del criterio tres corresponde al 30%. Recuerden la calificación es un valor numérico de 0 a 5.</p>
+                      <p>La ponderación general de la FASE DE PRESELECCIÓN corresponde al 70%.</p>
+                      <p>La ponderación general de la PRESENTACIÓN ORAL corresponde al 30%.</p>
+                      <p>Recuerden la calificación es un valor numérico de 0 a 5.</p>
                         <div class="row" style="overflow: auto; width: 100%;">
                             <table class="table">
                                 <thead>
                                   <tr>
-                                    <th scope="col"># calificación</th>
-                                    <th scope="col"># proyecto</th>
+    
                                     <th scope="col">Título del proyecto</th>
                                     <th scope="col">Fecha de asignación</th>
                                     <th scope="col">Documento</th>
@@ -50,8 +52,7 @@
                                   {% for proyecto in proyectos_asignados %}
 
                                   <tr>
-                                    <td>{{ proyecto.id }}</td>
-                                    <td>{{ proyecto.proyecto.id }}</td>
+                                    
                                     <td>{{ proyecto.proyecto }}</td>
                                     <td>{{ proyecto.fecha_asignacion}}</td>
                                     <td><a href="{{ proyecto.proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
@@ -120,6 +121,17 @@
                         </div>
                     </div>
                 </div>
+
+              {% else %}
+                <br>
+                <br>
+                <br>
+                <h5 style="text-align: center;">No te han asignado proyectos a evaluar por el momento.</h5>
+                <br>
+                <br>
+                <br>
+
+              {% endif %}  
 
               {% endif %}  
 
