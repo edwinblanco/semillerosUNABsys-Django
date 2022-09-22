@@ -37,7 +37,7 @@ class FormularioValoracionProyectoIngeniatec(forms.ModelForm):
     aplicacion_escenario_real = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange'}))
     originadidad_innovacion = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange2'}))
     calidad_tecnica = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange3'}))
-    estudio_viablididad = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange4'}))
+    estudio_viablididad = forms.FloatField(widget=forms.NumberInput(attrs={'type':'range', 'step': '0.5', 'min': '1', 'max': '5', 'id':'myRange4'}) , required=False)
 
     class Meta:
         model = ValoracionProyectoIngeniatec

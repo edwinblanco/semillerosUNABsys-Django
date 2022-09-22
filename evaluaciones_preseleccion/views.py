@@ -105,6 +105,9 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
                 calidad_tecnica = form.cleaned_data['calidad_tecnica']
                 estudio_viablididad = form.cleaned_data['estudio_viablididad']
                 
+                if estudio_viablididad == None:
+                    estudio_viablididad = 0.0
+                
                 evaluador = request.user
                 is_calificado = True
                         
@@ -116,6 +119,8 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
                     evaluador = evaluador, 
                     is_calificado = is_calificado, 
                     proyecto = proyecto)
+                
+                
                 
                 calificacion.save()
                 

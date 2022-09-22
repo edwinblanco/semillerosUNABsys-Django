@@ -47,7 +47,7 @@ class ValoracionProyectoIngeniatec(models.Model):
     aplicacion_escenario_real = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     originadidad_innovacion = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])
     calidad_tecnica = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])    
-    estudio_viablididad = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)])    
+    estudio_viablididad = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(5.0)] , default=0.0)    
     
     proyecto = models.ForeignKey(ProyectoInngeniatec, on_delete=models.CASCADE, null=True)
     evaluador = models.ForeignKey(Usuario, on_delete=models.CASCADE, null=True)
@@ -61,9 +61,18 @@ class ValoracionProyectoIngeniatec(models.Model):
         return str(self.proyecto)
     
     def calificacion_final_inngeniatec(self):
-        sum = self.aplicacion_escenario_real + self.originadidad_innovacion + self.calidad_tecnica + self.estudio_viablididad
-        total = sum / 4
-        return "{0:.1f}".format(total)
+        
+        if self.proyecto.categoria == 'Clase básico (de 1er a 5to semestre)' and self.proyecto.categoria == 'Proyecto colegiados':
+            sum = (self.aplicacion_escenario_real*0.3) + (self.originadidad_innovacion*0.4) + (self.calidad_tecnica*0.3)
+            return "{0:.1f}".format(sum)
+        else: 
+            if self.proyecto.categoria == 'Clase avanzado (de 6to a 10vo semestre)' and self.proyecto.categoria == 'Proyecto de grado':
+                sum = (self.aplicacion_escenario_real*0.2) + (self.originadidad_innovacion*0.4) + (self.calidad_tecnica*0.4)
+                return "{0:.1f}".format(sum)
+            else:
+                sum = (self.aplicacion_escenario_real*0.15) + (self.originadidad_innovacion*0.45) + (self.calidad_tecnica*0.2) +(self.estudio_viablididad*0.2)
+                return "{0:.1f}".format(sum)
+                    
     
     class Meta:
         verbose_name = "Valoración Inngeniatec"

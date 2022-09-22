@@ -156,6 +156,9 @@
                       
                     </div>
                   </div> 
+
+                  {% if proyecto.categoria == 'Emprendimiento' %}
+                  <!--Solo para proyectos de emprendimiento y segunda evaluacion-->
                   <div class="mb-3">
                     <label class="form-label"
                       > <b>4. Estudio de viabilidad- ¿Qué tanto refleja el proyecto-producto la consecución de los siguientes items?</b> </label
@@ -181,7 +184,9 @@
                     <div id="emailHelp" class="form-text">
                       
                     </div>
-                  </div> 
+                  </div>
+
+                  {% endif %}
 
               </div>
 
