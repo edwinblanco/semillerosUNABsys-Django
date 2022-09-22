@@ -115,8 +115,6 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
                     is_calificado = is_calificado, 
                     proyecto = proyecto)
                 
-                
-                
                 calificacion.save()
                 
                 messages.success(request, 'Se registró exitosamente la valoración')

@@ -236,7 +236,14 @@ def tablero_evaluador_view(request):
     calificaciones_preseleccion = EvaluacionPreseleccion.objects.filter(evaluador = request.user.id, is_calificado = True)
     activacion_calificacion_oral = ActivacionCalificacionOral.objects.get(id=1)
     
-    return render(request, 'usuarios/tablero_evaluador.html', {'activacion_calificacion_oral':activacion_calificacion_oral.activacion_calificacion_oral,'proyectos_asignados': proyectos_asignados, 'calificaciones_orales': calificaciones_orales, 'calificaciones_preseleccion':calificaciones_preseleccion})    
+    proyectoscalificados = []
+    
+    for asigancion in proyectos_asignados:
+        for calificacion in calificaciones_preseleccion:
+            if asigancion.proyecto == calificacion.proyecto:
+                proyectoscalificados.append(asigancion.proyecto)
+    
+    return render(request, 'usuarios/tablero_evaluador.html', {'activacion_calificacion_oral':activacion_calificacion_oral.activacion_calificacion_oral,'proyectos_asignados': proyectos_asignados, 'calificaciones_orales': calificaciones_orales, 'calificaciones_preseleccion':calificaciones_preseleccion, 'proyectoscalificados':proyectoscalificados})    
 
 
 def resumen_calificaciones_view(request, pk = None):
