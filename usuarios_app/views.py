@@ -299,7 +299,17 @@ def tablero_evaluador_inngeniatec_view(request):
     proyectos_asignados = AsignacionEvaluacionInngeniatec.objects.filter(evaluadores__id = request.user.id)
     calificacion_inngeniatec = ValoracionProyectoIngeniatec.objects.filter(evaluador = request.user.id, is_calificado = True)
     
-    return render(request, 'usuarios/tablero_evaluador_ingenniatec.html', {'proyectos_asignados': proyectos_asignados, 'calificacion_inngeniatec': calificacion_inngeniatec}) 
+    proyectoscalificados = []
+    
+    for asigancion in proyectos_asignados:
+        for calificacion in calificacion_inngeniatec:
+            if asigancion.proyecto == calificacion.proyecto:
+                proyectoscalificados.append(asigancion.proyecto)
+    
+    print("proyectos que fueron asigandos y ya fueron calificados: ", proyectoscalificados)            
+         
+    
+    return render(request, 'usuarios/tablero_evaluador_ingenniatec.html', {'proyectos_asignados': proyectos_asignados, 'calificacion_inngeniatec': calificacion_inngeniatec, 'proyectoscalificados':proyectoscalificados}) 
 
 
 def tablero_inicial_valorador_view(request):
@@ -311,3 +321,4 @@ def tablero_inicial_valorador_view(request):
         'asignaciones_semilleros': asignaciones_semilleros,
     }
     return render(request, 'usuarios/tablero_valorador_inicio.html', context);   
+

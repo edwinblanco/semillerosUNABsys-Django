@@ -62,12 +62,7 @@ def registro_calificacion_preseleccion_view(request, pk = None, pk_calificacion 
                     is_calificado = is_calificado, 
                     proyecto = proyecto)
                 
-                
                 calificacion_pres.save()
-            
-                asignacion = get_object_or_404(AsignacionEvaluacion, id = pk_calificacion)
-                asignacion.asignacion_calificada2 = True
-                asignacion.save()
                 
                 messages.success(request, 'Se registró exitosamente la calificación')
                 return redirect('tablero-evaluador')
@@ -123,10 +118,6 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
                 
                 
                 calificacion.save()
-                
-                asignacion = get_object_or_404(AsignacionEvaluacionInngeniatec, id = pk_calificacion)
-                asignacion.asignacion_calificada1 = True
-                asignacion.save()
                 
                 messages.success(request, 'Se registró exitosamente la valoración')
                 return redirect('tablero-evaluador-inngeniatec')
