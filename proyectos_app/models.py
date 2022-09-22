@@ -32,7 +32,7 @@ class Proyecto(models.Model):
         return self.titulo
     
     class Meta:
-        ordering = ('-fecha_creacion',)
+        ordering = ('titulo',)
         verbose_name = "Proyecto de semillero"
         verbose_name_plural = "Proyectos de Semilleros"
         
@@ -53,7 +53,7 @@ class ProyectoInngeniatec(models.Model):
         return self.titulo
     
     class Meta:
-        ordering = ('-fecha_creacion',)        
+        ordering = ('titulo',)        
         verbose_name = "Proyecto de Inngeniatec"
         verbose_name_plural = "Proyectos de Inngeniatec"
 
