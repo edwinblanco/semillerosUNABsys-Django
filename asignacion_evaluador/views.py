@@ -25,18 +25,20 @@ def asignar_valorador_view(request, pk = None):
                 messages.error(request, 'El proyecto ya tiene valorador/es asignado/os')
             else:   
                 
-                for valorador in evaluadores:
-                    print('evaluador ', valorador.correo_institicional) 
-                    mail_subject = 'Has sido asignado a un proyecto a valorar de Semilleros de Investigación'
-                    body = render_to_string('usuarios/notificacion_asignacion_valorador.html', {
-                        'nombre': valorador.nombres,
-                        'apellido': valorador.apellidos,
-                        'proyecto': proyecto.titulo,
-                    })
+                # no activo debido a vencimiento en la capa gratuita del servidor de correos
+    
+                #for valorador in evaluadores:
+                    #print('evaluador ', valorador.correo_institicional) 
+                    #mail_subject = 'Has sido asignado a un proyecto a valorar de Semilleros de Investigación'
+                    #body = render_to_string('usuarios/notificacion_asignacion_valorador.html', {
+                        #'nombre': valorador.nombres,
+                        #'apellido': valorador.apellidos,
+                        #'proyecto': proyecto.titulo,
+                    #})
                         
-                    to_email = valorador.correo_institicional
-                    send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
-                    send_email.send()
+                    #to_email = valorador.correo_institicional
+                    #send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
+                    #send_email.send()
                     
                 asignacion = AsignacionEvaluacion.objects.create(proyecto=proyecto)
                 asignacion.evaluadores.set(evaluadores)
@@ -74,19 +76,20 @@ def asignar_valorador_inngeniatec_view(request, pk = None):
                 messages.error(request, 'El proyecto ya tiene valorador/es asignado/os')
             else:   
                 
+                # no activo debido a vencimiento en la capa gratuita del servidor de correos
                 
-                for valorador in evaluadores:
-                    print('evaluador ', valorador.correo_institicional) 
-                    mail_subject = 'Has sido asignado a un proyecto a valorar de Inngeniate-C'
-                    body = render_to_string('usuarios/notificacion_asignacion_valorador.html', {
-                        'nombre': valorador.nombres,
-                        'apellido': valorador.apellidos,
-                        'proyecto': proyecto.titulo,
-                    })
+                #for valorador in evaluadores:
+                    #print('evaluador ', valorador.correo_institicional) 
+                    #mail_subject = 'Has sido asignado a un proyecto a valorar de Inngeniate-C'
+                    #body = render_to_string('usuarios/notificacion_asignacion_valorador.html', {
+                        #'nombre': valorador.nombres,
+                        #'apellido': valorador.apellidos,
+                        #'proyecto': proyecto.titulo,
+                    #})
                         
-                    to_email = valorador.correo_institicional
-                    send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
-                    send_email.send()
+                    #to_email = valorador.correo_institicional
+                    #send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
+                    #send_email.send()
                        
                 asignacion = AsignacionEvaluacionInngeniatec.objects.create(proyecto=proyecto)
                 asignacion.evaluadores.set(evaluadores)
