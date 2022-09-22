@@ -91,16 +91,16 @@ class Usuario(AbstractBaseUser):
            if self.correo_institicional and self.is_evaluador and self.is_tutor == False :
                 print('Enviando email...', self.correo_institicional)
                     
-                mail_subject = 'Has sido registrado como valorador de Proyectos'
-                body = render_to_string('usuarios/registro_valorador_email.html', {
-                    'nombre': self.nombres,
-                    'apellido': self.apellidos,
-                    'correo': self.correo_institicional,
-                })
+                #mail_subject = 'Has sido registrado como valorador de Proyectos'
+                #body = render_to_string('usuarios/registro_valorador_email.html', {
+                    #'nombre': self.nombres,
+                    #'apellido': self.apellidos,
+                    #'correo': self.correo_institicional,
+                #})
                     
-                to_email = self.correo_institicional
-                send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
-                send_email.send()
+                #to_email = self.correo_institicional
+                #send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
+                #send_email.send()
                     
                 print('email enviado a: ', self.correo_institicional)
             
