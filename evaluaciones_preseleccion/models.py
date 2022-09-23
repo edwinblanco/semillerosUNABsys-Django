@@ -62,11 +62,11 @@ class ValoracionProyectoIngeniatec(models.Model):
     
     def calificacion_final_inngeniatec(self):
         
-        if self.proyecto.categoria == 'Clase básico (de 1er a 5to semestre)' and self.proyecto.categoria == 'Proyecto colegiados':
+        if self.proyecto.categoria == 'Clase básico (de 1er a 5to semestre)' or self.proyecto.categoria == 'Proyecto colegiados':
             sum = (self.aplicacion_escenario_real*0.3) + (self.originadidad_innovacion*0.4) + (self.calidad_tecnica*0.3)
             return "{0:.1f}".format(sum)
         else: 
-            if self.proyecto.categoria == 'Clase avanzado (de 6to a 10vo semestre)' and self.proyecto.categoria == 'Proyecto de grado':
+            if self.proyecto.categoria == 'Clase avanzado (de 6to a 10vo semestre)' or self.proyecto.categoria == 'Proyecto de grado':
                 sum = (self.aplicacion_escenario_real*0.2) + (self.originadidad_innovacion*0.4) + (self.calidad_tecnica*0.4)
                 return "{0:.1f}".format(sum)
             else:
