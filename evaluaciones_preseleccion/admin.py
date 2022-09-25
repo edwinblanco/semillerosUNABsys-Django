@@ -4,7 +4,7 @@ from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionP
 
 @admin.register(EvaluacionPreseleccion)
 class EvaluacionAdmin(admin.ModelAdmin):
-    list_display = ('proyecto', 'presentacion_escrita', 'estructura_texto', 'fuentes_consultadas','is_calificado', 'calificacion_final_30')
+    list_display = ('proyecto', 'evaluador', 'presentacion_escrita', 'estructura_texto', 'fuentes_consultadas','is_calificado', 'calificacion_final_30')
     list_display_links = ()
     readonly_fields =  ()
     ordering = ()
