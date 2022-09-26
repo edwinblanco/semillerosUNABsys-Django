@@ -13,8 +13,12 @@
     {% if user.is_evaluador %}
 
     <section class="about section-padding">
+        <h3 class="mb-3 text-center">Sistema de Valoración de proyectos de Semilleros de Investigación e Inngeniate-C</h3>
+          <br>
+          <br>
       <div class="container">
         <div class="row ">
+
           <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
             <div class="card">
                 <div class="card-header">
@@ -38,7 +42,34 @@
                   <a href="{% url 'tablero-evaluador-inngeniatec' %}" class="btn btn-primary" style="background-color: #2d418e;">Ir a valorar proyectos</a>
                 </div>
               </div>
-        </div>
+            </div>
+
+             {% if user.is_staff %}
+             <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+              <div class="card">
+                  <div class="card-header">
+                    Calificaciones
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Calificaciones Semilleros de Investigación</h5>
+                    <a href="{% url 'reporte-calificaciones-emilleros-preseleccion' %}" class="btn btn-primary" style="background-color: #2d418e;">Ver calificaciones</a>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+              <div class="card">
+                  <div class="card-header">
+                    Calificaciones
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">Calificaciones Inngeniate-C
+                    </h5>
+                    <a href="{% url 'reporte-calificaciones-inngeniatec' %}" class="btn btn-primary" style="background-color: #2d418e;">Ver calificaciones</a>
+                  </div>
+                </div>
+            </div>
+            {% endif %}
+        
         </div>
       </div>
     </section>

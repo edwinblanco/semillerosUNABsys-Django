@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionProyectoIngeniatec
 
 @admin.register(EvaluacionPreseleccion)
@@ -23,7 +22,6 @@ class EvaluacionAdmin(admin.ModelAdmin):
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()
-    
 
 # Register your models here.
 #admin.site.register(EvaluacionOral)

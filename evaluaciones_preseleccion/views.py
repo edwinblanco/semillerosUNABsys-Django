@@ -1,4 +1,6 @@
+from email.headerregistry import ContentTypeHeader
 from django.shortcuts import render
+from operator import itemgetter
 
 # Create your views here.
 from enum import auto
@@ -131,3 +133,147 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
     }        
     
     return render(request,'evaluaciones/registro_evaluacion_inngeniatec.html', contex)
+
+def reporte_calificaciones_inngeniatec_view(request):
+    proyectos_calificados = ValoracionProyectoIngeniatec.objects.all()
+    asignaciones = AsignacionEvaluacionInngeniatec.objects.all().order_by('proyecto__categoria')
+    
+    proyectos_valorados = []
+    proyectos_no_valorados = [] 
+    
+    for proyecto_calificado in proyectos_calificados:
+        for proyecto_asigando in asignaciones:
+            if proyecto_calificado.proyecto.titulo == proyecto_asigando.proyecto.titulo:
+                proyectos_valorados.append(proyecto_calificado)
+            else:
+                proyectos_no_valorados.append(proyecto_calificado)
+            
+    reporte_proyecto = []
+    list_str_proyectos = []
+            
+    for proyecto in asignaciones:
+        notas = []
+        valoradores = []
+        proyectocount = ValoracionProyectoIngeniatec.objects.filter(proyecto=proyecto.proyecto)
+        for xyz in proyectocount:
+            notas.append(xyz.calificacion_final_inngeniatec())
+            
+        for eva in proyecto.evaluadores.all():
+            valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+          
+        notas_final = 0.0
+        notas_c = len(notas)
+        s = 0.0
+        if notas:
+            for n in notas:
+                s += float(n)
+            notas_final = s / notas_c 
+        else:       
+            notas_final = 0.0
+           
+        dtc = {
+            'cantidad': proyectocount.count(),
+            'proyecto': proyecto.proyecto,
+            'notas': notas,
+            'valoradores':valoradores,
+            'nota_final': str(notas_final),
+            'categoria': proyecto.proyecto.categoria
+            } 
+        
+        if proyecto.proyecto.titulo in list_str_proyectos:
+            print('proyecto ya registrado')
+        else:    
+            reporte_proyecto.append(dtc)
+            list_str_proyectos.append(proyecto.proyecto.titulo)
+
+    #for x in reporte_proyecto:
+       #print(f'p: {x}\n')
+        
+                   
+    #print('proyectos_calificados: ',len(reporte_proyecto))
+    #print('asignaciones: ', asignaciones.count())
+    #print('proyectos_valorados: ',len(list(set(proyectos_valorados))))
+    #print('proyectos_no_valorados: ', asignaciones.count()-len(list(set(proyectos_valorados))))
+    #print('asignaciones: ',asignaciones[0].proyecto)
+
+    reporte_proyecto.sort(key=lambda x: x['nota_final'], reverse=True)
+             
+    context ={
+        'proyectos_calificados': proyectos_calificados,
+        'asignaciones':asignaciones,
+        'reporte_proyecto':reporte_proyecto,
+        #'proyectos_valorados':proyectos_valorados,
+    }
+    return render(request,'evaluaciones/reporte_calificaciones_inngeniatec.html', context)
+
+def reporte_calificaciones_semilleros_preseleccion_view(request):
+    proyectos_calificados = EvaluacionPreseleccion.objects.all()
+    asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto__modalidad_aprticipacion')
+    
+    proyectos_valorados = []
+    proyectos_no_valorados = [] 
+    
+    for proyecto_calificado in proyectos_calificados:
+        for proyecto_asigando in asignaciones:
+            if proyecto_calificado.proyecto.titulo == proyecto_asigando.proyecto.titulo:
+                proyectos_valorados.append(proyecto_calificado)
+            else:
+                proyectos_no_valorados.append(proyecto_calificado)
+            
+    reporte_proyecto = []
+    list_str_proyectos = []
+            
+    for proyecto in asignaciones:
+        notas = []
+        valoradores = []
+        proyectocount = EvaluacionPreseleccion.objects.filter(proyecto=proyecto.proyecto)
+        for xyz in proyectocount:
+            notas.append(xyz.calificacion_final_30())
+            
+        for eva in proyecto.evaluadores.all():
+            valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+          
+        notas_final = 0.0
+        notas_c = len(notas)
+        s = 0.0
+        if notas:
+            for n in notas:
+                s += float(n)
+            notas_final = s / notas_c 
+        else:       
+            notas_final = 0.0
+           
+        dtc = {
+            'cantidad': proyectocount.count(),
+            'proyecto': proyecto.proyecto,
+            'notas': notas,
+            'valoradores':valoradores,
+            'nota_final': str(notas_final),
+            'categoria': proyecto.proyecto.modalidad_aprticipacion
+            } 
+        
+        if proyecto.proyecto.titulo in list_str_proyectos:
+            print('proyecto ya registrado')
+        else:    
+            reporte_proyecto.append(dtc)
+            list_str_proyectos.append(proyecto.proyecto.titulo)
+
+    #for x in reporte_proyecto:
+       #print(f'p: {x}\n')
+        
+                   
+    #print('proyectos_calificados: ',len(reporte_proyecto))
+    #print('asignaciones: ', asignaciones.count())
+    #print('proyectos_valorados: ',len(list(set(proyectos_valorados))))
+    #print('proyectos_no_valorados: ', asignaciones.count()-len(list(set(proyectos_valorados))))
+    #print('asignaciones: ',asignaciones[0].proyecto)
+
+    reporte_proyecto.sort(key=lambda x: x['nota_final'], reverse=True)
+             
+    context ={
+        'proyectos_calificados': proyectos_calificados,
+        'asignaciones':asignaciones,
+        'reporte_proyecto':reporte_proyecto,
+        #'proyectos_valorados':proyectos_valorados,
+    }
+    return render(request,'evaluaciones/reporte_calificaciones_semilleros_preseleccion.html', context)
