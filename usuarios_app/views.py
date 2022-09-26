@@ -1,5 +1,6 @@
 
 
+from multiprocessing import context
 from operator import is_
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
@@ -329,3 +330,109 @@ def tablero_inicial_valorador_view(request):
     }
     return render(request, 'usuarios/tablero_valorador_inicio.html', context);   
 
+def valoradores_sin_evaluar_view(request):
+    valoradores_general = Usuario.objects.filter(is_evaluador=True)
+    valoradores_general_list = []
+    
+    valoradores_semilleros = EvaluacionPreseleccion.objects.all()
+    valoradores_semilleros_list = []
+    
+    valoradores_ingeniatec = ValoracionProyectoIngeniatec.objects.all()
+    valoradores_ingeniatec_list = []
+    
+    for valorador3 in valoradores_ingeniatec:
+        
+        lst_temp2 = [
+            valorador3.evaluador.nombres,
+            valorador3.evaluador.apellidos,
+            valorador3.evaluador.correo_institicional,
+        ]
+        
+        if lst_temp2 not in valoradores_ingeniatec_list:
+            valoradores_ingeniatec_list.append(lst_temp2)
+    
+    for valorador2 in valoradores_semilleros:
+        
+        lst_temp = [
+            valorador2.evaluador.nombres,
+            valorador2.evaluador.apellidos,
+            valorador2.evaluador.correo_institicional,
+        ]
+        
+        if lst_temp not in valoradores_semilleros_list:
+            valoradores_semilleros_list.append([
+            valorador2.evaluador.nombres,
+            valorador2.evaluador.apellidos,
+            valorador2.evaluador.correo_institicional,
+            ])
+    
+    for valorador in valoradores_general:
+        valoradores_general_list.append([
+            valorador.nombres,
+            valorador.apellidos,
+            valorador.correo_institicional,
+        ])
+        
+    valoradores_sin_valorar = []
+    for valorador_g in valoradores_general:
+        lst_valorador = [
+            valorador_g.nombres,
+            valorador_g.apellidos,
+            valorador_g.correo_institicional,
+        ]
+        
+        if lst_valorador not in valoradores_ingeniatec_list and lst_valorador not in valoradores_semilleros_list:
+            valoradores_sin_valorar.append(lst_valorador)
+        
+    asignaciones_semilleros = AsignacionEvaluacion.objects.all()
+    asignaciones_ingeniatec = AsignacionEvaluacionInngeniatec.objects.all()
+    
+    asignaciones_semilleros_list = []
+    
+    for asignacion in asignaciones_semilleros:
+        for j in asignacion.evaluadores.all():
+            lst_temp = [
+                j.nombres,
+                j.apellidos,
+                j.correo_institicional,
+            ]
+            
+            if lst_temp not in asignaciones_semilleros_list:
+                asignaciones_semilleros_list.append(lst_temp)
+            
+            print(j.nombres)  
+            
+    print('-----------------------')
+    
+    for asignacion in asignaciones_ingeniatec:
+        for j in asignacion.evaluadores.all():
+            lst_temp = [
+                j.nombres,
+                j.apellidos,
+                j.correo_institicional,
+            ]
+            
+            if lst_temp not in asignaciones_semilleros_list:
+                asignaciones_semilleros_list.append(lst_temp)
+            print(j.nombres)      
+        
+    for x in valoradores_sin_valorar:
+        if x not in asignaciones_semilleros_list:
+            valoradores_sin_valorar.remove(x)
+            #print('Valorador no asignado: ', x)
+        
+    #print('# valoradores: ', valoradores_general.count())
+    #print('# valoradores list: ', valoradores_general_list)
+    #print('# valoradores list semilleros: ', valoradores_semilleros_list)
+    #print('# valoradores semilleros: ', len(valoradores_semilleros_list))
+    #print('# valoradores list ingeniatec: ', valoradores_ingeniatec_list)
+    #print('# valoradores ingeniatec: ', len(valoradores_ingeniatec_list))
+    #print('# valoradores sin valorar: ', len(valoradores_sin_valorar))
+    #print('# valoradores sin valorar: ', valoradores_sin_valorar)
+    #print('# valoradores sin valorar: ', len(asignaciones_semilleros_list))
+        
+    context = {
+        'valoradores_sin_valorar': valoradores_sin_valorar,
+    }
+        
+    return render(request, 'usuarios/valoradores_sin_evaluar.html', context);
