@@ -27,6 +27,5 @@ urlpatterns = [
     
     path('valoradores-sin-valorar/', views.valoradores_sin_evaluar_view, name='valoradores-sin-valorar'),
 
-    
 ]
 
