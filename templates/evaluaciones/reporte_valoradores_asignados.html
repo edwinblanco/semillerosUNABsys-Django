@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+
+  tr th { 
+    position: sticky;
+    top: 0;
+  }
+
+  @media screen and (max-width: 480px) {
+    th{
+      font-size: 10px;
+    }
+
+    td{
+      font-size: 10px;
+    }
+
+  }
+</style>
+
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <main class="col ps-md-2 pt-2">
+            <div class="row">
+
+                <br>
+                <h3 class="mb-3 text-center">Reporte valoradores asignados</h3>
+
+              {% if user.is_staff %}
+
+                <div class="col-12">
+                    <div class="container">
+
+                        <button id="btnExcel2" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
+
+                        <div class="row" style="overflow: auto; width: 100%; height: 70vh;">
+                            <table class="table" id="tableusuarios">
+                                <thead>
+                                  <tr>
+                                    <!--<th scope="col">#</th>-->
+                                    <th scope="col" style="text-align: center; background-color: white;">Valorador</th>
+                                    <th scope="col" style="text-align: center; background-color: white;"># proyectos asignados de Semilleros</th>
+                                    <th scope="col" style="text-align: center; background-color: white;"># proyectos asignados de Inngeniate-C</th>    
+                                    <th scope="col" style="text-align: center; background-color: white;">Total proyectos asignados</th>    
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for usuario in usuarios_asignados %}
+
+                                  <tr>
+                                    
+                                    <td>{{ usuario.0 }}</td>
+                                    <td>{{ usuario.1 }}</td>
+                                    <td>{{ usuario.2 }}</td>
+                                    <td>{{ usuario.3 }}</td>
+                                  </tr>
+
+                                  {% endfor %}
+
+                                </tbody>
+                              </table>
+                              <script>
+                                document.getElementById("btnExcel2").addEventListener("click", function(){
+                                var table2excel = new Table2Excel();
+                                table2excel.export(document.querySelectorAll("#tableusuarios"), "Proyectos_asignados_valoradores");
+                              });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+
+              {% endif %}  
+
+            </div>
+        </main>
+    </div>
+</div>
+<br>
+
+{% endblock %}
