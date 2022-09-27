@@ -158,8 +158,26 @@ def reporte_calificaciones_inngeniatec_view(request):
         for xyz in proyectocount:
             notas.append(xyz.calificacion_final_inngeniatec())
             
+        #print(f'Notas: {notas} para: {proyecto.proyecto}')
+            
+        #for i in range(len(notas)):
+            #valoradores.append(None)  
+            
         for eva in proyecto.evaluadores.all():
-            valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+            if ValoracionProyectoIngeniatec.objects.filter(evaluador=eva, proyecto=proyecto.proyecto).exists():
+                #print('existe: ',ValoracionProyectoIngeniatec.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_inngeniatec())
+                if notas[0] == ValoracionProyectoIngeniatec.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_inngeniatec():
+                    valoradores.insert(0, str(eva.nombres)+' '+str(eva.apellidos))
+                if len(notas)>1:
+                    if notas[0] == notas[1]:
+                        valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+                    else:
+                        if notas[1] == ValoracionProyectoIngeniatec.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_inngeniatec():
+                            valoradores.insert(1, str(eva.nombres)+' '+str(eva.apellidos))
+            else:
+                #print('No existe')
+                valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+            #valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
           
         notas_final = 0.0
         notas_c = len(notas)
@@ -231,7 +249,21 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             notas.append(xyz.calificacion_final_30())
             
         for eva in proyecto.evaluadores.all():
-            valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+            if EvaluacionPreseleccion.objects.filter(evaluador=eva, proyecto=proyecto.proyecto).exists():
+                
+                print('existe: ',EvaluacionPreseleccion.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_30())
+                if notas[0] == EvaluacionPreseleccion.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_30():
+                    valoradores.insert(0, str(eva.nombres)+' '+str(eva.apellidos))
+                if len(notas)>1:
+                    if notas[0] == notas[1]:
+                        valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+                    else:
+                        if notas[1] == EvaluacionPreseleccion.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_30():
+                            valoradores.insert(1, str(eva.nombres)+' '+str(eva.apellidos))
+            else:
+                print('No existe')
+                valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
+            #valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
           
         notas_final = 0.0
         notas_c = len(notas)
