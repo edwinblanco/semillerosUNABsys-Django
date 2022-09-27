@@ -164,16 +164,17 @@ def reporte_calificaciones_inngeniatec_view(request):
             #valoradores.append(None)  
             
         for eva in proyecto.evaluadores.all():
-            proyecto_consulta = ValoracionProyectoIngeniatec.objects.filter(evaluador=eva, proyecto=proyecto.proyecto)
+            
             if ValoracionProyectoIngeniatec.objects.filter(evaluador=eva, proyecto=proyecto.proyecto).exists():
+                proyecto_consulta = ValoracionProyectoIngeniatec.objects.filter(evaluador=eva, proyecto=proyecto.proyecto)[:1].get()
                 #print('existe: ',ValoracionProyectoIngeniatec.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_inngeniatec())
-                if notas[0] == proyecto_consulta[0].calificacion_final_inngeniatec():
+                if notas[0] == proyecto_consulta.calificacion_final_inngeniatec():
                     valoradores.insert(0, str(eva.nombres)+' '+str(eva.apellidos))
                 if len(notas)>1:
                     if notas[0] == notas[1]:
                         valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
                     else:
-                        if notas[1] == proyecto_consulta[0].calificacion_final_inngeniatec():
+                        if notas[1] == proyecto_consulta.calificacion_final_inngeniatec():
                             valoradores.insert(1, str(eva.nombres)+' '+str(eva.apellidos))
             else:
                 #print('No existe')
@@ -251,15 +252,15 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             
         for eva in proyecto.evaluadores.all():
             if EvaluacionPreseleccion.objects.filter(evaluador=eva, proyecto=proyecto.proyecto).exists():
-                proyecto_consulta = EvaluacionPreseleccion.objects.get(evaluador=eva, proyecto=proyecto.proyecto)
+                proyecto_consulta = EvaluacionPreseleccion.objects.filter(evaluador=eva, proyecto=proyecto.proyecto)[:1].get()
                 #print('existe: ',EvaluacionPreseleccion.objects.get(evaluador=eva, proyecto=proyecto.proyecto).calificacion_final_30())
-                if notas[0] == proyecto_consulta[0].calificacion_final_30():
+                if notas[0] == proyecto_consulta.calificacion_final_30():
                     valoradores.insert(0, str(eva.nombres)+' '+str(eva.apellidos))
                 if len(notas)>1:
                     if notas[0] == notas[1]:
                         valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
                     else:
-                        if notas[1] == proyecto_consulta[0].calificacion_final_30():
+                        if notas[1] == proyecto_consulta.calificacion_final_30():
                             valoradores.insert(1, str(eva.nombres)+' '+str(eva.apellidos))
             else:
                 print('No existe')
