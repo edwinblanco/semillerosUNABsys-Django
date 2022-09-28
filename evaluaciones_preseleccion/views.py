@@ -200,6 +200,7 @@ def reporte_calificaciones_inngeniatec_view(request):
             'categoria': proyecto.proyecto.categoria,
             'correo': proyecto.proyecto.email_contacto,
             'integrantes': proyecto.proyecto.integrantes,
+            'tutor': proyecto.proyecto.tutor,
             } 
         
         if proyecto.proyecto.titulo in list_str_proyectos:
