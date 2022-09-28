@@ -73,13 +73,20 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Temática</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Autores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota parcial 70%</th>
-            
+                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">segundaparte 2</th>
                                               </tr>
                                             </thead>
                                             <tbody>
@@ -92,6 +99,10 @@
                                               <tr>
                                                 
                                                 <td>{{ proyecto.proyecto }}</td>
+                                                <td>{{ proyecto.tematica }}</td>
+                                                <td>{{ proyecto.universidad }}</td>
+                                                <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
+                                                <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
                                                 <td>Investigación Terminada</td>
                                                 
                                                 <td>
@@ -119,6 +130,18 @@
                                                 <td>
                                                     {{ proyecto.nota_final }}
                                                 </td>
+                                                <td colspan="2">{% for obs in proyecto.observaciones %}
+                                                      {{ obs }}<br>
+                                                    {% endfor %}
+                                              </td>
+                                             
+                                              <td colspan="2">{% for obs2 in proyecto.observaciones2 %}
+                                                {{ obs2 }} <br>
+                                              
+                                              {% endfor %}
+                                              
+                                              </td>
+                                       </td>
                             
                                               </tr>
                                               {% endif %}
@@ -172,12 +195,20 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Temática</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Autores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota parcial 70%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">segundaparte 2</th>
             
                                               </tr>
                                             </thead>
@@ -192,6 +223,10 @@
                                               <tr>
                                                 
                                                 <td>{{ proyecto.proyecto }}</td>
+                                                <td>{{ proyecto.tematica }}</td>
+                                                <td>{{ proyecto.universidad }}</td>
+                                                <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
+                                                <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
                                                 <td>Investigación en Curso</td>
                                                 
                                                 <td>
@@ -218,6 +253,18 @@
                                                 </td>
                                                 <td>
                                                     <p>{{ proyecto.nota_final }}</p>
+                                                </td>
+
+                                                <td colspan="2">{% for obs in proyecto.observaciones %}
+                                                  {{ obs }}<br>
+                                                {% endfor %}
+                                                </td>
+                                              
+                                                <td colspan="2">{% for obs2 in proyecto.observaciones2 %}
+                                                  {{ obs2 }} <br>
+                                                
+                                                {% endfor %}
+                                                
                                                 </td>
                             
                                               </tr>
@@ -269,12 +316,20 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Temática</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Autores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota parcial 70%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">segundaparte 2</th>
             
                                               </tr>
                                             </thead>
@@ -287,6 +342,10 @@
                                               <tr>
                                                 
                                                 <td>{{ proyecto.proyecto }}</td>
+                                                <td>{{ proyecto.tematica }}</td>
+                                                <td>{{ proyecto.universidad }}</td>
+                                                <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
+                                                <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
                                                 <td>Propuesta de Investigación</td>
                                                 
                                                 <td>
@@ -313,6 +372,18 @@
                                                 </td>
                                                 <td>
                                                     {{ proyecto.nota_final }}
+                                                </td>
+
+                                                <td colspan="2">{% for obs in proyecto.observaciones %}
+                                                  {{ obs }}<br>
+                                                {% endfor %}
+                                                </td>
+                                              
+                                                <td colspan="2">{% for obs2 in proyecto.observaciones2 %}
+                                                  {{ obs2 }} <br>
+                                                
+                                                {% endfor %}
+                                                
                                                 </td>
                             
                                               </tr>

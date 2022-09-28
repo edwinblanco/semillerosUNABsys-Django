@@ -246,9 +246,13 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
     for proyecto in asignaciones:
         notas = []
         valoradores = []
+        observaciones = []
+        observaciones2 = []
         proyectocount = EvaluacionPreseleccion.objects.filter(proyecto=proyecto.proyecto)
         for xyz in proyectocount:
             notas.append(xyz.calificacion_final_30())
+            observaciones.append(xyz.observaciones1)
+            observaciones2.append(xyz.observaciones2)
             
         for eva in proyecto.evaluadores.all():
             if EvaluacionPreseleccion.objects.filter(evaluador=eva, proyecto=proyecto.proyecto).exists():
@@ -276,6 +280,17 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             notas_final = s / notas_c 
         else:       
             notas_final = 0.0
+            
+        autores = []    
+        for autor in proyecto.proyecto.autores.all():
+            autores.append({'nombre':autor.nombres,
+                            'apellido':autor.apellidos,
+                            'correo':autor.correo_institicional,
+                            'universidad': autor.universidad
+                            })
+            #print(f'proyecto: {proyecto.proyecto} autor: {autor}')
+           
+        #print(f'proyecto: {proyecto.proyecto} autores: {autores}')
            
         dtc = {
             'cantidad': proyectocount.count(),
@@ -283,18 +298,19 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             'notas': notas,
             'valoradores':valoradores,
             'nota_final': str("{0:.1f}".format(notas_final)),
-            'categoria': proyecto.proyecto.modalidad_aprticipacion
+            'categoria': proyecto.proyecto.modalidad_aprticipacion,
+            'autores': autores,
+            'tematica': proyecto.proyecto.tematica,
+            'universidad': autores[0]['universidad'],
+            'observaciones': observaciones,
+            'observaciones2': observaciones2
             } 
         
         if proyecto.proyecto.titulo in list_str_proyectos:
             print('proyecto ya registrado')
         else:    
             reporte_proyecto.append(dtc)
-            list_str_proyectos.append(proyecto.proyecto.titulo)
-
-    #for x in reporte_proyecto:
-       #print(f'p: {x}\n')
-        
+            list_str_proyectos.append(proyecto.proyecto.titulo)        
                    
     #print('proyectos_calificados: ',len(reporte_proyecto))
     #print('asignaciones: ', asignaciones.count())
