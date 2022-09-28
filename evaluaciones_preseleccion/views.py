@@ -197,7 +197,9 @@ def reporte_calificaciones_inngeniatec_view(request):
             'notas': notas,
             'valoradores':valoradores,
             'nota_final': str("{0:.1f}".format(notas_final)),
-            'categoria': proyecto.proyecto.categoria
+            'categoria': proyecto.proyecto.categoria,
+            'correo': proyecto.proyecto.email_contacto,
+            'integrantes': proyecto.proyecto.integrantes,
             } 
         
         if proyecto.proyecto.titulo in list_str_proyectos:
