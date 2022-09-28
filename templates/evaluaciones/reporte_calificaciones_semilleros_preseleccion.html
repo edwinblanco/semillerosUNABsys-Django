@@ -77,6 +77,8 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Tutores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Correo tutores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
@@ -103,6 +105,8 @@
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.nombre }} {{ tutor.apellido }},{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.correo }},<br>{% endfor %}</td>
                                                 <td>Investigación Terminada</td>
                                                 
                                                 <td>
@@ -199,6 +203,8 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Tutores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Correo tutores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
@@ -227,6 +233,8 @@
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.nombre }} {{ tutor.apellido }},{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.correo }},<br>{% endfor %}</td>
                                                 <td>Investigación en Curso</td>
                                                 
                                                 <td>
@@ -320,6 +328,8 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Tutores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Correo tutores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
@@ -346,6 +356,8 @@
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.nombre }} {{ tutor.apellido }},{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.correo }},<br>{% endfor %}</td>
                                                 <td>Propuesta de Investigación</td>
                                                 
                                                 <td>
@@ -440,6 +452,8 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Tutores</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Correo tutores</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
@@ -464,6 +478,8 @@
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.nombre }} {{ tutor.apellido }},{% endfor %}</td>
+                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.correo }},<br>{% endfor %}</td>
                                                 {% if proyecto.categoria == '1' %}
                                                 <td>Investigación Terminada</td>
                                                 {% endif %}

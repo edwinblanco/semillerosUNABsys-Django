@@ -290,9 +290,15 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
                             'correo':autor.correo_institicional,
                             'universidad': autor.universidad
                             })
-            #print(f'proyecto: {proyecto.proyecto} autor: {autor}')
-           
-        #print(f'proyecto: {proyecto.proyecto} autores: {autores}')
+            
+        tutores = []  
+        for tutor in proyecto.proyecto.tutores.all():
+           tutores.append({
+               'nombre': tutor.nombres,
+               'apellido': tutor.apellidos,
+               'correo': tutor.correo_institicional
+           }) 
+            
            
         dtc = {
             'cantidad': proyectocount.count(),
@@ -302,6 +308,7 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             'nota_final': str("{0:.1f}".format(notas_final)),
             'categoria': proyecto.proyecto.modalidad_aprticipacion,
             'autores': autores,
+            'tutores': tutores,
             'tematica': proyecto.proyecto.tematica,
             'universidad': autores[0]['universidad'],
             'observaciones': observaciones,
