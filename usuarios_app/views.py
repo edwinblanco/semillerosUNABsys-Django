@@ -17,7 +17,7 @@ from django.contrib.auth.decorators import login_required
 from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec
 from carrera_app.models import Programa, Universidad
 from evaluaciones_orales.models import ActivacionCalificacionOral, EvaluacionOral
-from evaluaciones_preseleccion.models import ActivacionCalificacionPreseleccion, EvaluacionPreseleccion, ValoracionProyectoIngeniatec, ValoracionProyectoIngeniatecPresencial
+from evaluaciones_preseleccion.models import ActivacionCalificacionInngeniatecPrimeraFase, ActivacionCalificacionInngeniatecSegundaFase, ActivacionCalificacionPreseleccion, EvaluacionPreseleccion, ValoracionProyectoIngeniatec, ValoracionProyectoIngeniatecPresencial
 from proyectos_app.models import ActivacionConvocatoria, Proyecto
 
 from usuarios_app.forms import FormularioRegistro
@@ -314,6 +314,9 @@ def tablero_evaluador_inngeniatec_view(request):
     calificacion_inngeniatec = ValoracionProyectoIngeniatec.objects.filter(evaluador = request.user.id, is_calificado = True)
     calificacion_inngeniatec_envivo = ValoracionProyectoIngeniatecPresencial.objects.filter(evaluador = request.user.id, is_calificado = True)
     
+    activacion_calificacion_primera_fase = ActivacionCalificacionInngeniatecPrimeraFase.objects.get(id=1)
+    activacion_calificacion_segunda_fase = ActivacionCalificacionInngeniatecSegundaFase.objects.get(id=1)
+    
     proyectoscalificados = []
     proyectoscalificados_envivo = []
     
@@ -329,7 +332,7 @@ def tablero_evaluador_inngeniatec_view(request):
     print("proyectos que fueron asigandos y ya fueron calificados: ", proyectoscalificados)            
          
     
-    return render(request, 'usuarios/tablero_evaluador_ingenniatec.html', {'proyectos_asignados': proyectos_asignados, 'calificacion_inngeniatec': calificacion_inngeniatec, 'proyectoscalificados':proyectoscalificados, 'proyectoscalificados_envivo':proyectoscalificados_envivo}) 
+    return render(request, 'usuarios/tablero_evaluador_ingenniatec.html', {'activacion_calificacion_segunda_fase':activacion_calificacion_segunda_fase.activacion_calificacion_inngeriatec1,'activacion_calificacion_primera_fase':activacion_calificacion_primera_fase.activacion_calificacion_inngeriatec1,'proyectos_asignados': proyectos_asignados, 'calificacion_inngeniatec': calificacion_inngeniatec, 'proyectoscalificados':proyectoscalificados, 'proyectoscalificados_envivo':proyectoscalificados_envivo}) 
 
 def tablero_inicial_valorador_view(request):
     asignaciones_ingeniatec = AsignacionEvaluacionInngeniatec.objects.filter(evaluadores= request.user).count()

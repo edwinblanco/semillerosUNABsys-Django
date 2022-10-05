@@ -119,3 +119,21 @@ class ValoracionProyectoIngeniatecPresencial(models.Model):
     class Meta:
         verbose_name = "Valoración Inngeniatec evento en vivo"
         verbose_name_plural = "valoraciones Inngeniatec evento en vivo" 
+        
+class ActivacionCalificacionInngeniatecPrimeraFase(models.Model):
+      descripcion = models.CharField(max_length=1000)
+      activacion_calificacion_inngeriatec1 = models.BooleanField(default=False)
+      
+      fecha_creacion = models.DateTimeField(auto_now_add=True)
+  
+      def __str__(self):
+          return str(self.id) + ' ' + str(self.descripcion) 
+      
+class ActivacionCalificacionInngeniatecSegundaFase(models.Model):
+      descripcion = models.CharField(max_length=1000)
+      activacion_calificacion_inngeriatec1 = models.BooleanField(default=False)
+      
+      fecha_creacion = models.DateTimeField(auto_now_add=True)
+  
+      def __str__(self):
+          return str(self.id) + ' ' + str(self.descripcion) 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from evaluaciones_preseleccion.models import ActivacionCalificacionPreseleccion, EvaluacionPreseleccion, ValoracionProyectoIngeniatec, ValoracionProyectoIngeniatecPresencial
+from evaluaciones_preseleccion.models import ActivacionCalificacionInngeniatecPrimeraFase, ActivacionCalificacionInngeniatecSegundaFase, ActivacionCalificacionPreseleccion, EvaluacionPreseleccion, ValoracionProyectoIngeniatec, ValoracionProyectoIngeniatecPresencial
 
 @admin.register(EvaluacionPreseleccion)
 class EvaluacionAdmin(admin.ModelAdmin):
@@ -52,3 +52,35 @@ admin.site.register(ActivacionCalificacionPreseleccion, ActivacionCalificacionPr
 
 # Register your models here.
 #admin.site.register(EvaluacionOral)
+class ActivacionCalificacionInngeniatec1Admin(admin.ModelAdmin):
+    
+    model = ActivacionCalificacionInngeniatecPrimeraFase
+
+    def get_actions(self, request):
+        actions = super(ActivacionCalificacionInngeniatec1Admin, self).get_actions(request)
+        return actions
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+
+admin.site.register(ActivacionCalificacionInngeniatecPrimeraFase, ActivacionCalificacionInngeniatec1Admin)
+
+
+class ActivacionCalificacionInngeniatec2Admin(admin.ModelAdmin):
+    
+    model = ActivacionCalificacionInngeniatecSegundaFase
+
+    def get_actions(self, request):
+        actions = super(ActivacionCalificacionInngeniatec2Admin, self).get_actions(request)
+        return actions
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+
+admin.site.register(ActivacionCalificacionInngeniatecSegundaFase, ActivacionCalificacionInngeniatec2Admin)

@@ -15,6 +15,7 @@ class Proyecto(models.Model):
     carta_aval_pdf = models.FileField(upload_to='files/cartas_Aval', max_length=1000)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+    es_finalista = models.BooleanField(default=False)
     
     autores = models.ManyToManyField(Usuario)
     tutores = models.ManyToManyField(Usuario, related_name='tutores')
@@ -48,6 +49,7 @@ class ProyectoInngeniatec(models.Model):
     url_video = models.URLField(max_length=10000, default=None, blank=True, null=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
+    es_finalista = models.BooleanField(default=False)
     
     def __str__(self):
         return self.titulo

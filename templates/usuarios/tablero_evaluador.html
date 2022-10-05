@@ -100,15 +100,18 @@
 
                                               {% if activacion_calificacion_oral %}
                                              
-                                                {% if proyecto.proyecto in proyectoscalificadosOral  %}
+                                                {% if proyecto.proyecto.es_finalista %}
+                                                  {% if proyecto.proyecto in proyectoscalificadosOral  %}
 
-                                                <i class="bi bi-check-circle">Calificado</i>
-                                                
-                                                {% else %}
-                                                <a type="button" href="{% url 'registro-evaluacion-oral' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
+                                                  <i class="bi bi-check-circle">Calificado</i>
+                                                  
+                                                  {% else %}
+                                                  <a type="button" href="{% url 'registro-evaluacion-oral' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
 
+                                                  {% endif %}
+                                                {% else %}  
+                                                  <i class="bi bi-info-circle">No clasificó para la fase final</i>
                                                 {% endif %}
-
                                               {% else %}
 
                                               <i class="bi bi-info-circle">No disponible</i>

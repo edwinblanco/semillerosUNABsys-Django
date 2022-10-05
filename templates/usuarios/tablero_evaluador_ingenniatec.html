@@ -53,22 +53,35 @@
                                     <td>{{ proyecto.fecha_asignacion}}</td>
 
                                     <td> 
-                                      {% if proyecto.proyecto in proyectoscalificados  %}
+                                      {% if activacion_calificacion_primera_fase %}
+                                        {% if proyecto.proyecto in proyectoscalificados  %}
 
-                                        <i class="bi bi-check-circle">Calificado</i>
-                                                
+                                          <i class="bi bi-check-circle">Calificado</i>
+                                                  
+                                        {% else %}
+                                        <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id face=0 %}" class="btn btn-primary">Calificar</a>
+                                        {% endif %}
                                       {% else %}
-                                      <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id face=0 %}" class="btn btn-primary">Calificar</a>
+                                        <i class="bi bi-info-circle">No disponible</i>
                                       {% endif %}
                                     </td>
                                     <td>
-                                      {% if proyecto.proyecto in proyectoscalificados_envivo  %}
 
-                                        <i class="bi bi-check-circle">Calificado</i>
-                                                
+                                      {% if activacion_calificacion_segunda_fase %}
+
+                                        {% if proyecto.proyecto.es_finalista %}
+                                          {% if proyecto.proyecto in proyectoscalificados_envivo  %}
+                                            <i class="bi bi-check-circle">Calificado</i>   
+                                          {% else %}
+                                          <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id face=1 %}" class="btn btn-primary">Calificar</a>
+                                          {% endif %}
+                                        {% else %}
+                                          <i class="bi bi-info-circle">No clasificó para la fase final</i>
+                                        {% endif %}
                                       {% else %}
-                                      <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id face=1 %}" class="btn btn-primary">Calificar</a>
+                                        <i class="bi bi-info-circle">No disponible</i>
                                       {% endif %}
+
 
                                     </td>
                                   </tr>
