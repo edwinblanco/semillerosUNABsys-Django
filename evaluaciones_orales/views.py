@@ -35,12 +35,7 @@ def registro_calificacion_oral_view(request, pk = None, pk_calificacion = None):
                         
                 calificacion_oral = EvaluacionOral.objects.create(dominio_tematico=dominio_tematico, expresion_oral = expresion_oral, creatividad_diseño = creatividad_diseño, observaciones=observaciones, evaluador = evaluador, is_calificado = is_calificado, proyecto = proyecto)
                 calificacion_oral.save()
-            
-                asignacion = get_object_or_404(AsignacionEvaluacion, id = pk_calificacion)
-                asignacion.asignacion_calificada1 = True
-                asignacion.save()
-                
-                
+                    
                 messages.success(request, 'Se registró exitosamente la calificación')
                 return redirect('tablero-evaluador')
             

@@ -18,6 +18,10 @@ class FormularioAsignarValorador(forms.ModelForm):
         })
     )  
    
+    observaciones = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'form-control',
+    }), required=False)
+   
     def __init__(self, *args, **kwargs):
         super(FormularioAsignarValorador, self).__init__(*args,) 
         
@@ -45,6 +49,7 @@ class FormularioAsignarValoradorInngeniatec(forms.ModelForm):
         })
     )  
    
+   
     def __init__(self, *args, **kwargs):
         super(FormularioAsignarValoradorInngeniatec, self).__init__(*args,) 
         
@@ -55,3 +60,12 @@ class FormularioAsignarValoradorInngeniatec(forms.ModelForm):
         cleaned_data = super().clean()
         if cleaned_data.get('evaluadores').count() > 2:
             raise forms.ValidationError('Solo debes seleccionar 2 valoradores por proyecto')
+        
+class FormularioOdenarAsignacion(forms.Form):
+    CHOICES = [('1', 'Título del Proyecto (A-Z)'), ('2', 'Título del Proyecto (Z-A)'), ('3', 'Fecha de asignación (Nueva - Antigua)'), ('4', 'Fecha de asignación (Antigua - Nueva)')]
+    seleccion_ordenamiento = forms.ChoiceField(widget=forms.Select(attrs={
+        'placeholder': 'Seleccionar ordenamiento',    
+        'class':'form-control',     
+    }), choices=CHOICES)
+    
+    

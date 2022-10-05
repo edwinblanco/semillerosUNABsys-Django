@@ -12,7 +12,6 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 
-
 # Create your models here.
 class UsuarioManager(BaseUserManager):
     def create_user(self, nombres, apellidos, username, correo_institicional, password=None):

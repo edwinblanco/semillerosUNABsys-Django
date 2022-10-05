@@ -85,6 +85,8 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota70%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota30%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota100%</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
@@ -134,6 +136,12 @@
                                                 <td>
                                                     {{ proyecto.nota_final }}
                                                 </td>
+                                                <td>
+                                                  {{ proyecto.nota_final_oral }}
+                                              </td>
+                                              <td>
+                                                {{ proyecto.nota_final_100 }}
+                                            </td>
                                                 <td colspan="2">{% for obs in proyecto.observaciones %}
                                                       {{ obs }}<br>
                                                     {% endfor %}
@@ -211,6 +219,8 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota70%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota30%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota100%</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
@@ -262,6 +272,12 @@
                                                 <td>
                                                     <p>{{ proyecto.nota_final }}</p>
                                                 </td>
+                                                <td>
+                                                  {{ proyecto.nota_final_oral }}
+                                              </td>
+                                              <td>
+                                                {{ proyecto.nota_final_100 }}
+                                            </td>
 
                                                 <td colspan="2">{% for obs in proyecto.observaciones %}
                                                   {{ obs }}<br>
@@ -336,6 +352,8 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota70%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota30%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota100%</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
@@ -385,6 +403,12 @@
                                                 <td>
                                                     {{ proyecto.nota_final }}
                                                 </td>
+                                                <td>
+                                                  {{ proyecto.nota_final_oral }}
+                                              </td>
+                                              <td>
+                                                {{ proyecto.nota_final_100 }}
+                                            </td>
 
                                                 <td colspan="2">{% for obs in proyecto.observaciones %}
                                                   {{ obs }}<br>
@@ -460,11 +484,13 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Nota70%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota30%</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Nota100%</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">segundaparte 2</th>
-            
+                                                
+                                                nota_final_oral
                                               </tr>
                                             </thead>
                                             <tbody>
@@ -515,6 +541,12 @@
                                                 <td>
                                                     {{ proyecto.nota_final }}
                                                 </td>
+                                                <td>
+                                                  {{ proyecto.nota_final_oral }}
+                                              </td>
+                                              <td>
+                                                {{ proyecto.nota_final_100 }}
+                                            </td>
 
                                                 <td colspan="2">{% for obs in proyecto.observaciones %}
                                                   {{ obs }}<br>

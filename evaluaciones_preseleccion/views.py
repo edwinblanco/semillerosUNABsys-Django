@@ -10,7 +10,7 @@ from evaluaciones_orales.forms import FormularioCalificacionOral
 from evaluaciones_orales.models import EvaluacionOral
 from django.contrib import messages
 from evaluaciones_preseleccion.forms import FormularioCalificacionPreseleccion, FormularioValoracionProyectoIngeniatec
-from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionProyectoIngeniatec
+from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionProyectoIngeniatec, ValoracionProyectoIngeniatecPresencial
 
 from proyectos_app.models import Proyecto, ProyectoInngeniatec
 
@@ -86,7 +86,7 @@ def registro_calificacion_preseleccion_view(request, pk = None, pk_calificacion 
     return render(request,'evaluaciones/registro_evaluacion_preseleccion.html', contex)
 
 
-def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion = None):
+def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion = None, face = None):
     
     form = FormularioValoracionProyectoIngeniatec()
     
@@ -108,7 +108,8 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
                 evaluador = request.user
                 is_calificado = True
                         
-                calificacion = ValoracionProyectoIngeniatec.objects.create(
+                if face == 0:
+                    calificacion = ValoracionProyectoIngeniatec.objects.create(
                     aplicacion_escenario_real = aplicacion_escenario_real, 
                     originadidad_innovacion = originadidad_innovacion,
                     calidad_tecnica = calidad_tecnica,
@@ -117,10 +118,22 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
                     is_calificado = is_calificado, 
                     proyecto = proyecto)
                 
-                calificacion.save()
+                    calificacion.save()
+                    messages.success(request, 'Se registró exitosamente la valoración')
+                    return redirect('tablero-evaluador-inngeniatec')
+                else:
+                    calificacion = ValoracionProyectoIngeniatecPresencial.objects.create(
+                    aplicacion_escenario_real = aplicacion_escenario_real, 
+                    originadidad_innovacion = originadidad_innovacion,
+                    calidad_tecnica = calidad_tecnica,
+                    estudio_viablididad = estudio_viablididad, 
+                    evaluador = evaluador, 
+                    is_calificado = is_calificado, 
+                    proyecto = proyecto)
                 
-                messages.success(request, 'Se registró exitosamente la valoración')
-                return redirect('tablero-evaluador-inngeniatec')
+                    calificacion.save()
+                    messages.success(request, 'Se registró exitosamente la valoración')
+                    return redirect('tablero-evaluador-inngeniatec')
             
         else: 
             messages.error(request, 'error')  
@@ -130,16 +143,21 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
         'proyecto': proyecto,
         'idp': pk,
         'idc': pk_calificacion,
+        'face': face,
     }        
     
     return render(request,'evaluaciones/registro_evaluacion_inngeniatec.html', contex)
 
 def reporte_calificaciones_inngeniatec_view(request):
     proyectos_calificados = ValoracionProyectoIngeniatec.objects.all()
+    proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.all()
     asignaciones = AsignacionEvaluacionInngeniatec.objects.all().order_by('proyecto__categoria')
     
     proyectos_valorados = []
     proyectos_no_valorados = [] 
+    
+    proyectos_valorados_presencial = []
+    proyectos_no_valorados_presencial = [] 
     
     for proyecto_calificado in proyectos_calificados:
         for proyecto_asigando in asignaciones:
@@ -147,21 +165,29 @@ def reporte_calificaciones_inngeniatec_view(request):
                 proyectos_valorados.append(proyecto_calificado)
             else:
                 proyectos_no_valorados.append(proyecto_calificado)
+                
+    for proyecto_calificado in proyectos_calificados_presencial:
+        for proyecto_asigando in asignaciones:
+            if proyecto_calificado.proyecto.titulo == proyecto_asigando.proyecto.titulo:
+                proyectos_valorados_presencial.append(proyecto_calificado)
+            else:
+                proyectos_no_valorados_presencial.append(proyecto_calificado)
             
     reporte_proyecto = []
     list_str_proyectos = []
             
     for proyecto in asignaciones:
         notas = []
+        notas_presencial = []
         valoradores = []
+        
         proyectocount = ValoracionProyectoIngeniatec.objects.filter(proyecto=proyecto.proyecto)
         for xyz in proyectocount:
             notas.append(xyz.calificacion_final_inngeniatec())
             
-        #print(f'Notas: {notas} para: {proyecto.proyecto}')
-            
-        #for i in range(len(notas)):
-            #valoradores.append(None)  
+        proyectocount2 = ValoracionProyectoIngeniatecPresencial.objects.filter(proyecto=proyecto.proyecto)
+        for xyz in proyectocount2:
+            notas_presencial.append(xyz.calificacion_final_inngeniatec_presencial())
             
         for eva in proyecto.evaluadores.all():
             
@@ -190,11 +216,23 @@ def reporte_calificaciones_inngeniatec_view(request):
             notas_final = s / notas_c 
         else:       
             notas_final = 0.0
+            
+        notas_final_presencial = 0.0
+        notas_c_presencial = len(notas_presencial)
+        s_presencial = 0.0
+        if notas_presencial:
+            for n in notas_presencial:
+                s_presencial += float(n)
+            notas_final_presencial = s_presencial / notas_c_presencial 
+        else:       
+            notas_final_presencial = 0.0
            
         dtc = {
             'cantidad': proyectocount.count(),
             'proyecto': proyecto.proyecto,
             'notas': notas,
+            'notas_presencial': notas_presencial,
+            'notas_final_presencial': notas_final_presencial,
             'valoradores':valoradores,
             'nota_final': str("{0:.1f}".format(notas_final)),
             'categoria': proyecto.proyecto.categoria,
@@ -248,6 +286,7 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             
     for proyecto in asignaciones:
         notas = []
+        notas_oral = []
         valoradores = []
         observaciones = []
         observaciones2 = []
@@ -256,6 +295,10 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             notas.append(xyz.calificacion_final_30())
             observaciones.append(xyz.observaciones1)
             observaciones2.append(xyz.observaciones2)
+            
+        proyectocount2 = EvaluacionOral.objects.filter(proyecto=proyecto.proyecto)
+        for xyz2 in proyectocount2:
+            notas_oral.append(xyz2.calificacion_final_70())
             
         for eva in proyecto.evaluadores.all():
             if EvaluacionPreseleccion.objects.filter(evaluador=eva, proyecto=proyecto.proyecto).exists():
@@ -284,6 +327,18 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
         else:       
             notas_final = 0.0
             
+        notas_final_oral = 0.0
+        notas_c_oral = len(notas_oral)
+        s_oral = 0.0
+        if notas_oral:
+            for n in notas_oral:
+                s_oral += float(n)
+            notas_final_oral = s_oral / notas_c_oral 
+        else:       
+            notas_final_oral = 0.0
+            
+        nota_final_100 = notas_final + notas_final_oral
+            
         autores = []    
         for autor in proyecto.proyecto.autores.all():
             autores.append({'nombre':autor.nombres,
@@ -306,7 +361,9 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             'proyecto': proyecto.proyecto,
             'notas': notas,
             'valoradores':valoradores,
-            'nota_final': str("{0:.1f}".format(notas_final)),
+            'nota_final': str("{0:.2f}".format(notas_final)),
+            'nota_final_oral': str("{0:.2f}".format(notas_final_oral)),
+            'nota_final_100': str("{0:.2f}".format(nota_final_100)),
             'categoria': proyecto.proyecto.modalidad_aprticipacion,
             'autores': autores,
             'tutores': tutores,
@@ -328,7 +385,7 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
     #print('proyectos_no_valorados: ', asignaciones.count()-len(list(set(proyectos_valorados))))
     #print('asignaciones: ',asignaciones[0].proyecto)
 
-    reporte_proyecto.sort(key=lambda x: x['nota_final'], reverse=True)
+    reporte_proyecto.sort(key=lambda x: x['nota_final_100'], reverse=True)
              
     context ={
         'proyectos_calificados': proyectos_calificados,

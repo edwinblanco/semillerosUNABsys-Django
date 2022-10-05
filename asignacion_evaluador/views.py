@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.template.loader import render_to_string
 
-from asignacion_evaluador.forms import FormularioAsignarValorador, FormularioAsignarValoradorInngeniatec
-from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec
+from asignacion_evaluador.forms import FormularioAsignarValorador, FormularioAsignarValoradorInngeniatec, FormularioOdenarAsignacion
+from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec, HistoriaCambiosAsignacionSemilleros
 from evaluaciones_preseleccion.models import ValoracionProyectoIngeniatec
 
 # Create your views here.
@@ -14,52 +14,128 @@ def asignar_valorador_view(request, pk = None):
     
     form = FormularioAsignarValorador()
     
+    if pk is None:
+        form2 = FormularioOdenarAsignacion()
+        asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto')
+        
+        if request.method == 'POST':
+            form = FormularioAsignarValorador(request.POST)
+            
+            if form.is_valid():
+                proyecto = form.cleaned_data['proyecto']
+                evaluadores = form.cleaned_data['evaluadores']
+                        
+                count_asiganciones = AsignacionEvaluacion.objects.filter(proyecto=proyecto).count()
+                if count_asiganciones >= 1:
+                    messages.error(request, 'El proyecto ya tiene valorador/es asignado/os')
+                else:   
+                    
+                    # no activo debido a vencimiento en la capa gratuita del servidor de correos
+        
+                    #for valorador in evaluadores:
+                        #print('evaluador ', valorador.correo_institicional) 
+                        #mail_subject = 'Has sido asignado a un proyecto a valorar de Semilleros de Investigación'
+                        #body = render_to_string('usuarios/notificacion_asignacion_valorador.html', {
+                            #'nombre': valorador.nombres,
+                            #'apellido': valorador.apellidos,
+                            #'proyecto': proyecto.titulo,
+                        #})
+                            
+                        #to_email = valorador.correo_institicional
+                        #send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
+                        #send_email.send()
+                        
+                    asignacion = AsignacionEvaluacion.objects.create(proyecto=proyecto)
+                    asignacion.evaluadores.set(evaluadores)
+                    asignacion.save()
+                    
+                    messages.success(request, 'Se asignó correctamente')
+                    return redirect('asigancion-valorador-proyecto')
+            
+            else: 
+                messages.error(request, 'error')
+        
+        contex = {
+            'form': form,
+            'form2': form2,
+            'actualizar': False,
+            'asignaciones': asignaciones,
+        }        
+
+        return render(request,'evaluaciones/asignacion_valorador.html', contex)
+    
+    else:
+        asignacion = get_object_or_404(AsignacionEvaluacion, id=pk)
+        
+        form.fields['proyecto'].initial = asignacion.proyecto
+        #form.fields['evaluadores'].initial = asignacion.evaluadores
+        
+        contex = {
+            'form': form,
+            'actualizar': True,
+            'idp': asignacion.id
+        }
+    
+    return render(request,'evaluaciones/asignacion_valorador.html', contex)
+            
+def actualizar_asignacion_semilleros_view(request, pk):
+    
+    form = FormularioAsignarValorador()
+
     if request.method == 'POST':
         form = FormularioAsignarValorador(request.POST)
         
+        asignacion = get_object_or_404(AsignacionEvaluacion, id=pk)
+        
         if form.is_valid():
-            proyecto = form.cleaned_data['proyecto']
+            observaciones = form.cleaned_data['observaciones']
             evaluadores = form.cleaned_data['evaluadores']
-                    
-            count_asiganciones = AsignacionEvaluacion.objects.filter(proyecto=proyecto).count()
-            if count_asiganciones >= 1:
-                messages.error(request, 'El proyecto ya tiene valorador/es asignado/os')
-            else:   
-                
-                # no activo debido a vencimiento en la capa gratuita del servidor de correos
-    
-                #for valorador in evaluadores:
-                    #print('evaluador ', valorador.correo_institicional) 
-                    #mail_subject = 'Has sido asignado a un proyecto a valorar de Semilleros de Investigación'
-                    #body = render_to_string('usuarios/notificacion_asignacion_valorador.html', {
-                        #'nombre': valorador.nombres,
-                        #'apellido': valorador.apellidos,
-                        #'proyecto': proyecto.titulo,
-                    #})
-                        
-                    #to_email = valorador.correo_institicional
-                    #send_email = EmailMultiAlternatives(mail_subject, body, to = [to_email])
-                    #send_email.send()
-                    
-                asignacion = AsignacionEvaluacion.objects.create(proyecto=proyecto)
-                asignacion.evaluadores.set(evaluadores)
-                asignacion.save()
-                
-                messages.success(request, 'Se asignó correctamente')
-                return redirect('asigancion-valorador-proyecto')
+            
+            historial_cambio = HistoriaCambiosAsignacionSemilleros.objects.create(proyecto = asignacion.proyecto, observaciones=observaciones)
+            historial_cambio.valoracdores_anteriores.set(asignacion.evaluadores.all())
+            historial_cambio.valoradores_nuevos.set(evaluadores)
+            historial_cambio.save()
+            
+            proyecto = form.cleaned_data['proyecto']
+            
+            asignacion.proyecto = proyecto
+            asignacion.evaluadores.set(evaluadores)
+            asignacion.save()
+            
+            messages.success(request, 'Se actualizó exitosamente la asignación y se creó una historia con el cambio')
+            return redirect('asigancion-valorador-proyecto')
         
         else: 
+            messages.error(request, 'Error, campos inválidos. Ningún campo debe estar vacío')
+            return redirect('/asigancion_valoradores/actualizar-asignacion-semilleros/'+str(asignacion.id))
+
+def ordenar_tabla_asignaciones_semilleros_view(request):
+    form2 = FormularioOdenarAsignacion()
+    form = FormularioAsignarValorador()
+    if request.method == 'POST':
+        form2 = FormularioOdenarAsignacion(request.POST)
+        
+        if form2.is_valid():
+            seleccion = form2.cleaned_data['seleccion_ordenamiento']
+            if seleccion == '1':
+                asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto')
+            if seleccion == '2':
+                asignaciones = AsignacionEvaluacion.objects.all().order_by('-proyecto')
+            if seleccion == '3':
+                asignaciones = AsignacionEvaluacion.objects.all().order_by('-fecha_asignacion')
+            if seleccion == '4':
+                asignaciones = AsignacionEvaluacion.objects.all().order_by('fecha_asignacion')
+        else: 
             messages.error(request, 'error')
-                
-    asignaciones = AsignacionEvaluacion.objects.all().order_by('-fecha_asignacion')
     
     contex = {
+        'form2': form2,
         'form': form,
         'asignaciones': asignaciones,
+        'actualizar':False,
     }        
 
     return render(request,'evaluaciones/asignacion_valorador.html', contex)
-
 
 def asignar_valorador_inngeniatec_view(request, pk = None):
     

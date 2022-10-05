@@ -1,4 +1,5 @@
 from django.contrib import admin
+from asignacion_evaluador.models import HistoriaCambiosAsignacionSemilleros
 from proyectos_app.models import ActivacionConvocatoria, Proyecto, ProyectoInngeniatec
 from usuarios_app.models import Usuario
 
@@ -59,3 +60,6 @@ class ActivacionConvocatoriaAdmin(admin.ModelAdmin):
     
 
 admin.site.register(ActivacionConvocatoria, ActivacionConvocatoriaAdmin)
+
+
+

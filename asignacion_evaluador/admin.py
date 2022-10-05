@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 
-from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec
+from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec, HistoriaCambiosAsignacionSemilleros
 from usuarios_app.models import Usuario
 
 @admin.register(AsignacionEvaluacion)
@@ -48,3 +48,13 @@ class AsignacionEvaluacionInngeniatecAdmin(admin.ModelAdmin):
 
 # Register your models here.
 #admin.site.register(AsignacionEvaluacion)
+@admin.register(HistoriaCambiosAsignacionSemilleros)
+class HistoriaCambiosAsignacionSemillerosAdmin(admin.ModelAdmin):
+    list_display = ('id', 'proyecto','obtener_valoracdores_anteriores','obtener_valoradores_nuevos', 'observaciones', 'fecha_creacion')
+    list_display_links = ()
+    readonly_fields =  ()
+    ordering = ()
+    
+    filter_horizontal = ()
+    list_filter = ()
+    fieldsets = ()

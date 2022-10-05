@@ -127,8 +127,7 @@ def actualizar_proyecto_view(request, pk):
         else: 
             messages.error(request, 'Error, campos inválidos. Ningún campo debe estar vacío, sube nuevamente los archivos.')
             return redirect('/proyectos/actualizacion_proyecto/'+str(proyecto.id))
-            
-                
+                       
 def reporte_proyectos_view(request):
     proyectos = Proyecto.objects.all()
     

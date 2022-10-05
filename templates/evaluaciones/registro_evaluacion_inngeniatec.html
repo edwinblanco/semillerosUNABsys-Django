@@ -65,18 +65,27 @@
         <div class="row ">
           <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
 
-           <form action="{% url 'registro-evaluacion-inngeniatec' pk=idp pk_calificacion=idc %}" method="POST" class="">{% csrf_token %}
+           <form action="{% url 'registro-evaluacion-inngeniatec' pk=idp pk_calificacion=idc face=face %}" method="POST" class="">{% csrf_token %}
 
             <div class="row">
              
+              {% if face == 0 %}
               <h3 class="mb-3 text-center">Valoración para:</h3>
+              {% else %}
+              <h3 class="mb-3 text-center">Valoración evento en vivo para:</h3>
+              {% endif %}
+
               <h6 class="mb-3 text-center">{{proyecto}}</h6>
+              {% if face == 1 %}
+              <p><b>CATEGORÍA: </b> {{ proyecto.categoria }}</p>
+              {% endif %}
               <br>
               <!-- Button trigger modal -->
+              {% if face == 0 %}
               <button type="button" class="btn btn-primary col-lg-3 col-12 mx-auto" style="background-color: #2d418e;" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                 Ver resumen del proyecto
               </button>
-
+              {% endif %}
               <!-- Modal -->
               <div class="modal fade modal-dialog-scrollable " id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog modal-xl" >

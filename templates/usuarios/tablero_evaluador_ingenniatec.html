@@ -39,8 +39,9 @@
                                   <tr>
                                     <th scope="col">Título del proyecto</th>
                                     <th scope="col">Fecha de asignación</th>
-                                    <th scope="col">Acción</th>
-                                    
+                                    <th scope="col">Valoración primera instancia</th>
+                                    <th scope="col">Valoración evento en vivo</th>
+         
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -57,8 +58,18 @@
                                         <i class="bi bi-check-circle">Calificado</i>
                                                 
                                       {% else %}
-                                      <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id %}" class="btn btn-primary">Calificar</a>
+                                      <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id face=0 %}" class="btn btn-primary">Calificar</a>
                                       {% endif %}
+                                    </td>
+                                    <td>
+                                      {% if proyecto.proyecto in proyectoscalificados_envivo  %}
+
+                                        <i class="bi bi-check-circle">Calificado</i>
+                                                
+                                      {% else %}
+                                      <a type="button" href="{% url 'registro-evaluacion-inngeniatec' pk=proyecto.proyecto.id pk_calificacion=proyecto.id face=1 %}" class="btn btn-primary">Calificar</a>
+                                      {% endif %}
+
                                     </td>
                                   </tr>
 
