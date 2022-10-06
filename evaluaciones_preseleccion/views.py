@@ -257,7 +257,7 @@ def reporte_calificaciones_inngeniatec_view(request):
     #print('proyectos_no_valorados: ', asignaciones.count()-len(list(set(proyectos_valorados))))
     #print('asignaciones: ',asignaciones[0].proyecto)
 
-    reporte_proyecto.sort(key=lambda x: x['nota_final'], reverse=True)
+    reporte_proyecto.sort(key=lambda x: x['notas_final_presencial'], reverse=True)
              
     context ={
         'proyectos_calificados': proyectos_calificados,
