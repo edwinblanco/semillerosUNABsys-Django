@@ -1,145 +1,51 @@
+{% extends 'base.html' %}{% load static %} {% block content %}
 
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
 
-{% load static %}
+    <section class="about section-padding">
+        <h3 class="mb-3 text-center">Elige el evento en el que deseas participar:</h3>
+          <br>
+          <br>
+      <div class="container">
+        <div class="row ">
 
-{% block content %}
-
-        <main>
-
-            <!--<section class="hero" id="section_1">
-                <div class="container">
-                    <div class="row">
-
-                        <div class="main1 col-lg-5 col-12 m-auto">
-                            <div class="hero-text">
-
-                                <h1 class="text-white mb-4">Semana de Ingeniería UNAB 2022</h1>
-                                   
-                                <div class="d-flex justify-content-center align-items-center">
-                                    <span class="date-text">5, 6 y 7 de Octubre</span>
-
-                                    <span class="location-text">UNAB</span>
-                                </div>
-
-                                <a href="#section_2" class="custom-link bi-arrow-down arrow-icon"></a>
-                            </div>
-                        </div>      
-
-                    </div>
+          <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card">
+                <div class="card-header">
+                  Inicio
                 </div>
-                <div class="video-wrap">
-                     <<video autoplay="" loop="" muted="" class="custom-video" poster="">
-                        <source src="videos/pexels-pavel-danilyuk-8716790.mp4" type="video/mp4">
-
-                        Your browser does not support the video tag.
-                    </video>
-
-                    <img class="custom-video" src="{% static '/invitacion.png' %}" alt="fondo">
-
+                <div class="card-body">
+                  <h5 class="card-title">Encuentro de Semilleros de Investigación</h5>
+                  <p class="card-text">¡Participa ahora!</b></p>
+                  <a href="{% url 'home_semilleros' %}" class="btn btn-primary" style="background-color: #2d418e;">Ir</a>
                 </div>
-
-            </section>-->
-
-
-            <section class="about section-padding" id="section_2">
-                <div class="container">
-                    <div class="row">
-
-                        <h2 class="mb-5 text-center">XVI ENCUENTRO DE SEMILLEROS DE INVESTIGACIÓN 
-                            FACULTAD DE INGENIERÍA Y DPTO DE CIENCIAS BÁSICAS - UNAB 2022
-                            </h2>
-
-                        <div class="col-lg-12 col-12 shadow-sm p-3 mb-5 bg-body rounded">
-                            <h2 class="mb-4 text-center">¿De qué se trata?</h2>
-                            
-                            <p>Puedes encontrar todos los términos de la convocatoria del encuentro de semilleros 2022 dando click <a href="https://res.cloudinary.com/dwhvz3t4j/raw/upload/v1660888070/media/files/archivos/Terminos_convocatoria_encuentro_semilleros_2022.docx"><b>AQUÍ</b> <i class="bi bi-arrow-down-circle-fill"></i>
-                            </a></p>
-                            <p>Puedes encontrar la plantilla/formato de inscripción del proyecto dando click <a href="https://res.cloudinary.com/dwhvz3t4j/raw/upload/v1660888745/media/files/archivos/Plantilla_de_inscripcion_para_el_Encuentro.docx"><b>AQUÍ</b>  <i class="bi bi-arrow-down-circle-fill"></i></a>
-                            </p>
-                            <p>Puedes encontrar el formato de la carta Aval dando click <a href="https://res.cloudinary.com/dwhvz3t4j/raw/upload/v1660888745/media/files/archivos/Modelo_Carta_Aval.docx"><b>AQUÍ</b> <i class="bi bi-arrow-down-circle-fill"></i></a> 
-                            </p>
-
-                            <div class="accordion" id="accordionPanelsStayOpenExample">
-                                <div class="accordion-item">
-                                  <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                                    <button
-                                      class="accordion-button"
-                                      type="button"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#panelsStayOpen-collapseOne"
-                                      aria-expanded="true"
-                                      aria-controls="panelsStayOpen-collapseOne"
-                                    >
-                                      <h5>
-                                        Video guía de proceso de inscripción al encuentro de Semilleros UNAB
-                                      </h5>
-                                    </button>
-                                  </h2>
-                                  <div
-                                    id="panelsStayOpen-collapseOne"
-                                    class="accordion-collapse collapse show"
-                                    aria-labelledby="panelsStayOpen-headingOne"
-                                  >
-                                    <div class="accordion-body">
-                                      
-                                      <div class="embed-responsive" style="
-                                      height: 400px; width: 100%;">
-                                        <iframe 
-                                        class="embed-responsive-item" style="
-                                        height: 100%; width: 100%;" src="https://www.youtube.com/embed/gi19YcwBC6g" allowfullscreen></iframe>
-                                      </div>
-                  
-                                    </div>
-                                  </div>
-                                </div>
-                  
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-12 shadow-sm p-3 mb-5 bg-body rounded">
-                            <h3 class="mb-3">Inscribe tu proyecto para participar en la semana de Ingeniería Unab</h3>
-
-                            <p>En el marco de la semana de ingeniería UNAB 2022 se llevará a cabo la XVI edición del encuentro de semilleros de investigación correspondientes al área de Ingeniería y Ciencias básicas. La Facultad de Ingeniería y la Dirección de Investigaciones UNAB convoca a los estudiantes miembros Semilleros de Investigación de las Instituciones de Educación Superior a inscribir las investigaciones que realizan en su proceso de formación.  Con la participación de otras Universidades se articula la creación de espacios académicos que favorezcan la identificación de oportunidades de trabajo colaborativo entre los miembros de la comunidad académica de la región.</p>
-
-                        </div>
-
-                        <div class="col-lg-6 col-12 mt-5 mt-lg-0 shadow-sm p-3 mb-5 bg-body rounded">
-                            <h3 class="mb-3">Guía para inscribirte e inscribir tu proyecto:</h3>
-
-                            <h4>Para participar con tu proyecto debes iniciar sesión en la plataforma de Semilleros UNAB, si aún no tienes cuenta puedes crear una a continuación:</h4>
-                            
-                            <p>Encontrarás una guía detallada de inscripción <b><a href="{% url 'guia' %}" style="color: #2d418e;">aquí.</a></b></p>
-
-                            <a class="custom-btn custom-border-btn btn custom-link mt-3 me-3" href="{% url 'registro' %}">Inscribirme</a>
-
-                            <a class="custom-btn btn custom-link mt-3" href="{% url 'login-page' %}">Iniciar sesión</a>
-                        </div>
-
-                        <div class="col-lg-6 col-12 shadow-sm p-3 mb-5 bg-body rounded">
-                            <h3 class="mb-3">Fechas importantes:</h3>
-  
-                            <p>Apertura de convocatoria: <b>1 de agosto de 2022</b></p>
-                            <p>Cierre de convocatoria (Nuevo plazo): <b>8 de septiembre de 2022</b></p>
-                            <p>Valoración de trabajos: <b>Septiembre 6 a septiembre 21 de 2022</b></p>
-                            <p>Publicación resultados seleccionados: <b>Septiembre 28 de 2022</b></p>
-                            <p>Exposición y sustentación de trabajos: <b>6 de octubre de 2022</b></p>
-
-                        </div>
-
-                        <div class="col-lg-6 col-12 mt-5 mt-lg-0 shadow-sm p-3 mb-5 bg-body rounded">
-                            <h3 class="mb-3">Correo de contacto:</h3>
-                            <p><i class="bi bi-envelope"></i><b> investigacionesingenieria@unab.edu.co</b></p>
-                        </div>
-
-                    </div>
+              </div>
+          </div>
+          <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+            <div class="card">
+                <div class="card-header">
+                  Inicio
                 </div>
-            </section>
+                <div class="card-body">
+                  <h5 class="card-title">INNGENIATE-C</h5>
+                  <p class="card-text">¡Participa ahora!</b></p>
+                  <a href="#" class="btn btn-primary" style="background-color: #2d418e;">Ir</a>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </section>
 
-
-        </main>
-
-    </body>
+  </body>
 </html>
 
 {% endblock %}

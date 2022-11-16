@@ -26,12 +26,14 @@ urlpatterns = [
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('securelogin/', admin.site.urls),
     path('', views.inicio, name='home'),
+    path('semilleros', views.inicio_semilleros, name='home_semilleros'),
     path('valoradores/', views.tablero_seleccion_view, name='valoradores'),
     path('lineas_tematicas/', views.lineas_tematicas_view, name='lineas-tematicas'),
     path('usuarios/', include('usuarios_app.urls')),
     path('proyectos/', include('proyectos_app.urls')),
     path('asigancion_valoradores/', include('asignacion_evaluador.urls')),
     path('evaluaciones/', include('evaluaciones_orales.urls')),
+    path('eventos/', include('eventos_app.urls')),
     path('evaluaciones2/', include('evaluaciones_preseleccion.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

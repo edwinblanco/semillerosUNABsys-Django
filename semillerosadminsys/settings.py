@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'carrera_app',
     'usuarios_app',
     'proyectos_app',
+    'eventos_app',
+    'config_semilleros_app',
     'evaluaciones_orales',
     'evaluaciones_preseleccion',
     'asignacion_evaluador',
@@ -52,6 +54,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'cloudinary',
     'import_export',
+    'dynamic_models',
 ]
 
 MIDDLEWARE = [
@@ -104,23 +107,22 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
 #   }
 #}
 
-#DATABASES = {
-#   'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#   }
-#}
-      
-        
 DATABASES = {
    'default': {
-      'ENGINE': 'django.db.backends.postgresql',
-      'USER': 'hgmenwrwkjrpsu',
-      'NAME': 'd8ggodnm3lnapm',
-      'PASSWORD': 'a5bca8d9e3ed321649aafe8e213e5285a5255581a8d977f658443f756f863911',
-      'HOST': 'ec2-44-210-36-247.compute-1.amazonaws.com'
-  }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR  + 'db.sqlite3',
+   }
 }
+      
+#DATABASES = {
+#   'default': {
+#      'ENGINE': 'django.db.backends.postgresql',
+#      'USER': 'hgmenwrwkjrpsu',
+#      'NAME': 'd8ggodnm3lnapm',
+#      'PASSWORD': 'a5bca8d9e3ed321649aafe8e213e5285a5255581a8d977f658443f756f863911',
+#      'HOST': 'ec2-44-210-36-247.compute-1.amazonaws.com'
+#  }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators

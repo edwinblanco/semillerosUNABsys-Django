@@ -19,6 +19,19 @@
                 <h2 class="mb-4 text-center">Líneas temáticas</h2>  
                 <p>Los estudiantes podrán presentar sus Proyectos de investigación de ingeniería que aporten soluciones a las problemáticas de <b>Ingeniería y Ciencias Básicas</b> en los temas relacionados en los siguientes campos de conocimiento:</p>
             </div>
+
+            {% if tematicas %}
+              
+            <div class="col-lg-12 col-12 shadow-sm p-3 mb-5 bg-body rounded">
+                
+              {% for tematica in tematicas %}
+              <h6><i class="bi bi-bookmark-check"></i> <b>{{tematica.titulo_tematica}}</b></h6>
+              {% endfor %}
+
+          </div>
+
+            {% else %}
+
             <div class="col-lg-6 col-12 shadow-sm p-3 mb-5 bg-body rounded">
                 
                 <h6><i class="bi bi-bookmark-check"></i> <b>Telemática</b></h6>
@@ -40,6 +53,8 @@
                 <h6><i class="bi bi-bookmark-check"></i> <b>Biotecnología y ambiente</b></h6>
 
             </div> 
+
+            {% endif %}
 
         </div>
       </div>

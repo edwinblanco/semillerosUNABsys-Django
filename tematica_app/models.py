@@ -11,4 +11,3 @@ class Tematica(models.Model):
     def __str__(self):
         return self.titulo_tematica
     
-    
