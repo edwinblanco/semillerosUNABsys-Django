@@ -14,7 +14,8 @@ class ConfigPaginaSemillerosAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         return False
     
-    
+    def has_add_permission(self, request, obj=None):
+        return False
 
 admin.site.register(ConfigPaginaSemilleros, ConfigPaginaSemillerosAdmin)
 @admin.register(FechaSemilleros)
