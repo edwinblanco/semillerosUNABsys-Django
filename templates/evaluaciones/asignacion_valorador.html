@@ -40,7 +40,7 @@
         <div class="row ">
           <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
 
-           <form {% if actualizar == False %} action="{% url 'asigancion-valorador-proyecto' %}" {% else %} action="{% url 'actualizacion-asignacion-semilleros' pk=idp %}" {% endif %} method="POST" class="">{% csrf_token %}
+           <form {% if actualizar == False %} action="{% url 'asigancion-valorador-proyecto' periodo_slug=slug %}" {% else %} action="{% url 'actualizacion-asignacion-semilleros' periodo_slug=slug pk=idp %}" {% endif %} method="POST" class="">{% csrf_token %}
 
             <div class="row">
 
@@ -119,7 +119,7 @@
                           <br>
                           <button id="btnExcel" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
                           
-                          <form action="{% url 'ordenar-tabla-asignaciones-semilleros' %}" method="POST" class="">{% csrf_token %}
+                          <form action="{% url 'ordenar-tabla-asignaciones-semilleros' periodo_slug=slug %}" method="POST" class="">{% csrf_token %}
 
                             <div class="row">
               
@@ -155,6 +155,7 @@
                                       <tr>
                                         <!--<th scope="col">#</th>-->
                                         <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                        <th scope="col" style="text-align: center; background-color: white;">Semestre</th>
                                         <th scope="col" style="text-align: center; background-color: white;">Valoradores</th>
                                         <th scope="col" style="text-align: center; background-color: white;">Fecha de asignación</th>
                                         <th scope="col" style="text-align: center; background-color: white;">Acción</th>
@@ -167,10 +168,11 @@
                                       <tr>
                                         <!--<td>{{ proyecto.id }}</td>-->
                                         <td>{{ asignacion.proyecto }}</td>
+                                        <td>{{ asignacion.proyecto.periodo }}</td>
                                         <td>{{ asignacion.obtener_evaluadores }}</td>
                                         <td>{{ asignacion.fecha_asignacion }}</td>
                                         <td> 
-                                          <a type="button" href="{% url 'actualizar-asignacion-semilleros' pk=asignacion.id %}" class="btn btn-primary">Editar</a>
+                                          <a type="button" href="{% url 'actualizar-asignacion-semilleros' periodo_slug=slug pk=asignacion.id %}" class="btn btn-primary">Editar</a>
                                        </td>
                                        
                                       </tr>

@@ -33,12 +33,13 @@
 
                 <br>
                 <br>
-                <h3 class="mb-3 text-center">Reporte de calificaciones Semilleros - Preselección</h3>
+                <h3 class="mb-3 text-center">Reporte de calificaciones Semilleros {{periodo}}</h3>
 
               <div class="col-12">
                 <div class="container">
-                  <br />
-      
+                  <a class="btn btn-primary" href="{% url 'reporte-periodo-semilleros' %}">Cambiar semestre del reporte</a>
+                  <br>
+                  <br>
                   <div class="accordion" id="accordionPanelsStayOpenExample">
       
                     <div class="accordion-item">
@@ -73,6 +74,7 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Semestre</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Temática</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
@@ -103,6 +105,7 @@
                                               <tr>
                                                 
                                                 <td>{{ proyecto.proyecto }}</td>
+                                                <td>{{ proyecto.proyecto.periodo }}</td>
                                                 <td>{{ proyecto.tematica }}</td>
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
@@ -207,6 +210,7 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Semestre</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Temática</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
@@ -239,6 +243,7 @@
                                               <tr>
                                                 
                                                 <td>{{ proyecto.proyecto }}</td>
+                                                <td>{{ proyecto.proyecto.periodo }}</td>
                                                 <td>{{ proyecto.tematica }}</td>
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
@@ -340,6 +345,7 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Semestre</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Temática</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
@@ -370,6 +376,7 @@
                                               <tr>
                                                 
                                                 <td>{{ proyecto.proyecto }}</td>
+                                                <td>{{ proyecto.proyecto.periodo }}</td>
                                                 <td>{{ proyecto.tematica }}</td>
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
@@ -472,6 +479,7 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
+                                                <th scope="col" style="text-align: center; background-color: white;">Semestre</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Temática</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Autores</th>
@@ -489,8 +497,6 @@
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
                                                 <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
-                                                
-                                                nota_final_oral
                                               </tr>
                                             </thead>
                                             <tbody>
@@ -500,6 +506,7 @@
                                               <tr>
                                                 
                                                 <td>{{ proyecto.proyecto }}</td>
+                                                <td>{{ proyecto.proyecto.periodo }}</td>
                                                 <td>{{ proyecto.tematica }}</td>
                                                 <td>{{ proyecto.universidad }}</td>
                                                 <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>

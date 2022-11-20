@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+  </head>
+  <body>
+
+    <style>
+      tr th { 
+        position: sticky;
+        top: 0;
+      }
+
+      @media screen and (max-width: 480px) {
+        th{
+          font-size: 10px;
+        }
+    
+        td{
+          font-size: 10px;
+        }
+    
+      }
+    </style>
+
+    {% if user.id %}  
+
+    {% if user.is_staff %}
+
+    <section class="about section-padding">
+      <div class="container">
+        <div class="row ">
+          <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
+
+            <form action="{% url 'reporte-calificaciones-emilleros-preseleccion' %}">{% csrf_token %}
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Seleccione el semestre del reporte a generar:</label>
+                <select class="form-select" aria-label="Default select example" name="select_periodo">
+                  {% for periodo in periodos %}
+                  <option value="{{periodo.slug}}">{{periodo}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <button type="submit" class="btn btn-primary">Ir asignar</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    {% endif %}
+
+    {% endif %}
+
+  </body>
+</html>
+
+{% endblock %}

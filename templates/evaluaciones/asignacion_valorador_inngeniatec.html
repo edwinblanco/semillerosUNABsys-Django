@@ -9,7 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-
   </head>
   <body>
 
@@ -24,7 +23,7 @@
           }
       
         }
-      </style>
+    </style>
 
     {% if user.id %}  
 
@@ -35,7 +34,7 @@
         <div class="row ">
           <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
 
-           <form action="{% url 'asigancion-valorador-proyecto-inngeniatec' %}" method="POST" class="">{% csrf_token %}
+           <form action="{% url 'asigancion-valorador-proyecto-inngeniatec' periodo_slug=slug %}" method="POST" class="">{% csrf_token %}
 
             <div class="row">
 
@@ -95,13 +94,14 @@
                           <br>
                           <button id="btnExcel" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
                           <br>
-                            <div class="row" style="overflow: auto; width: 100%;">
+                            <div class="row" style="overflow: auto; width: 100%; height: 70vh;">
                               
                                 <table class="table" id="tableAS">
                                     <thead>
                                       <tr>
                                         <!--<th scope="col">#</th>-->
                                         <th scope="col">Proyecto</th>
+                                        <th scope="col">Semestre</th>
                                         <th scope="col">Valoradores</th>
                                         <th scope="col">Fecha de asignación</th>
                                         
@@ -113,6 +113,7 @@
                                       <tr>
                                         <!--<td>{{ proyecto.id }}</td>-->
                                         <td>{{ asignacion.proyecto }}</td>
+                                        <td>{{ asignacion.proyecto.periodo }}</td>
                                         <td>{{ asignacion.obtener_evaluadores }}</td>
                                         <td>{{ asignacion.fecha_asignacion }}</td>
                                        

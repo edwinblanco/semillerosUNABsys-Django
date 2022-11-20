@@ -8,7 +8,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
+        <a href="https://unab.edu.co/" target="_blank" class="navbar-brand mx-auto mx-lg-0">
             <img class="nav-img-logo " src="{% static 'logo011.png' %}" alt="logo_UNAB">
         </a>
 
@@ -79,8 +79,8 @@
                            Asignar valoradores
                         </button>
                         <ul class="dropdown-menu" style="border: solid 1px #86c330;">
-                        {% if user.is_staff %} <li><a class="dropdown-item" href="{% url 'asigancion-valorador-proyecto' %}">Asignar valoradores Semilleros de Investigación</a></li> {% endif %}
-                        {% if user.is_staff %} <li><a class="dropdown-item" href="{% url 'asigancion-valorador-proyecto-inngeniatec' %}">Asignar valoradores INNGENIATE-C</a></li> {% endif %}
+                        {% if user.is_staff %} <li><a class="dropdown-item" href="{% url 'seleccionar-periodo-semilleros' %}">Asignar valoradores Semilleros de Investigación</a></li> {% endif %}
+                        {% if user.is_staff %} <li><a class="dropdown-item" href="{% url 'seleccionar-periodo-inngeniatec' %}">Asignar valoradores INNGENIATE-C</a></li> {% endif %}
                     </ul>
                       </div>
                 </li>
@@ -101,9 +101,9 @@
                       </div>
                 </li>
 
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a class="nav-link click-scroll" href="{% url 'crear_evento_prueba' %}">Agregar nuevo evento</a>
-                </li>
+                </li>-->
 
                 {% endif %}
 
@@ -119,7 +119,7 @@
                         </ul>
                       </div>
                 </li>
-                <a href="index.html" class="navbar-brand mx-auto mx-lg-0">
+                <a href="https://unab.edu.co/facultad-de-ingenieria/" target="_blank" class="navbar-brand mx-auto mx-lg-0">
                     <img class="nav-img-logo " src="{% static 'logoinge.png' %}" alt="logo_UNAB">
                 </a>
 

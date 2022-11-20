@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'proyectos_app',
     'eventos_app',
     'config_semilleros_app',
+    'config_inngeniatec_app',
     'evaluaciones_orales',
     'evaluaciones_preseleccion',
     'asignacion_evaluador',
@@ -103,15 +104,8 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
 #DATABASES = {
 #   'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
+#        'NAME': BASE_DIR  + 'db.sqlite3',
 #   }
-#}
-
-#DATABASES = {
- #  'default': {
- #       'ENGINE': 'django.db.backends.sqlite3',
- #       'NAME': BASE_DIR  + 'db.sqlite3',
- #  }
 #}
       
 DATABASES = {

@@ -12,9 +12,24 @@ from django.contrib import messages
 from evaluaciones_preseleccion.forms import FormularioCalificacionPreseleccion, FormularioValoracionProyectoIngeniatec
 from evaluaciones_preseleccion.models import EvaluacionPreseleccion, ValoracionProyectoIngeniatec, ValoracionProyectoIngeniatecPresencial
 
-from proyectos_app.models import Proyecto, ProyectoInngeniatec
+from proyectos_app.models import Periodo, Proyecto, ProyectoInngeniatec
 
 # Create your views here.
+def seleccionar_periodo_reporte_inngeniatec_view(request):
+    periodos = Periodo.objects.all()
+    context={
+        'periodos':periodos,
+    }
+    return render(request,'evaluaciones/asignacion_periodo_reporte_inngeniatec.html', context)
+
+def seleccionar_periodo_reporte_semilleros_view(request):
+    periodos = Periodo.objects.all()
+    context={
+        'periodos':periodos,
+    }
+    return render(request,'evaluaciones/asignacion_periodo_reporte_semilleros.html', context)
+
+
 def registro_calificacion_preseleccion_view(request, pk = None, pk_calificacion = None):
     
     form = FormularioCalificacionPreseleccion()
@@ -85,7 +100,6 @@ def registro_calificacion_preseleccion_view(request, pk = None, pk_calificacion 
     
     return render(request,'evaluaciones/registro_evaluacion_preseleccion.html', contex)
 
-
 def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion = None, face = None):
     
     form = FormularioValoracionProyectoIngeniatec()
@@ -149,9 +163,18 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
     return render(request,'evaluaciones/registro_evaluacion_inngeniatec.html', contex)
 
 def reporte_calificaciones_inngeniatec_view(request):
-    proyectos_calificados = ValoracionProyectoIngeniatec.objects.all()
-    proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.all()
-    asignaciones = AsignacionEvaluacionInngeniatec.objects.all().order_by('proyecto__categoria')
+    
+    periodo_slug = request.GET.get('select_periodo')
+    
+    if periodo_slug is None:
+        proyectos_calificados = ValoracionProyectoIngeniatec.objects.all()
+        proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.all()
+        asignaciones = AsignacionEvaluacionInngeniatec.objects.all().order_by('proyecto__categoria')
+    else:
+        periodo=get_object_or_404(Periodo, slug=periodo_slug)
+        proyectos_calificados = ValoracionProyectoIngeniatec.objects.filter(proyecto__periodo__slug=periodo_slug)
+        proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.filter(proyecto__periodo__slug=periodo_slug)
+        asignaciones = AsignacionEvaluacionInngeniatec.objects.filter(proyecto__periodo__slug=periodo_slug).order_by('proyecto__categoria')
     
     proyectos_valorados = []
     proyectos_no_valorados = [] 
@@ -226,6 +249,22 @@ def reporte_calificaciones_inngeniatec_view(request):
             notas_final_presencial = s_presencial / notas_c_presencial 
         else:       
             notas_final_presencial = 0.0
+            
+        autores = []    
+        for autor in proyecto.proyecto.integrantes.all():
+            autores.append({'nombre':autor.nombres,
+                            'apellido':autor.apellidos,
+                            'correo':autor.correo_institicional,
+                            'universidad': autor.universidad
+                            })
+            
+        tutores = []  
+        for tutor in proyecto.proyecto.tutores.all():
+           tutores.append({
+               'nombre': tutor.nombres,
+               'apellido': tutor.apellidos,
+               'correo': tutor.correo_institicional
+           }) 
            
         dtc = {
             'cantidad': proyectocount.count(),
@@ -237,8 +276,8 @@ def reporte_calificaciones_inngeniatec_view(request):
             'nota_final': str("{0:.1f}".format(notas_final)),
             'categoria': proyecto.proyecto.categoria,
             'correo': proyecto.proyecto.email_contacto,
-            'integrantes': proyecto.proyecto.integrantes,
-            'tutor': proyecto.proyecto.tutor,
+            'integrantes': autores,
+            'tutores': tutores,
             } 
         
         if proyecto.proyecto.titulo in list_str_proyectos:
@@ -247,29 +286,28 @@ def reporte_calificaciones_inngeniatec_view(request):
             reporte_proyecto.append(dtc)
             list_str_proyectos.append(proyecto.proyecto.titulo)
 
-    #for x in reporte_proyecto:
-       #print(f'p: {x}\n')
-        
-                   
-    #print('proyectos_calificados: ',len(reporte_proyecto))
-    #print('asignaciones: ', asignaciones.count())
-    #print('proyectos_valorados: ',len(list(set(proyectos_valorados))))
-    #print('proyectos_no_valorados: ', asignaciones.count()-len(list(set(proyectos_valorados))))
-    #print('asignaciones: ',asignaciones[0].proyecto)
-
     reporte_proyecto.sort(key=lambda x: x['notas_final_presencial'], reverse=True)
              
     context ={
         'proyectos_calificados': proyectos_calificados,
         'asignaciones':asignaciones,
         'reporte_proyecto':reporte_proyecto,
-        #'proyectos_valorados':proyectos_valorados,
+        'periodo':periodo,
     }
     return render(request,'evaluaciones/reporte_calificaciones_inngeniatec.html', context)
 
 def reporte_calificaciones_semilleros_preseleccion_view(request):
-    proyectos_calificados = EvaluacionPreseleccion.objects.all()
-    asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto__modalidad_aprticipacion')
+    
+    periodo_slug = request.GET.get('select_periodo')
+    
+    if periodo_slug is None:
+        proyectos_calificados = EvaluacionPreseleccion.objects.all()
+        asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto__modalidad_aprticipacion')
+    else:
+        periodo=get_object_or_404(Periodo, slug=periodo_slug)
+        proyectos_calificados = EvaluacionPreseleccion.objects.filter(proyecto__periodo__slug=periodo_slug)
+        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__periodo__slug=periodo_slug).order_by('proyecto__modalidad_aprticipacion')
+    
     
     proyectos_valorados = []
     proyectos_no_valorados = [] 
@@ -315,7 +353,6 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
             else:
                 print('No existe')
                 valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
-            #valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
           
         notas_final = 0.0
         notas_c = len(notas)
@@ -378,12 +415,6 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
         else:    
             reporte_proyecto.append(dtc)
             list_str_proyectos.append(proyecto.proyecto.titulo)        
-                   
-    #print('proyectos_calificados: ',len(reporte_proyecto))
-    #print('asignaciones: ', asignaciones.count())
-    #print('proyectos_valorados: ',len(list(set(proyectos_valorados))))
-    #print('proyectos_no_valorados: ', asignaciones.count()-len(list(set(proyectos_valorados))))
-    #print('asignaciones: ',asignaciones[0].proyecto)
 
     reporte_proyecto.sort(key=lambda x: x['nota_final_100'], reverse=True)
              
@@ -391,6 +422,6 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
         'proyectos_calificados': proyectos_calificados,
         'asignaciones':asignaciones,
         'reporte_proyecto':reporte_proyecto,
-        #'proyectos_valorados':proyectos_valorados,
+        'periodo':periodo,
     }
     return render(request,'evaluaciones/reporte_calificaciones_semilleros_preseleccion.html', context)

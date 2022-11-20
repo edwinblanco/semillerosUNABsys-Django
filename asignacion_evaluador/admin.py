@@ -25,9 +25,7 @@ class ProyectoAdmin(admin.ModelAdmin):
         return False
     
     def has_change_permission(self, request, obj=None):
-        return False
-    
-        
+        return False  
     
 @admin.register(AsignacionEvaluacionInngeniatec)
 class AsignacionEvaluacionInngeniatecAdmin(admin.ModelAdmin):
@@ -35,7 +33,6 @@ class AsignacionEvaluacionInngeniatecAdmin(admin.ModelAdmin):
     list_display_links = ()
     readonly_fields =  ()
     ordering = ()
-    
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()
@@ -43,21 +40,17 @@ class AsignacionEvaluacionInngeniatecAdmin(admin.ModelAdmin):
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "evaluadores":
             kwargs["queryset"] = Usuario.objects.filter(is_evaluador=True)
-            
         return super(AsignacionEvaluacionInngeniatecAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
     
     def has_add_permission(self, request, obj=None):
         return False    
 
-# Register your models here.
-#admin.site.register(AsignacionEvaluacion)
 @admin.register(HistoriaCambiosAsignacionSemilleros)
 class HistoriaCambiosAsignacionSemillerosAdmin(admin.ModelAdmin):
     list_display = ('id', 'proyecto','obtener_valoracdores_anteriores','obtener_valoradores_nuevos', 'observaciones', 'fecha_creacion')
     list_display_links = ()
     readonly_fields =  ()
     ordering = ()
-    
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()

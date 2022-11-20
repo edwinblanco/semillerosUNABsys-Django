@@ -1,5 +1,6 @@
 from django import forms
 from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec
+from proyectos_app.models import Periodo, Proyecto, ProyectoInngeniatec
 from usuarios_app.models import Usuario
 
 
@@ -22,17 +23,18 @@ class FormularioAsignarValorador(forms.ModelForm):
         'class': 'form-control',
     }), required=False)
    
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, periodo=None, **kwargs):
         super(FormularioAsignarValorador, self).__init__(*args,) 
         
+        if periodo is not None:
+            self.fields['proyecto'].queryset = Proyecto.objects.filter(periodo=periodo)        
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'
                 
     def clean(self):
         cleaned_data = super().clean()
         if cleaned_data.get('evaluadores').count() > 2:
-            raise forms.ValidationError('Solo debes seleccionar 2 valoradores por proyecto')
-                
+            raise forms.ValidationError('Solo debes seleccionar 2 valoradores por proyecto')     
 
 class FormularioAsignarValoradorInngeniatec(forms.ModelForm):
     
@@ -50,8 +52,11 @@ class FormularioAsignarValoradorInngeniatec(forms.ModelForm):
     )  
    
    
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, periodo=None, **kwargs):
         super(FormularioAsignarValoradorInngeniatec, self).__init__(*args,) 
+        
+        if periodo is not None:
+            self.fields['proyecto'].queryset = ProyectoInngeniatec.objects.filter(periodo=periodo)
         
         for field in self.fields:
                 self.fields[field].widget.attrs['class'] = 'form-control'
@@ -62,7 +67,7 @@ class FormularioAsignarValoradorInngeniatec(forms.ModelForm):
             raise forms.ValidationError('Solo debes seleccionar 2 valoradores por proyecto')
         
 class FormularioOdenarAsignacion(forms.Form):
-    CHOICES = [('1', 'Título del Proyecto (A-Z)'), ('2', 'Título del Proyecto (Z-A)'), ('3', 'Fecha de asignación (Nueva - Antigua)'), ('4', 'Fecha de asignación (Antigua - Nueva)')]
+    CHOICES = [('1', 'Título del Proyecto (A-Z)'), ('2', 'Título del Proyecto (Z-A)'), ('3', 'Fecha de asignación (Nueva - Antigua)'), ('4', 'Fecha de asignación (Antigua - Nueva)'),('5', 'Semestre (Reciente - Antiguo)'),('6', 'Semestre (Antiguo - Reciente)')]
     seleccion_ordenamiento = forms.ChoiceField(widget=forms.Select(attrs={
         'placeholder': 'Seleccionar ordenamiento',    
         'class':'form-control',     

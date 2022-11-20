@@ -1,0 +1,109 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+        <main>
+            <section class="about section-padding" id="section_2">
+                <div class="container">
+
+                    <div class="row">
+
+                        {% if config %}
+
+                        <h2 class="mb-5 text-center">{{config.titulo_principal}}
+                        </h2>
+
+                            <div class="col-lg-12 col-12 shadow-sm p-3 mb-5 bg-body rounded">
+                                <h2 class="mb-4 text-center">{{config.titulo_principal2}}</h2>
+                                
+                                <p>{{config.parrafo_principal2}}</p>
+                                
+                            </div>
+
+                            <div class="col-lg-6 col-12 shadow-sm p-3 mb-5 bg-body rounded">
+                                <h3 class="mb-3">{{config.titulo_secundario1}}</h3>
+
+                                <p>{{config.parrafo_secundario1}}</p>
+
+                            </div>
+
+                            <div class="col-lg-6 col-12 mt-5 mt-lg-0 shadow-sm p-3 mb-5 bg-body rounded">
+                                <h3 class="mb-3">{{config.titulo_secundario2}}</h3>
+        
+                                <p>{{config.parrafo_secundario2}}</p>
+
+
+                                <a class="custom-btn custom-border-btn btn custom-link mt-3 me-3" href="{% url 'registro' %}">Inscribirme</a>
+
+                                <a class="custom-btn btn custom-link mt-3" href="{% url 'login-page' %}">Iniciar sesión</a>
+                            </div>
+
+                            <div class="col-lg-6 col-12 shadow-sm p-3 mb-5 bg-body rounded">
+                                <h3 class="mb-3">Fechas importantes:</h3>
+
+                                {% for fecha in fechas %}
+                                <p>{{fecha.descripcion}} <b>{{fecha.fecha}}</b></p>
+                                {% endfor %}
+
+                            </div>
+
+                            <div class="col-lg-6 col-12 mt-5 mt-lg-0 shadow-sm p-3 mb-5 bg-body rounded">
+                                <h3 class="mb-3">Correo de contacto:</h3>
+                                <p><i class="bi bi-envelope"></i><b>{{config.correo_contacto}}</b></p>
+                            </div>
+
+                        {% else %}
+
+                        <h2 class="mb-5 text-center">INNGENIATE-C
+                            </h2>
+
+                        <div class="col-lg-12 col-12 shadow-sm p-3 mb-5 bg-body rounded">
+                            <h2 class="mb-4 text-center">¿De qué se trata?</h2>
+                            
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, sunt ipsa magni voluptatibus obcaecati ut excepturi ab dolorum, alias neque iusto repudiandae sapiente possimus fuga! Delectus blanditiis magnam voluptates iure?</p>                            
+                        </div>
+
+                        <div class="col-lg-6 col-12 shadow-sm p-3 mb-5 bg-body rounded">
+                            <h3 class="mb-3">¡De qué se trata?</h3>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi suscipit minus esse. Illum, repudiandae mollitia rem minus fugiat delectus eaque quidem sit eligendi, provident odit consectetur natus iusto veritatis quis.</p>
+                        </div>
+
+                        <div class="col-lg-6 col-12 mt-5 mt-lg-0 shadow-sm p-3 mb-5 bg-body rounded">
+                            <h3 class="mb-3">¿Como participar?</h3>
+     
+                            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis optio placeat, voluptas mollitia sequi maxime eligendi beatae veritatis, sapiente totam neque quis sed at nisi eum. Dolore eius aperiam facere.</p>
+
+                            <a class="custom-btn custom-border-btn btn custom-link mt-3 me-3" href="{% url 'registro' %}">Inscribirme</a>
+
+                            <a class="custom-btn btn custom-link mt-3" href="{% url 'login-page' %}">Iniciar sesión</a>
+                        </div>
+
+                        <div class="col-lg-6 col-12 shadow-sm p-3 mb-5 bg-body rounded">
+                            <h3 class="mb-3">Fechas importantes:</h3>
+  
+                            {% for fecha in fechas %}
+                            <p>{{fecha.descripcion}} <b>{{fecha.fecha}}</b></p>
+                            {% endfor %}
+
+                        </div>
+
+                        <div class="col-lg-6 col-12 mt-5 mt-lg-0 shadow-sm p-3 mb-5 bg-body rounded">
+                            <h3 class="mb-3">Correo de contacto:</h3>
+                            <p><i class="bi bi-envelope"></i><b>admin@admin.com</b></p>
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+            </section>
+        </main>
+
+    </body>
+</html>
+
+{% endblock %}

@@ -23,14 +23,14 @@
             <div class="row">
 
                 <br>
-                <h3 class="mb-3 text-center">Tus proyectos</h3>
 
               {% if user.is_autor %}
 
                 <div class="col-12">
-                    <div class="container">
+                    <div class="container shadow-lg p-3 mb-5 bg-body rounded">
+                      <h3 class="mb-3 text-center">Tus proyectos de Semilleros de Investigación</h3>
                       {% include 'includes/alerts.html' %}
-                      <p>¿Subir un nuevo proyecto? 
+                      <p>¿Subir un nuevo proyecto a Semilleros de Investigación? 
                          
                         {% if activacion_convocatoria %}
 
@@ -49,6 +49,7 @@
                                   <tr>
                                     <!--<th scope="col">#</th>-->
                                     <th scope="col">Título</th>
+                                    <th scope="col">Semestre</th>
                                     <th scope="col">Temática</th>
                                     <th scope="col">PDF proyecto</th>
                                     <th scope="col">PDF carta aval</th>
@@ -66,6 +67,7 @@
                                   <tr>
                                     <!--<td>{{ proyecto.id }}</td>-->
                                     <td>{{ proyecto.titulo }}</td>
+                                    <td>{{ proyecto.periodo }}</td>
                                     <td>{{ proyecto.tematica }}</td>
                                     <td><a href="{{ proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     <td><a href="{{ proyecto.carta_aval_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
@@ -91,7 +93,74 @@
                 </div>
 
               {% endif %}  
+              <br>
+            {% if user.is_autor %}
 
+              <div class="col-12 ">
+                  <div class="container shadow-lg p-3 mb-5 bg-body rounded">
+                     <h3 class="mb-3 text-center">Tus proyectos de INNGENIATE-C</h3>
+
+                    {% include 'includes/alerts.html' %}
+                    <p>¿Subir un nuevo proyecto a Inngeniate-C? 
+                       
+                      {% if activacion_convocatoria_inngeniatec %}
+
+                      <a class="btn btn-primary" style="background-color: #2d418e;" href="{% url 'registro-proyecto-inngeniatec' %}">Agregar</a>
+                    
+                      {% else %}
+
+                      <b><i class="bi bi-x-circle">Convocatoria cerrada</i></b>
+
+                      {% endif %}
+
+                    </p>
+                      <div class="row" style="overflow: auto; width: 100%;">
+                          <table class="table">
+                              <thead>
+                                <tr>
+                                  <!--<th scope="col">#</th>-->
+                                  <th scope="col">Título</th>
+                                  <th scope="col">Semestre</th>
+                                  <th scope="col">Categoria</th>
+                                  <th scope="col">Email contacto</th>
+                                  <th scope="col">Programa integrantes</th>
+                                  <th scope="col">Palabras clave</th>
+                                  <th scope="col">Integrantes</th>
+                                  <th scope="col">Tutores</th>
+                                  <th scope="col">Fecha última modificación</th>
+                                  <th scope="col">Acción</th>
+
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for proyecto in proyectos_inngeniatec %}
+
+                                <tr>
+                                  <!--<td>{{ proyecto.id }}</td>-->
+                                  <td>{{ proyecto.titulo }}</td>
+                                  <td>{{ proyecto.periodo }}</td>
+                                  <td>{{proyecto.categoria}}</td>
+                                  <td>{{proyecto.email_contacto}}</td>
+                                  <td>{{proyecto.programa_integrantes}}</td>
+                                  <td>{{proyecto.palabras_clave}}</td>
+                                  <td>{% for autor in proyecto.obtener_autores %}<b>*</b> {{autor}}<br>{% endfor %}</td>
+                                  <td>{{ proyecto.obtener_tutores }}</td>
+                                  <td>{{proyecto.fecha_actualizacion}}</td>
+
+                                  <td> 
+                                     <a type="button" href="{% url 'actualizacion-proyecto-inngeniatec' pk=proyecto.id %}" class="btn btn-primary">Editar</a>
+                                  </td>
+                                </tr>
+
+                                {% endfor %}
+
+                              </tbody>
+                            </table>
+                      </div>
+                  </div>
+              </div>
+
+            {% endif %}
                 
 
 

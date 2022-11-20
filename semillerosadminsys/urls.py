@@ -27,6 +27,7 @@ urlpatterns = [
     path('securelogin/', admin.site.urls),
     path('', views.inicio, name='home'),
     path('semilleros', views.inicio_semilleros, name='home_semilleros'),
+    path('inngeniatec', views.inicio_inngeniatec, name='home_inngeniatec'),
     path('valoradores/', views.tablero_seleccion_view, name='valoradores'),
     path('lineas_tematicas/', views.lineas_tematicas_view, name='lineas-tematicas'),
     path('usuarios/', include('usuarios_app.urls')),

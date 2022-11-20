@@ -41,6 +41,7 @@
                                   <tr>
     
                                     <th scope="col">Título del proyecto</th>
+                                    <th scope="col">Semestre</th>
                                     <th scope="col">Fecha de asignación</th>
                                     <th scope="col">Documento</th>
                                     <th scope="col">calificación preselección </th>
@@ -54,6 +55,7 @@
                                   <tr>
                                     
                                     <td>{{ proyecto.proyecto }}</td>
+                                    <td>{{ proyecto.proyecto.periodo }}</td>
                                     <td>{{ proyecto.fecha_asignacion}}</td>
                                     <td><a href="{{ proyecto.proyecto.proyecto_pdf.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a></td>
                                     

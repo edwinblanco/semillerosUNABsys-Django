@@ -18,7 +18,7 @@ from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluaci
 from carrera_app.models import Programa, Universidad
 from evaluaciones_orales.models import ActivacionCalificacionOral, EvaluacionOral
 from evaluaciones_preseleccion.models import ActivacionCalificacionInngeniatecPrimeraFase, ActivacionCalificacionInngeniatecSegundaFase, ActivacionCalificacionPreseleccion, EvaluacionPreseleccion, ValoracionProyectoIngeniatec, ValoracionProyectoIngeniatecPresencial
-from proyectos_app.models import ActivacionConvocatoria, Proyecto
+from proyectos_app.models import ActivacionConvocatoria, ActivacionConvocatoriaInngeniatec, Proyecto, ProyectoInngeniatec
 
 from usuarios_app.forms import FormularioRegistro
 from usuarios_app.models import Usuario
@@ -32,7 +32,9 @@ def login_view_page(request):
 def tablero_view(request):
     proyectos = Proyecto.objects.filter(autores__id = request.user.id).order_by('-fecha_creacion')
     activacion_convocatoria = ActivacionConvocatoria.objects.get(id=1)
-    return render(request, 'usuarios/tablero.html', {'proyectos': proyectos, 'activacion_convocatoria': activacion_convocatoria.activacion_convocatoria})
+    proyectos_inngeniatec = ProyectoInngeniatec.objects.filter(integrantes__id = request.user.id).order_by('-fecha_creacion')
+    activacion_convocatoria_inngeniatec = ActivacionConvocatoriaInngeniatec.objects.get(id=1)
+    return render(request, 'usuarios/tablero.html', {'proyectos': proyectos, 'proyectos_inngeniatec':proyectos_inngeniatec, 'activacion_convocatoria': activacion_convocatoria.activacion_convocatoria, 'activacion_convocatoria_inngeniatec': activacion_convocatoria_inngeniatec.activacion_convocatoria})
 
 def tablero_tutor_view(request):
     proyectos = Proyecto.objects.filter(tutores__id = request.user.id).order_by('-fecha_creacion')

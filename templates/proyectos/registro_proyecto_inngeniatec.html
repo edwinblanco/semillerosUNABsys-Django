@@ -16,7 +16,7 @@
         <div class="row ">
           <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
 
-           <form {% if actualizar == False %} action="{% url 'registro-proyecto' %}" {% else %} action="{% url 'proyecto-actualizado' pk=idp %}" {% endif %} method="POST" class="" enctype="multipart/form-data">{% csrf_token %}
+           <form {% if actualizar == False %} action="{% url 'registro-proyecto-inngeniatec' %}" {% else %} action="{% url 'proyecto-actualizado-inngeniatec' pk=idp %}" {% endif %} method="POST" class="" >{% csrf_token %}
 
             <div class="row">
 
@@ -49,37 +49,36 @@
                 </div>
                 <div class="mb-3">
                   <label class="form-label"
-                    >Temática a la cual aplíca el proyecto:</label
+                    >Email de contecto:</label
                   >
-                  {{ form.tematica }}
+                  {{ form.email_contacto }}
                   <div id="emailHelp" class="form-text">
                     
                   </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label"
-                      >Semillero:</label
+                      >Programa al que pertenen los integrantes, separados por (,):</label
                     >
-                    {{ form.semillero }}
-                    {{ form.otro_semillero }}
+                    {{ form.programa_integrantes }}
                     <div id="emailHelp" class="form-text">
                       
                     </div>
                   </div>
                 <div class="mb-3">
                   <label class="form-label"
-                    >Video (modalidad Pitch) de 3 minutos en el que se presente el proyecto desde la importancia e impacto de este. Sube tu video a YouTube y pega el enlace aquí:</label
+                    >Palabras clave:</label
                   >
-                  {{ form.url_video }}
+                  {{ form.palabras_clave }}
                   <div id="emailHelp" class="form-text">
                     
                   </div>
                 </div>  
                 <div class="mb-3">
                   <label class="form-label"
-                    >Documento del proyecto (pdf): - Descarga la plantilla/formato <a href="https://res.cloudinary.com/dwhvz3t4j/raw/upload/v1660888745/media/files/archivos/Plantilla_de_inscripcion_para_el_Encuentro.docx"><b>AQUÍ</b></a></label
+                    >Resumen del proyecto:</label
                   >
-                  {{ form.proyecto_pdf }}
+                  {{ form.resumen }}
                   <div id="emailHelp" class="form-text">
                     
                   </div>
@@ -87,24 +86,24 @@
                 
                 <div class="mb-3">
                   <label class="form-label"
-                    >Carta aval (pdf): - Descarga el modelo <a href="https://res.cloudinary.com/dwhvz3t4j/raw/upload/v1660888745/media/files/archivos/Modelo_Carta_Aval.docx"><b>AQUÍ</b></a></label
+                    >URL del vido (ej: https://www.youtube.com):</label
                   >
-                  {{ form.carta_aval_pdf }}
+                  {{ form.url_video }}
                 </div>
               </div>
               <div class="col-lg-6 col-12 mx-auto">
                   <div class="mb-3"">
                       <label class="form-check-label" for="flexRadioDefault1"
-                        >Seleccione la modalidad de participación:</label
+                        >Seleccione la categoria de participación:</label
                       >
-                      {{ form.modalidad_aprticipacion }}
+                      {{ form.categoria }}
                       
                   </div> 
                   <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label"
-                        >Autores del proyecto (mantener la tecla <b>Ctrl</b> + <b> click </b> para agregar varios autores. La lista se muestra ordenada alfabéticamente por el correo, si no encuentras el correo de tus compañeros es porque aun no se han registrado en la plataforma.): </label
+                        >Integrantes del proyecto (mantener la tecla <b>Ctrl</b> + <b> click </b> para agregar varios autores. La lista se muestra ordenada alfabéticamente por el correo, si no encuentras el correo de tus compañeros es porque aun no se han registrado en la plataforma.): </label
                       >
-                      {{ form.autores }}
+                      {{ form.integrantes }}
                       <div id="emailHelp" class="form-text">
                         
                       </div>

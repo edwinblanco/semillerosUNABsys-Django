@@ -8,18 +8,41 @@ from django.template.loader import render_to_string
 from asignacion_evaluador.forms import FormularioAsignarValorador, FormularioAsignarValoradorInngeniatec, FormularioOdenarAsignacion
 from asignacion_evaluador.models import AsignacionEvaluacion, AsignacionEvaluacionInngeniatec, HistoriaCambiosAsignacionSemilleros
 from evaluaciones_preseleccion.models import ValoracionProyectoIngeniatec
+from proyectos_app.models import Periodo, Proyecto
 
 # Create your views here.
-def asignar_valorador_view(request, pk = None):
+
+def seleccionar_periodo_view(request):
+    periodos = Periodo.objects.all()
+    context={
+        'periodos':periodos,
+    }
+    return render(request,'evaluaciones/asignacion_periodo_semilleros.html', context)
+
+def seleccionar_periodo_inngeniatec_view(request):
+    periodos = Periodo.objects.all()
+    context={
+        'periodos':periodos,
+    }
+    return render(request,'evaluaciones/asignacion_periodo_inngeniatec.html', context)
+
+def asignar_valorador_view(request, pk = None, periodo_slug=None):
     
-    form = FormularioAsignarValorador()
+    if periodo_slug is None:
+        periodo_slug2 = request.GET.get('select_periodo')
+        periodo2 = get_object_or_404(Periodo, slug=periodo_slug2)
+    else:
+        periodo_slug2 = periodo_slug
+        periodo2 = get_object_or_404(Periodo, slug=periodo_slug2) 
     
+    form = FormularioAsignarValorador(periodo=periodo2)
+
     if pk is None:
         form2 = FormularioOdenarAsignacion()
         asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto')
         
         if request.method == 'POST':
-            form = FormularioAsignarValorador(request.POST)
+            form = FormularioAsignarValorador(request.POST, periodo=periodo2)
             
             if form.is_valid():
                 proyecto = form.cleaned_data['proyecto']
@@ -50,7 +73,7 @@ def asignar_valorador_view(request, pk = None):
                     asignacion.save()
                     
                     messages.success(request, 'Se asignó correctamente')
-                    return redirect('asigancion-valorador-proyecto')
+                    return redirect('asigancion-valorador-proyecto', periodo_slug=periodo_slug2)
             
             else: 
                 messages.error(request, 'error')
@@ -59,6 +82,7 @@ def asignar_valorador_view(request, pk = None):
             'form': form,
             'form2': form2,
             'actualizar': False,
+            'slug':periodo_slug2,
             'asignaciones': asignaciones,
         }        
 
@@ -72,15 +96,17 @@ def asignar_valorador_view(request, pk = None):
         
         contex = {
             'form': form,
+            'slug':periodo_slug2,
             'actualizar': True,
             'idp': asignacion.id
         }
     
     return render(request,'evaluaciones/asignacion_valorador.html', contex)
             
-def actualizar_asignacion_semilleros_view(request, pk):
+def actualizar_asignacion_semilleros_view(request, periodo_slug, pk):
     
     form = FormularioAsignarValorador()
+    slug = periodo_slug
 
     if request.method == 'POST':
         form = FormularioAsignarValorador(request.POST)
@@ -103,15 +129,18 @@ def actualizar_asignacion_semilleros_view(request, pk):
             asignacion.save()
             
             messages.success(request, 'Se actualizó exitosamente la asignación y se creó una historia con el cambio')
-            return redirect('asigancion-valorador-proyecto')
+            return redirect('asigancion-valorador-proyecto', periodo_slug=slug)
         
         else: 
             messages.error(request, 'Error, campos inválidos. Ningún campo debe estar vacío')
             return redirect('/asigancion_valoradores/actualizar-asignacion-semilleros/'+str(asignacion.id))
 
-def ordenar_tabla_asignaciones_semilleros_view(request):
+def ordenar_tabla_asignaciones_semilleros_view(request, periodo_slug):
+    
+    periodo2 = get_object_or_404(Periodo, slug=periodo_slug) 
+    
     form2 = FormularioOdenarAsignacion()
-    form = FormularioAsignarValorador()
+    form = FormularioAsignarValorador(periodo=periodo2)
     if request.method == 'POST':
         form2 = FormularioOdenarAsignacion(request.POST)
         
@@ -125,6 +154,10 @@ def ordenar_tabla_asignaciones_semilleros_view(request):
                 asignaciones = AsignacionEvaluacion.objects.all().order_by('-fecha_asignacion')
             if seleccion == '4':
                 asignaciones = AsignacionEvaluacion.objects.all().order_by('fecha_asignacion')
+            if seleccion == '5':
+                asignaciones = AsignacionEvaluacion.objects.all().order_by('-proyecto__periodo__slug')
+            if seleccion == '6':
+                asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto__periodo__slug')
         else: 
             messages.error(request, 'error')
     
@@ -133,16 +166,23 @@ def ordenar_tabla_asignaciones_semilleros_view(request):
         'form': form,
         'asignaciones': asignaciones,
         'actualizar':False,
+        'slug': periodo_slug,
     }        
 
     return render(request,'evaluaciones/asignacion_valorador.html', contex)
 
-def asignar_valorador_inngeniatec_view(request, pk = None):
+def asignar_valorador_inngeniatec_view(request, periodo_slug=None, pk = None):
     
-    form = FormularioAsignarValoradorInngeniatec()
+    if periodo_slug is None:
+        periodo_slug2 = request.GET.get('select_periodo')
+        periodo2 = get_object_or_404(Periodo, slug=periodo_slug2)
+    else:
+        periodo_slug2 = periodo_slug
+        periodo2 = get_object_or_404(Periodo, slug=periodo_slug2) 
+    form = FormularioAsignarValoradorInngeniatec(periodo=periodo2)
     
     if request.method == 'POST':
-        form = FormularioAsignarValoradorInngeniatec(request.POST)
+        form = FormularioAsignarValoradorInngeniatec(request.POST, periodo=periodo2)
         
         if form.is_valid():
             proyecto = form.cleaned_data['proyecto']
@@ -174,7 +214,7 @@ def asignar_valorador_inngeniatec_view(request, pk = None):
                 
                 
                 messages.success(request, 'Se asignó correctamente')
-                return redirect('asigancion-valorador-proyecto-inngeniatec')
+                return redirect('asigancion-valorador-proyecto-inngeniatec', periodo_slug=periodo_slug)
         
         else: 
             messages.error(request, 'error')
@@ -183,6 +223,7 @@ def asignar_valorador_inngeniatec_view(request, pk = None):
     
     contex = {
         'form': form,
+        'slug': periodo_slug2,
         'asignaciones': asignaciones,
     }        
 

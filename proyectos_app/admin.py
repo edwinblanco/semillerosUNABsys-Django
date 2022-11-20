@@ -1,13 +1,13 @@
 from django.contrib import admin
 from asignacion_evaluador.models import HistoriaCambiosAsignacionSemilleros
-from proyectos_app.models import ActivacionConvocatoria, Proyecto, ProyectoInngeniatec
+from proyectos_app.models import ActivacionConvocatoria, ActivacionConvocatoriaInngeniatec, Periodo, Proyecto, ProyectoInngeniatec
 from usuarios_app.models import Usuario
 
 from import_export.admin import ImportExportActionModelAdmin
 
 @admin.register(Proyecto)
 class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
-    list_display = ('id','titulo', 'tematica', 'semillero', 'proyecto_pdf', 'carta_aval_pdf', 'obtener_autores', 'obtener_tutores')
+    list_display = ('id','titulo','periodo', 'tematica', 'semillero', 'proyecto_pdf', 'carta_aval_pdf', 'obtener_autores', 'obtener_tutores')
     list_display_links = ()
     search_fields = ['titulo']
     readonly_fields =  ()
@@ -30,14 +30,23 @@ class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
 
 @admin.register(ProyectoInngeniatec)
 class ProyectoInngeniatecAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
-    list_display = ('id','titulo', 'integrantes', 'programa_integrantes', 'categoria', 'tutor', 'palabras_clave', 'url_video')
+    list_display = ('id','titulo', 'periodo','programa_integrantes', 'categoria', 'obtener_autores','obtener_tutores', 'palabras_clave', 'url_video')
     list_display_links = ('titulo',)
-    search_fields = ['titulo', 'integrantes', 'programa_integrantes','categoria', 'tutor', 'palabras_clave']
+    search_fields = ['titulo', 'integrantes', 'programa_integrantes','categoria', 'palabras_clave']
     readonly_fields =  ()
     ordering = ()
     filter_horizontal = ()
     list_filter = ()
     fieldsets = ()
+    
+    def formfield_for_manytomany(self, db_field, request, **kwargs):
+        if db_field.name == "integrantes":
+            kwargs["queryset"] = Usuario.objects.filter(is_autor=True).order_by('nombres', 'apellidos')
+            
+        if db_field.name == "tutores":
+            kwargs["queryset"] = Usuario.objects.filter(is_tutor=True).order_by('nombres', 'apellidos')
+            
+        return super(ProyectoInngeniatecAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 # Register your models here.
@@ -57,9 +66,28 @@ class ActivacionConvocatoriaAdmin(admin.ModelAdmin):
     def has_add_permission(self, request, obj=None):
         return False
     
+admin.site.register(ActivacionConvocatoria, ActivacionConvocatoriaAdmin)
+    
+class ActivacionConvocatoriaInngeniatecAdmin(admin.ModelAdmin):
+    
+    model = ActivacionConvocatoriaInngeniatec
     
 
-admin.site.register(ActivacionConvocatoria, ActivacionConvocatoriaAdmin)
+    def get_actions(self, request):
+        actions = super(ActivacionConvocatoriaInngeniatecAdmin, self).get_actions(request)
+        return actions
+    
+    def has_delete_permission(self, request, obj=None):
+        return False 
+    
+    def has_add_permission(self, request, obj=None):
+        return False
+    
+admin.site.register(ActivacionConvocatoriaInngeniatec, ActivacionConvocatoriaInngeniatecAdmin)
 
+class PeriodoAdmin(admin.ModelAdmin):
+    prepopulated_fields = {'slug': ('anio','semestre')}
+    list_display = ('id','anio','semestre', 'slug')
 
+admin.site.register(Periodo, PeriodoAdmin)
 
