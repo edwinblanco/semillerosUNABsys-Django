@@ -48,7 +48,6 @@ class ProyectoInngeniatecAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
             
         return super(ProyectoInngeniatecAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
-
 # Register your models here.
 # admin.site.register(Proyecto, ProyectoAdmin)
 class ActivacionConvocatoriaAdmin(admin.ModelAdmin):

@@ -18,6 +18,10 @@ import cloudinary_storage
 #BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#Generar png del modelo ER del proyecto
+#os.environ["PATH"] += os.pathsep + 'C:/Users/Edwin Blanco/Desktop/windows_10_msbuild_Release_graphviz-7.0.2-win32/Graphviz/bin'
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
@@ -56,6 +60,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'import_export',
     'dynamic_models',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -101,22 +106,22 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-#DATABASES = {
-#   'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR  + 'db.sqlite3',
-#   }
-#}
-      
 DATABASES = {
    'default': {
-      'ENGINE': 'django.db.backends.postgresql',
-      'USER': 'hgmenwrwkjrpsu',
-      'NAME': 'd8ggodnm3lnapm',
-      'PASSWORD': 'a5bca8d9e3ed321649aafe8e213e5285a5255581a8d977f658443f756f863911',
-      'HOST': 'ec2-44-210-36-247.compute-1.amazonaws.com'
-  }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR  + 'db.sqlite3',
+   }
 }
+      
+#DATABASES = {
+#   'default': {
+#      'ENGINE': 'django.db.backends.postgresql',
+#      'USER': 'hgmenwrwkjrpsu',
+#      'NAME': 'd8ggodnm3lnapm',
+#      'PASSWORD': 'a5bca8d9e3ed321649aafe8e213e5285a5255581a8d977f658443f756f863911',
+#      'HOST': 'ec2-44-210-36-247.compute-1.amazonaws.com'
+#  }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
@@ -195,25 +200,11 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#try:
-   # from .local_settings import DATABASES, DEBUG
-#except ImportError as e:
-   # print('Error: ', e.msg)    
-   
-
-
-#AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
-#AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
-#AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-#AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
-#AWS_LOCATION = 'static'
-#STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-
-#AWS_S3_FILE_OVERWRITE = False
-#AWS_DEFAULT_ACL = None
-#DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-
 #STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 #MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media')   
+
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
+}
