@@ -7,12 +7,9 @@ from usuarios_app.models import Usuario
 # Create your models here.
 class AsignacionEvaluacion(models.Model):
     proyecto = models.ForeignKey(Proyecto, on_delete=models.CASCADE, null=True)
-    
     evaluadores = models.ManyToManyField(Usuario)
-    
     fecha_asignacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
-    
     asignacion_calificada1 = models.BooleanField(default=False)
     asignacion_calificada2 = models.BooleanField(default=False)
     
@@ -25,8 +22,6 @@ class AsignacionEvaluacion(models.Model):
 
         if evalu:
             asignacion = AsignacionEvaluacion.objects.filter(id=self.id)[:1].get()
-            #print('se está asigando el proyecto: ',asignacion.proyecto)
-            #print('se está asigando el proyecto: ',evalu)
             
             for eva in asignacion.evaluadores.all():
                 print('evaluador antiguo: ', eva)

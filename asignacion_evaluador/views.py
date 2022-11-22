@@ -260,9 +260,6 @@ def reporte_valoradores_asignados_view(request):
     set_lista2 = list(set(lista_valoradores_semilleros))
     set_lista_tam2 = len(list(set(lista_valoradores_semilleros)))
     
-    #print(f'valoradores asignados semilleros: {tamaño2}')
-    #print(f'valoradores asignados unicos semilletos: {set_lista_tam2}')
-    
     for i in set_lista:
         cont = 0
         for j in lista_valoradores_ingeniatec:
@@ -279,14 +276,7 @@ def reporte_valoradores_asignados_view(request):
                 cont += 1
         lista_valoradores_semilleros2.append([i, cont])
         
-    tam3 = len(lista_valoradores_ingeniatec2)
-            
-    #print(f'valoradores asignados: {tamaño}')
-    #print(f'valoradores asignados unicos: {set_lista_tam}')
-    #print(f'valoradores asignados tamaño: {tam2}')
-    #print(f'valoradores asignados: {lista_valoradores_ingeniatec2}')
-    
-    #print(f'valoradores asignados semilleros: {lista_valoradores_semilleros2}')
+    tam3 = len(lista_valoradores_ingeniatec2)    
     
     lista_general = []
     
@@ -295,11 +285,8 @@ def reporte_valoradores_asignados_view(request):
             if lista_valoradores_semilleros2[i][0] == lista_valoradores_ingeniatec2[j][0]:
                 lista_general.append([lista_valoradores_semilleros2[i][0], lista_valoradores_semilleros2[i][1], lista_valoradores_ingeniatec2[j][1]]) 
     
-
     lista_simetrica_general = []
     lista_simetrica = list(set.symmetric_difference(set(set_lista),set(set_lista2)))
-    #print('lista simetrica: ', lista_simetrica)
-    
 
     for x in range(len(lista_valoradores_ingeniatec2)):
         for j in lista_simetrica:
@@ -317,11 +304,7 @@ def reporte_valoradores_asignados_view(request):
                 total =  lista_general[m][1]+lista_general[m][2]
                 lista_general[m].append(total) 
     
-    #print('lista genenral no ambos: ', lista_simetrica_general)
-    #print(f'lista general unica: {lista_general}')
-    #print('tamaño general: ', len(lista_general))
     lista_general.sort()
-    #print('lista general ordenada: ', lista_general)
     
     context = {
         'usuarios_asignados': lista_general
