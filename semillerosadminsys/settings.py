@@ -29,10 +29,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', cast=bool, default=True)
+# DEBUG = config('DEBUG', cast=bool, default=True)
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['*']
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -115,11 +119,11 @@ AUTH_USER_MODEL = 'usuarios_app.Usuario'
       
 DATABASES = {
    'default': {
-      'ENGINE': 'django.db.backends.postgresql',
-      'USER': 'hgmenwrwkjrpsu',
-      'NAME': 'd8ggodnm3lnapm',
-      'PASSWORD': 'a5bca8d9e3ed321649aafe8e213e5285a5255581a8d977f658443f756f863911',
-      'HOST': 'ec2-44-210-36-247.compute-1.amazonaws.com'
+      'ENGINE': config('ENGINE'),
+      'USER': config('USER'),
+      'NAME': config('NAME'),
+      'PASSWORD': config('PASSWORD'),
+      'HOST': config('HOST')
   }
 }
 
@@ -208,3 +212,4 @@ GRAPH_MODELS = {
   'all_applications': True,
   'group_models': True,
 }
+

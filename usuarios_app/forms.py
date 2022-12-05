@@ -16,7 +16,6 @@ class FormularioRegistro(forms.ModelForm):
     confirmar_password = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder': 'Confirmar contraseña',
         'class': 'form-control'
-        
     }))
     
     CHOICES2 = [('1', 'No'), ('2', 'Si')]

@@ -29,7 +29,6 @@ def registro_calificacion_oral_view(request, pk = None, pk_calificacion = None):
                 creatividad_diseño = form.cleaned_data['creatividad_diseño']
                 observaciones = form.cleaned_data['observaciones']
                 
-                
                 evaluador = request.user
                 is_calificado = True
                         
