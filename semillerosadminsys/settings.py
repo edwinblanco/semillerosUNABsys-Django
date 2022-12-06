@@ -33,6 +33,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://semilleros-inngeniatec.up.railway.app']
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
