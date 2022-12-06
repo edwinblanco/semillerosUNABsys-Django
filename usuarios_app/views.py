@@ -269,8 +269,8 @@ def resumen_calificaciones_view(request, pk = None):
             
         nota = nota_f / calificaciones_orales.count()    
         
-        print('nota final de calificaciones orales: ', nota)
-        print('# numero de calificaciones orales: ', calificaciones_orales.count())
+        #print('nota final de calificaciones orales: ', nota)
+        #print('# numero de calificaciones orales: ', calificaciones_orales.count())
         
         nota_f2 = 0.0
         
@@ -279,12 +279,12 @@ def resumen_calificaciones_view(request, pk = None):
             
         nota2 = nota_f2 / calificaciones_preseleccion.count()   
         
-        print('nota final de calificaciones orales: ', nota2)
-        print('# numero de calificaciones orales: ', calificaciones_preseleccion.count())
+        #print('nota final de calificaciones orales: ', nota2)
+        #print('# numero de calificaciones orales: ', calificaciones_preseleccion.count())
         
         nota_final = nota + nota2
         
-        print('proyecto: ', proyecto)
+        #print('proyecto: ', proyecto)
     
     else:
         messages.info(request, 'Notas incompletas')

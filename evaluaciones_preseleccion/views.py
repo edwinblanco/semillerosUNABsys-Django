@@ -351,7 +351,7 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
                         if notas[1] == proyecto_consulta.calificacion_final_30():
                             valoradores.insert(1, str(eva.nombres)+' '+str(eva.apellidos))
             else:
-                print('No existe')
+                #print('No existe')
                 valoradores.append(str(eva.nombres)+' '+str(eva.apellidos))
           
         notas_final = 0.0
