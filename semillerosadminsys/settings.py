@@ -17,6 +17,7 @@ import cloudinary_storage
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 #BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+timeout = os.getenv("TIMEOUT", 200)
 
 #Generar png del modelo ER del proyecto
 #os.environ["PATH"] += os.pathsep + 'C:/Users/Edwin Blanco/Desktop/windows_10_msbuild_Release_graphviz-7.0.2-win32/Graphviz/bin'

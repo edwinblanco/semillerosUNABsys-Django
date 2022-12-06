@@ -307,17 +307,6 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
         periodo=get_object_or_404(Periodo, slug=periodo_slug)
         proyectos_calificados = EvaluacionPreseleccion.objects.filter(proyecto__periodo__slug=periodo_slug)
         asignaciones = AsignacionEvaluacion.objects.filter(proyecto__periodo__slug=periodo_slug).order_by('proyecto__modalidad_aprticipacion')
-    
-    
-    proyectos_valorados = []
-    proyectos_no_valorados = [] 
-    
-    for proyecto_calificado in proyectos_calificados:
-        for proyecto_asigando in asignaciones:
-            if proyecto_calificado.proyecto.titulo == proyecto_asigando.proyecto.titulo:
-                proyectos_valorados.append(proyecto_calificado)
-            else:
-                proyectos_no_valorados.append(proyecto_calificado)
             
     reporte_proyecto = []
     list_str_proyectos = []
