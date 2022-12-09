@@ -7,7 +7,7 @@ from import_export.admin import ImportExportActionModelAdmin
 
 @admin.register(Proyecto)
 class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
-    list_display = ('id','titulo','periodo', 'tematica', 'semillero', 'proyecto_pdf', 'carta_aval_pdf', 'obtener_autores', 'obtener_tutores')
+    list_display = ('id','titulo','periodo', 'modalidad_aprticipacion', 'tematica', 'semillero', 'proyecto_pdf', 'carta_aval_pdf', 'obtener_autores', 'obtener_tutores')
     list_display_links = ()
     search_fields = ['titulo']
     readonly_fields =  ()

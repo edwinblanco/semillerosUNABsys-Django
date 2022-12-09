@@ -9,7 +9,10 @@ class Semillero(models.Model):
     is_active = models.BooleanField(default=True)
     
     def __str__(self):
-        return self.nombre
+        if self.grupo_investigació is None:
+            return str(self.nombre + ' / Grupo no definido')
+        else:
+            return str(self.nombre + ' / ' + self.grupo_investigació)
     
     class Meta:
         ordering = ('nombre',)

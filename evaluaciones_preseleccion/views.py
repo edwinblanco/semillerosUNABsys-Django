@@ -302,11 +302,11 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
     
     if periodo_slug is None:
         proyectos_calificados = EvaluacionPreseleccion.objects.all()
-        asignaciones = AsignacionEvaluacion.objects.all().order_by('proyecto__modalidad_aprticipacion')
+        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__modalidad_aprticipacion = '2').order_by('proyecto__modalidad_aprticipacion')
     else:
         periodo=get_object_or_404(Periodo, slug=periodo_slug)
-        proyectos_calificados = EvaluacionPreseleccion.objects.filter(proyecto__periodo__slug=periodo_slug)
-        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__periodo__slug=periodo_slug).order_by('proyecto__modalidad_aprticipacion')
+        proyectos_calificados = EvaluacionPreseleccion.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__modalidad_aprticipacion = '2')
+        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__modalidad_aprticipacion = '2').order_by('proyecto__modalidad_aprticipacion')
             
     reporte_proyecto = []
     list_str_proyectos = []
