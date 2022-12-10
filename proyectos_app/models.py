@@ -71,6 +71,7 @@ class ProyectoInngeniatec(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_actualizacion = models.DateTimeField(auto_now=True)
     es_finalista = models.BooleanField(default=False)
+    documento = models.FileField(upload_to='files/proyectosInngeniatec', max_length=1000, null=True)
     
     integrantes = models.ManyToManyField(Usuario)
     tutores = models.ManyToManyField(Usuario, related_name='tutoresInn')

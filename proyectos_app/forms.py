@@ -63,7 +63,7 @@ class FormularioRegistroProyectoInngeniatec(forms.ModelForm):
 
     class Meta:
         model = ProyectoInngeniatec
-        fields = ['titulo','periodo','email_contacto','programa_integrantes', 'palabras_clave', 'resumen', 'url_video', 'categoria']
+        fields = ['titulo','periodo','documento','email_contacto','programa_integrantes', 'palabras_clave', 'resumen', 'url_video', 'categoria']
 
         
     integrantes = forms.ModelMultipleChoiceField(

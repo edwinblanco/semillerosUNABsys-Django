@@ -123,6 +123,7 @@
                                   <th scope="col">Semestre</th>
                                   <th scope="col">Categoria</th>
                                   <th scope="col">Email contacto</th>
+                                  <th scope="col">Documento</th>
                                   <th scope="col">Programa integrantes</th>
                                   <th scope="col">Palabras clave</th>
                                   <th scope="col">Integrantes</th>
@@ -141,6 +142,13 @@
                                   <td>{{ proyecto.periodo }}</td>
                                   <td>{{proyecto.categoria}}</td>
                                   <td>{{proyecto.email_contacto}}</td>
+                                  <td>
+                                    {% if proyecto.documento %}
+                                    <a href="{{ proyecto.documento.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                    {% else %}
+                                    Sin documento
+                                    {% endif %}
+                                  </td>
                                   <td>{{proyecto.programa_integrantes}}</td>
                                   <td>{{proyecto.palabras_clave}}</td>
                                   <td>{% for autor in proyecto.obtener_autores %}<b>*</b> {{autor}}<br>{% endfor %}</td>

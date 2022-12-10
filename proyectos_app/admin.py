@@ -30,7 +30,7 @@ class ProyectoAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
 
 @admin.register(ProyectoInngeniatec)
 class ProyectoInngeniatecAdmin(ImportExportActionModelAdmin, admin.ModelAdmin):
-    list_display = ('id','titulo', 'periodo','programa_integrantes', 'categoria', 'obtener_autores','obtener_tutores', 'palabras_clave', 'url_video')
+    list_display = ('id','titulo', 'periodo', 'categoria','documento', 'programa_integrantes', 'categoria', 'obtener_autores','obtener_tutores', 'palabras_clave', 'url_video')
     list_display_links = ('titulo',)
     search_fields = ['titulo', 'integrantes', 'programa_integrantes','categoria', 'palabras_clave']
     readonly_fields =  ()

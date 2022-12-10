@@ -38,6 +38,7 @@
                                 <thead>
                                   <tr>
                                     <th scope="col">Título del proyecto</th>
+                                    <th scope="col">Documento</th>
                                     <th scope="col">Semestre</th>
                                     <th scope="col">Fecha de asignación</th>
                                     <th scope="col">Valoración primera instancia</th>
@@ -51,6 +52,13 @@
                                   <tr>
                                     
                                     <td>{{ proyecto.proyecto }}</td>
+                                    <td>
+                                      {% if proyecto.proyecto.documento %}
+                                      <a href="{{ proyecto.proyecto.documento.url }}" target="_blank"><i class="bi bi-file-earmark-pdf-fill"></i></a>
+                                      {% else %}
+                                      Sin documento
+                                      {% endif %}
+                                    </td>
                                     <td>{{ proyecto.proyecto.periodo }}</td>
                                     <td>{{ proyecto.fecha_asignacion}}</td>
 

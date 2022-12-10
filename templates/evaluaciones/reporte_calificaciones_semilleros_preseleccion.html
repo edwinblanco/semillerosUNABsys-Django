@@ -37,7 +37,7 @@
 
               <div class="col-12">
                 <div class="container">
-                  <a class="btn btn-primary" href="{% url 'reporte-periodo-semilleros' %}">Cambiar semestre del reporte</a>
+                  <a class="btn btn-primary" href="{% url 'reporte-periodo-semilleros' %}">Cambiar semestre y/o categoría del reporte</a>
                   <br>
                   <br>
                   <div class="accordion" id="accordionPanelsStayOpenExample">
@@ -52,14 +52,29 @@
                           aria-expanded="false"
                           aria-controls="panelsStayOpen-collapseOne"
                         >
+                          {% if categoria_form == '1' %}
                           <h5>
                             Modalidad - Investigación Terminada
                           </h5>
+                          {% endif %}
+
+                          {% if categoria_form == '2' %}
+                          <h5>
+                            Modalidad - Investigación en Curso
+                          </h5>
+                          {% endif %}
+
+                          {% if categoria_form == '3' %}
+                          <h5>
+                            Modalidad - Propuesta de Investigación
+                          </h5>
+                          {% endif %}
+
                         </button>
                       </h2>
                       <div
                         id="panelsStayOpen-collapseOne"
-                        class="accordion-collapse collapse"
+                        class="accordion-collapse collapse show"
                         aria-labelledby="panelsStayOpen-headingOne"
                       >
                         <div class="accordion-body">
@@ -97,11 +112,7 @@
                                               </tr>
                                             </thead>
                                             <tbody>
-            
-                                            
-            
                                               {% for proyecto in reporte_proyecto %}
-                                              {% if proyecto.categoria == '1' %}
                                                           
                                               <tr>
                                                 
@@ -161,7 +172,6 @@
                                        </td>
                             
                                               </tr>
-                                              {% endif %}
                         
                                               {% endfor %}
             
@@ -177,281 +187,6 @@
                                 </div>
                             </div>
       
-                        </div>
-                      </div>
-                    </div>
-      
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                        <button
-                          class="accordion-button collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#panelsStayOpen-collapseTwo"
-                          aria-expanded="false"
-                          aria-controls="panelsStayOpen-collapseTwo"
-                        >
-                          <h5>
-                           Modalidad - Investigación en Curso
-                          </h5>
-                        </button>
-                      </h2>
-                      <div
-                        id="panelsStayOpen-collapseTwo"
-                        class="accordion-collapse collapse"
-                        aria-labelledby="panelsStayOpen-headingTwo"
-                      >
-                        <div class="accordion-body">
-                            <div class="col-12">
-                                <div class="container">
-            
-                                    <button id="btnExcelt2" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
-            
-                                    <div class="row" style="overflow: auto; width: 100%; height: 70vh;">
-                                        <table class="table" id="tableproyectost2">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Semillero/Grupo</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Semestre</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Temática</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Autores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Tutores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Correo tutores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota70%</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota30%</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota100%</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">segundaparte 2</th>
-            
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-            
-                                            
-            
-                                              {% for proyecto in reporte_proyecto %}
-                                              
-                                              {% if proyecto.categoria == '2' %}
-            
-                                              <tr>
-                                                
-                                                <td>{{ proyecto.proyecto }}</td>
-                                                <td>{{ proyecto.proyecto.semillero }}</td>
-                                                <td>{{ proyecto.proyecto.periodo }}</td>
-                                                <td>{{ proyecto.tematica }}</td>
-                                                <td>{{ proyecto.universidad }}</td>
-                                                <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
-                                                <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
-                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.nombre }} {{ tutor.apellido }},{% endfor %}</td>
-                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.correo }},<br>{% endfor %}</td>
-                                                <td>Investigación en Curso</td>
-                                                
-                                                <td>
-                                                    {{ proyecto.valoradores.0 }}
-                                                </td>
-            
-                                                <td>
-                                                    {% if not proyecto.notas.0 %} 
-                                                    <b style="color: red;">x</b> 
-                                                    {% else %}
-                                                    {{ proyecto.notas.0 }}
-                                                    {% endif %}
-                                                </td>
-            
-                                                <td>
-                                                    {{ proyecto.valoradores.1 }}
-                                                </td>
-            
-                                                <td>{% if not proyecto.notas.1 %}  
-                                                    <b style="color: red;">x</b> 
-                                                    {% else %}
-                                                    {{ proyecto.notas.1 }}
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    <p>{{ proyecto.nota_final }}</p>
-                                                </td>
-                                                <td>
-                                                  {{ proyecto.nota_final_oral }}
-                                              </td>
-                                              <td>
-                                                {{ proyecto.nota_final_100 }}
-                                            </td>
-
-                                                <td colspan="2">{% for obs in proyecto.observaciones %}
-                                                  {{ obs }}<br>
-                                                {% endfor %}
-                                                </td>
-                                              
-                                                <td colspan="2">{% for obs2 in proyecto.observaciones2 %}
-                                                  {{ obs2 }} <br>
-                                                
-                                                {% endfor %}
-                                                
-                                                </td>
-                            
-                                              </tr>
-            
-                                              {% endif %}
-            
-                                              {% endfor %}
-            
-                                            </tbody>
-                                          </table>
-                                          <script>
-                                            document.getElementById("btnExcelt2").addEventListener("click", function(){
-                                            var table2excel = new Table2Excel();
-                                            table2excel.export(document.querySelectorAll("#tableproyectost2"), "Investigacion_curso");
-                                          });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="accordion-item">
-                      <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                        <button
-                          class="accordion-button collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#panelsStayOpen-collapseThree"
-                          aria-expanded="false"
-                          aria-controls="panelsStayOpen-collapseThree"
-                        >
-                          <h5>Modalidad - Propuesta de Investigación</h5>
-                        </button>
-                      </h2>
-                      <div
-                        id="panelsStayOpen-collapseThree"
-                        class="accordion-collapse collapse"
-                        aria-labelledby="panelsStayOpen-headingThree"
-                      >
-                        <div class="accordion-body">
-                            <div class="col-12">
-                                <div class="container">
-            
-                                    <button id="btnExcelt3" type="button" class="btn btn-success">Exportar a Excel <i class="bi bi-file-earmark-excel"></i></button>
-            
-                                    <div class="row" style="overflow: auto; width: 100%; height: 70vh;">
-                                        <table class="table" id="tableproyectost3">
-                                            <thead>
-                                              <tr>
-                                                <th scope="col" style="text-align: center; background-color: white;">Proyecto</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Semillero/Grupo</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Semestre</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Temática</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Universidad</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Autores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Correo autores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Tutores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Correo tutores</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Categoría</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Valorador1</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota1</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Valorador2</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota2</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota70%</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota30%</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Nota100%</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">primeraparte 1</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">Observaciones</th>
-                                                <th scope="col" style="text-align: center; background-color: white;">segundaparte 2</th>
-            
-                                              </tr>
-                                            </thead>
-                                            <tbody>
-            
-                                              {% for proyecto in reporte_proyecto %}
-                                              
-                                              {% if proyecto.categoria == '3' %}
-            
-                                              <tr>
-                                                
-                                                <td>{{ proyecto.proyecto }}</td>
-                                                <td>{{ proyecto.proyecto.semillero }}</td>
-                                                <td>{{ proyecto.proyecto.periodo }}</td>
-                                                <td>{{ proyecto.tematica }}</td>
-                                                <td>{{ proyecto.universidad }}</td>
-                                                <td>{%for autor in proyecto.autores %}{{ autor.nombre }} {{ autor.apellido }},{% endfor %}</td>
-                                                <td>{%for autor in proyecto.autores %}{{ autor.correo }},<br>{% endfor %}</td>
-                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.nombre }} {{ tutor.apellido }},{% endfor %}</td>
-                                                <td>{%for tutor in proyecto.tutores %}{{ tutor.correo }},<br>{% endfor %}</td>
-                                                <td>Propuesta de Investigación</td>
-                                                
-                                                <td>
-                                                    {{ proyecto.valoradores.0 }}
-                                                </td>
-            
-                                                <td>
-                                                    {% if not proyecto.notas.0 %} 
-                                                    <b style="color: red;">x</b> 
-                                                    {% else %}
-                                                    {{ proyecto.notas.0 }}
-                                                    {% endif %}
-                                                </td>
-            
-                                                <td>
-                                                    {{ proyecto.valoradores.1 }}
-                                                </td>
-            
-                                                <td>{% if not proyecto.notas.1 %}  
-                                                    <b style="color: red;">x</b> 
-                                                    {% else %}
-                                                    {{ proyecto.notas.1 }}
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    {{ proyecto.nota_final }}
-                                                </td>
-                                                <td>
-                                                  {{ proyecto.nota_final_oral }}
-                                              </td>
-                                              <td>
-                                                {{ proyecto.nota_final_100 }}
-                                            </td>
-
-                                                <td colspan="2">{% for obs in proyecto.observaciones %}
-                                                  {{ obs }}<br>
-                                                {% endfor %}
-                                                </td>
-                                              
-                                                <td colspan="2">{% for obs2 in proyecto.observaciones2 %}
-                                                  {{ obs2 }} <br>
-                                                
-                                                {% endfor %}
-                                                
-                                                </td>
-                            
-                                              </tr>
-            
-                                              {% endif %}
-            
-                                              {% endfor %}
-            
-                                            </tbody>
-                                          </table>
-                                          <script>
-                                            document.getElementById("btnExcelt3").addEventListener("click", function(){
-                                            var table2excel = new Table2Excel();
-                                            table2excel.export(document.querySelectorAll("#tableproyectost3"), "Propuesta_investigacion");
-                                          });
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                       </div>
                     </div>

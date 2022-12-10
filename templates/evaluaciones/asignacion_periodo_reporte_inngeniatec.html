@@ -38,8 +38,12 @@
     <section class="about section-padding">
       <div class="container">
         <div class="row ">
-          <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
 
+          <div class="col-lg-5 col-12 mx-auto d-flex align-items-center">
+            <h5 class="text-center">Selecciona el semestre del cual quieres generar el reporte de las calificaciones y después selecciona la categoría de los proyectos de los cuales deseas generar el reporte.</h5>
+          </div>
+
+          <div class="col-lg-5 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
             <form action="{% url 'reporte-calificaciones-inngeniatec' %}">{% csrf_token %}
               <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Seleccione el semestre del reporte a generar:</label>
@@ -48,11 +52,20 @@
                   <option value="{{periodo.slug}}">{{periodo}}</option>
                   {% endfor %}
                 </select>
+                <br>
+                <label for="exampleInputPassword123" class="form-label">Seleccione la categoría de los proyectos:</label>
+                <select class="form-select" aria-label="Default select example" name="categoria">
+                  <option value="Clase básico (de 1er a 5to semestre)">Clase básico (de 1er a 5to semestre)</option>
+                  <option value="Proyecto colegiados">Proyecto colegiados</option>
+                  <option value="Clase avanzado (de 6to a 10vo semestre)">Clase avanzado (de 6to a 10vo semestre)</option>
+                  <option value="Proyecto de grado">Proyecto de grado</option>
+                  <option value="Emprendimiento">Emprendimiento</option>
+                </select>
               </div>
-              <button type="submit" class="btn btn-primary">Ir asignar</button>
+              <button type="submit" class="btn btn-primary">Ver reporte</button>
             </form>
-
           </div>
+
         </div>
       </div>
 

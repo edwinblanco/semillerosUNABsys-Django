@@ -145,12 +145,13 @@ def registro_proyecto_inngeniatec_view(request, pk = None):
     if pk is None:
     
         if request.method == 'POST':
-            form = FormularioRegistroProyectoInngeniatec(request.POST)
+            form = FormularioRegistroProyectoInngeniatec(request.POST, request.FILES)
             
             if form.is_valid():
                 titulo = form.cleaned_data['titulo']
                 periodo = form.cleaned_data['periodo']
                 email_contacto = form.cleaned_data['email_contacto']
+                documento = request.FILES['documento']
                 programa_integrantes = form.cleaned_data['programa_integrantes']
                 palabras_clave = form.cleaned_data['palabras_clave']
                 resumen = form.cleaned_data['resumen']
@@ -162,7 +163,7 @@ def registro_proyecto_inngeniatec_view(request, pk = None):
                 
                 integrantes._result_cache.append(request.user)
                         
-                proyecto = ProyectoInngeniatec.objects.create(titulo=titulo, periodo=periodo, email_contacto=email_contacto, programa_integrantes=programa_integrantes, palabras_clave=palabras_clave, resumen=resumen, url_video=url_video, categoria=categoria)
+                proyecto = ProyectoInngeniatec.objects.create(titulo=titulo, periodo=periodo, documento=documento, email_contacto=email_contacto, programa_integrantes=programa_integrantes, palabras_clave=palabras_clave, resumen=resumen, url_video=url_video, categoria=categoria)
                 
                 proyecto.integrantes.set(integrantes)
                 proyecto.tutores.set(tutores)
@@ -188,6 +189,7 @@ def registro_proyecto_inngeniatec_view(request, pk = None):
         form.fields['titulo'].initial = proyecto.titulo
         form.fields['periodo'].initial = proyecto.periodo
         form.fields['email_contacto'].initial = proyecto.email_contacto
+        form.fields['documento'].initial = proyecto.documento
         form.fields['programa_integrantes'].initial = proyecto.programa_integrantes
         form.fields['palabras_clave'].initial = proyecto.palabras_clave
         form.fields['resumen'].initial = proyecto.resumen
@@ -207,7 +209,7 @@ def actualizar_proyecto_inngeniatec_view(request, pk):
     form = FormularioRegistroProyectoInngeniatec()
 
     if request.method == 'POST':
-        form = FormularioRegistroProyectoInngeniatec(request.POST)
+        form = FormularioRegistroProyectoInngeniatec(request.POST, request.FILES)
         
         proyecto = get_object_or_404(ProyectoInngeniatec, id=pk)
         
@@ -215,6 +217,7 @@ def actualizar_proyecto_inngeniatec_view(request, pk):
             titulo = form.cleaned_data['titulo']
             periodo = form.cleaned_data['periodo']
             email_contacto = form.cleaned_data['email_contacto']
+            documento = request.FILES['documento'] 
             programa_integrantes = form.cleaned_data['programa_integrantes']
             palabras_clave = form.cleaned_data['palabras_clave']
             resumen = form.cleaned_data['resumen']
@@ -227,6 +230,7 @@ def actualizar_proyecto_inngeniatec_view(request, pk):
             proyecto.titulo = titulo
             proyecto.periodo = periodo
             proyecto.email_contacto = email_contacto
+            proyecto.documento = documento
             programa_integrantes = programa_integrantes
             proyecto.url_video = url_video
             proyecto.palabras_clave = palabras_clave

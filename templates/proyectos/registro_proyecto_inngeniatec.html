@@ -16,7 +16,7 @@
         <div class="row ">
           <div class="col-lg-10 col-12 mx-auto shadow-lg p-3 mb-5 bg-body rounded">
 
-           <form {% if actualizar == False %} action="{% url 'registro-proyecto-inngeniatec' %}" {% else %} action="{% url 'proyecto-actualizado-inngeniatec' pk=idp %}" {% endif %} method="POST" class="" >{% csrf_token %}
+           <form {% if actualizar == False %} action="{% url 'registro-proyecto-inngeniatec' %}" {% else %} action="{% url 'proyecto-actualizado-inngeniatec' pk=idp %}" {% endif %} method="POST" class="" enctype="multipart/form-data">{% csrf_token %}
 
             <div class="row">
 
@@ -79,6 +79,15 @@
                     >Resumen del proyecto:</label
                   >
                   {{ form.resumen }}
+                  <div id="emailHelp" class="form-text">
+                    
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"
+                    >Subir documento del proyecto (pdf):</label
+                  >
+                  {{ form.documento }}
                   <div id="emailHelp" class="form-text">
                     
                   </div>

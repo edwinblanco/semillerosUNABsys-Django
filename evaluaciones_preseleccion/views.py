@@ -29,7 +29,6 @@ def seleccionar_periodo_reporte_semilleros_view(request):
     }
     return render(request,'evaluaciones/asignacion_periodo_reporte_semilleros.html', context)
 
-
 def registro_calificacion_preseleccion_view(request, pk = None, pk_calificacion = None):
     
     form = FormularioCalificacionPreseleccion()
@@ -165,16 +164,17 @@ def registro_calificacion_inngeniatec_view(request, pk = None, pk_calificacion =
 def reporte_calificaciones_inngeniatec_view(request):
     
     periodo_slug = request.GET.get('select_periodo')
+    categoria_form = request.GET.get('categoria')
     
     if periodo_slug is None:
-        proyectos_calificados = ValoracionProyectoIngeniatec.objects.all()
-        proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.all()
-        asignaciones = AsignacionEvaluacionInngeniatec.objects.all().order_by('proyecto__categoria')
+        proyectos_calificados = ValoracionProyectoIngeniatec.objects.filter(proyecto__categoria = categoria_form)
+        proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.filter(proyecto__categoria = categoria_form)
+        asignaciones = AsignacionEvaluacionInngeniatec.objects.filter(proyecto__categoria = categoria_form).order_by('proyecto__categoria')
     else:
         periodo=get_object_or_404(Periodo, slug=periodo_slug)
-        proyectos_calificados = ValoracionProyectoIngeniatec.objects.filter(proyecto__periodo__slug=periodo_slug)
-        proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.filter(proyecto__periodo__slug=periodo_slug)
-        asignaciones = AsignacionEvaluacionInngeniatec.objects.filter(proyecto__periodo__slug=periodo_slug).order_by('proyecto__categoria')
+        proyectos_calificados = ValoracionProyectoIngeniatec.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__categoria = categoria_form)
+        proyectos_calificados_presencial = ValoracionProyectoIngeniatecPresencial.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__categoria = categoria_form)
+        asignaciones = AsignacionEvaluacionInngeniatec.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__categoria = categoria_form).order_by('proyecto__categoria')
     
     proyectos_valorados = []
     proyectos_no_valorados = [] 
@@ -293,20 +293,22 @@ def reporte_calificaciones_inngeniatec_view(request):
         'asignaciones':asignaciones,
         'reporte_proyecto':reporte_proyecto,
         'periodo':periodo,
+        'categoria_form':categoria_form
     }
     return render(request,'evaluaciones/reporte_calificaciones_inngeniatec.html', context)
 
 def reporte_calificaciones_semilleros_preseleccion_view(request):
     
     periodo_slug = request.GET.get('select_periodo')
+    categoria_form = request.GET.get('categoria')
     
     if periodo_slug is None:
         proyectos_calificados = EvaluacionPreseleccion.objects.all()
-        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__modalidad_aprticipacion = '2').order_by('proyecto__modalidad_aprticipacion')
+        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__modalidad_aprticipacion = categoria_form).order_by('proyecto__modalidad_aprticipacion')
     else:
         periodo=get_object_or_404(Periodo, slug=periodo_slug)
-        proyectos_calificados = EvaluacionPreseleccion.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__modalidad_aprticipacion = '2')
-        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__modalidad_aprticipacion = '2').order_by('proyecto__modalidad_aprticipacion')
+        proyectos_calificados = EvaluacionPreseleccion.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__modalidad_aprticipacion = categoria_form)
+        asignaciones = AsignacionEvaluacion.objects.filter(proyecto__periodo__slug=periodo_slug, proyecto__modalidad_aprticipacion = categoria_form).order_by('proyecto__modalidad_aprticipacion')
             
     reporte_proyecto = []
     list_str_proyectos = []
@@ -412,5 +414,6 @@ def reporte_calificaciones_semilleros_preseleccion_view(request):
         'asignaciones':asignaciones,
         'reporte_proyecto':reporte_proyecto,
         'periodo':periodo,
+        'categoria_form': categoria_form,
     }
     return render(request,'evaluaciones/reporte_calificaciones_semilleros_preseleccion.html', context)
