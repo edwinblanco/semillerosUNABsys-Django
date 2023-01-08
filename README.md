@@ -29,14 +29,6 @@ Para utilizar este proyecto, siga estos pasos:
 
 ## Contribución
 
-¡Agradecemos cualquier contribución al proyecto! Si desea contribuir, por favor siga estos pasos:
-
-1. Haga un fork del repositorio de GitHub.
-2. Cree una rama para su contribución (por ejemplo, `fix-error`).
-3. Realice sus cambios en la rama.
-4. Abra una solicitud de extracción (pull request) desde su rama hacia el repositorio principal.
-
 ## Licencia
 
-Este proyecto se distribuye bajo la licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
 
